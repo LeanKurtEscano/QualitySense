@@ -1,16 +1,23 @@
 import { useState } from 'react'
-
+import Sidebar from './Sections/Sidebar'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <main className='h-screen'>
+    <div className='flex h-full'> 
+      <Sidebar />
+    </div>
+  </main>
+    
+    
+
+   
+
+   
+      
+    
   )
 }
 
