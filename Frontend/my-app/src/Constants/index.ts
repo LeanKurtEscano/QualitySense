@@ -9,3 +9,4 @@ export const menuItems = [
     { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
     { icon: faSignOutAlt, text: "Logout", url: '/' }, 
 ];
+
