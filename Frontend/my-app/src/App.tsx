@@ -3,6 +3,7 @@ import Sidebar from './Sections/Sidebar';
 import Generate from './Sections/Generate';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
+
 function App() {
   return (
     <main className='h-screen flex flex-row'>
@@ -14,8 +15,11 @@ function App() {
           </section>
         }>
         </Route>
-        <Route path='/dashboard' element={<Dashboard />}>
-        </Route>
+        <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="generate" element={<Generate />} />    
+          </Route>
+        
+    
 
       </Routes>
     </main>
