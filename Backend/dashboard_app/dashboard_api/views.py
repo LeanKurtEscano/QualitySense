@@ -1,28 +1,27 @@
 from rest_framework.response import Response
-from rest_framework import status
 from django.contrib.auth import authenticate,logout
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 from .serializers import UserFileSerializer
-from .models import CustomUser
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 @api_view(["POST"])
-@login_required 
+@permission_classes([IsAuthenticated])
 def upload_file(request):
     parser_classes = (MultiPartParser, FormParser)
     uploaded_file = request.FILES.get('file')
+    print(uploaded_file)
     
     if not uploaded_file.name.endswith(('.csv', '.xlsx')):
         return Response({"error": "Invalid file type. Please upload a CSV or Excel file."}, status=400)
     
     serializer = UserFileSerializer(data = request.data)
-    
-
-   
     
     if serializer.is_valid():
         serializer.save(user=request.user) 
@@ -31,31 +30,38 @@ def upload_file(request):
     return Response(serializer.errors, status=400)    
    
 
-@api_view(['POST','GET'])  
+
+@api_view(['POST'])
 def login(request):
     try:
         email = request.data.get('email')
         password = request.data.get('password')
-        
-       
+
         if not email or not password:
-            return Response({"error": "Invalid Credentials"}, status=400)
-         
-        user = authenticate(request, email=email, password=password)
+            return Response({"error": "Invalid credentials"}, status=400)
+        
+        if User.objects.filter(email=email).exists():
+           user_data = User.objects.get(email = email)      
+           username = user_data.username
+           user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            return Response({"success": "User Successfully Logged In"}, status=200)
-        
+           
+            refresh = RefreshToken.for_user(user)
+
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }, status=200)
         else:
-            user_exist = CustomUser.objects.filter(email=email).exists()
-            
+            user_exist = User.objects.filter(username=username).exists()
             if user_exist:
-                return Response({"error": "Incorrect Password"}, status=400)
+                return Response({"error": "Incorrect password"}, status=400)
             else:
-                return Response({"error": "Email not found"}, status=400)
-    
+                return Response({"error": "User not found"}, status=400)
+
     except Exception as e:
-        return Response({"error": str(e)}, status=500)  
+        return Response({"error": str(e)}, status=500)
 
 
 def signup(request):

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1(u%_*83a=t#p&@h9vl_6rbibl-y*0oldm3f&80)lo#@lz)g1!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard_api',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
     
 ]
@@ -146,7 +147,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTHENTICATION_BACKENDS = [
-    'dashboard_api.backends.EmailBackend', 
+AUTHENTICATION_BACKENDS = [ 
     'django.contrib.auth.backends.ModelBackend',  
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
