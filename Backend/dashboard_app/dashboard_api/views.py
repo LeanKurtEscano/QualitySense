@@ -19,7 +19,7 @@ def upload_file(request):
     print(uploaded_file)
     
     if not uploaded_file.name.endswith(('.csv', '.xlsx')):
-        return Response({"error": "Invalid file type. Please upload a CSV or Excel file."}, status=400)
+        return Response({"error": "Invalid file type."}, status=400)
     
     serializer = UserFileSerializer(data = request.data)
     
@@ -43,22 +43,16 @@ def login(request):
         if User.objects.filter(email=email).exists():
            user_data = User.objects.get(email = email)      
            username = user_data.username
-           user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-           
-            refresh = RefreshToken.for_user(user)
-
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=200)
+           user = authenticate(request, username=username, password=password)    
+         
+           refresh = RefreshToken.for_user(user)
+           return Response({'refresh': str(refresh),'access': str(refresh.access_token)}, status=200)
         else:
-            user_exist = User.objects.filter(username=username).exists()
+            user_exist = User.objects.filter(email=email).exists()
             if user_exist:
                 return Response({"error": "Incorrect password"}, status=400)
             else:
-                return Response({"error": "User not found"}, status=400)
+                return Response({"error": "Email not found"}, status=400)
 
     except Exception as e:
         return Response({"error": str(e)}, status=500)

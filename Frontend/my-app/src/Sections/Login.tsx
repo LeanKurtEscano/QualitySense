@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const Login: React.FC = () => {
   const [show, setShow] = useState(false);
-  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/api/login/", {
-        username: username,
+        email: email,
         password: password
 
       }, {
@@ -51,9 +51,9 @@ const Login: React.FC = () => {
           <div className='mb-4 '>
             <label htmlFor='username' className='block mb-2'>Email Address:</label>
             <input
-              type='text'
-              value={username}
-              onChange={(e)=> setUserName(e.target.value)}
+              type='email'
+              value={email}
+              onChange={(e)=> setEmail(e.target.value)}
               id='username'
               className='border border-gray-300 rounded p-2 w-full'
               placeholder='Enter your email' 

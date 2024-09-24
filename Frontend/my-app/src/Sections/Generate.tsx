@@ -8,7 +8,7 @@ const Generate: React.FC = () => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [emptyError, setEmptyError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  
+
   const handleFileName = () => {
     const file = fileInputRef.current?.files?.[0]; 
     if (file) {
@@ -78,7 +78,7 @@ const Generate: React.FC = () => {
             <FontAwesomeIcon icon={faCloud} className='text-customPurple3 mr-2 text-base' />
             <p className={`${fileName ? 'hidden' : ''} text-center`}>Browse Files to Upload</p>
 
-            {fileName && <span className="ml-2 mr-4">{fileName}</span>}
+            {fileName && <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>}
             {fileName && <FontAwesomeIcon icon = {faTrash} className='text-red-600 pl-2' onClick = {removeFile}/>}
             
           </label>
