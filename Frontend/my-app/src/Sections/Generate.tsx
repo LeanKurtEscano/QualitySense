@@ -8,7 +8,7 @@ const Generate: React.FC = () => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [emptyError, setEmptyError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
+  
   const handleFileName = () => {
     const file = fileInputRef.current?.files?.[0]; 
     if (file) {
@@ -47,9 +47,11 @@ const Generate: React.FC = () => {
     formData.append('file', file); 
 
     try {
-      const response = await axios.post('/', formData
+      const userToken = localStorage.getItem('access_token');
+      const response = await axios.post("http://127.0.0.1:8000/api/upload/", formData
       ,{
         headers: {
+          'Authorization': `Bearer ${userToken}`,
           'Content-Type' : 'multipart/form-data',
         },
 
@@ -61,6 +63,8 @@ const Generate: React.FC = () => {
       console.log("Invalid Format")
     }
   }
+
+
 
   return (
     <section className='w-screen pt-4 flex items-center fixed justify-center'>
@@ -93,7 +97,7 @@ const Generate: React.FC = () => {
           <p className='text-red-600 pr-6'>{emptyError}</p>
         )}
         <div>
-          <button onClick={sendFile} className='p-2 pr-5 pl-5 mt-1 text-white bg-customPurple3 hover:bg-purple-700 transition duration-300'>
+          <button onClick={sendFile} className='p-2 pr-5 pl-5 mt-2 text-white bg-customPurple3 hover:bg-purple-700 transition duration-300'>
             Assess Data
           </button>
         </div>
