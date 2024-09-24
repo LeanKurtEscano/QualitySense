@@ -77,19 +77,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dashboard_app.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_database_name',
-        'USER': 'your_username',
-        'PASSWORD': 'your_password',
+        'NAME': 'datasense',
+        'USER': 'admin1',
+        'PASSWORD': 'leankurt124*',
         'HOST': 'localhost', 
         'PORT': '3306',     
     }
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -143,3 +145,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'dashboard_api.backends.EmailBackend', 
+    'django.contrib.auth.backends.ModelBackend',  
+]
