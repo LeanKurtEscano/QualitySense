@@ -9,6 +9,8 @@ const Login: React.FC = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
   const toggleIcon = () => {
@@ -18,6 +20,8 @@ const Login: React.FC = () => {
 
   const loginSubmit = async(e:React.FormEvent) => {
     e.preventDefault();
+    setEmailError("");
+    setPasswordError("");
     try {
       const response = await axios.post("http://localhost:8000/api/login/", {
         email: email,
@@ -28,13 +32,23 @@ const Login: React.FC = () => {
           "Content-Type": 'application/json'
         }
       })
-      console.log(response.data)
       navigate('/dashboard');
       const {access, refresh} = response.data
       localStorage.setItem("access_token",access);
       localStorage.setItem("refresh_token",refresh);
-    } catch(error) {
-      alert("Login failed");
+    }catch(error: any) {
+      if(error.response){
+        const {data} = error.response
+
+        if (data.Pass) {
+          setPasswordError(data.Pass);
+        }
+
+        if(data.Email) {
+          setEmailError(data.Email)
+ 
+        }
+      }      
 
     }
 
@@ -58,6 +72,11 @@ const Login: React.FC = () => {
               className='border border-gray-300 rounded p-2 w-full'
               placeholder='Enter your email' 
             />
+            {emailError && (
+              <div className=''>
+                <p className='text-red-600'>{emailError}</p>
+              </div>
+            )}
           </div>
           <div className='mb-4 relative'>
             <label htmlFor='password' className='block mb-2'>Password:</label>
@@ -75,7 +94,13 @@ const Login: React.FC = () => {
               onClick={toggleIcon}
               className="absolute right-2 top-1/2 pt-2" 
               style={{ cursor: 'pointer' }}
+  
             />
+            {passwordError && (
+              <div className=''>
+                <p className='text-red-600'>{passwordError}</p>
+              </div>
+            )}
           </div>
           <button type='submit'className='bg-customPurple3 text-white rounded p-2
           hover:bg-purple-700 transition duration-300'>Sign in</button>

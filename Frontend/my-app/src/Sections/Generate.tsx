@@ -3,10 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloud, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
+interface dataCount {
+  totalRows: number,
+  totalCols: number,
+}
+
 const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string | null>(null);
   const [emptyError, setEmptyError] = useState<string | null>(null);
+  const [dataDetails, setDataDetails] = useState<dataCount>({ 
+    totalRows: 0, 
+    totalCols: 0 
+});
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileName = () => {
@@ -64,8 +74,6 @@ const Generate: React.FC = () => {
     }
   }
 
-
-
   return (
     <section className='w-screen pt-4 flex items-center fixed justify-center'>
       <div className='flex-col flex items-center justify-center border-2 p-4 rounded-lg shadow-lg'>
@@ -90,8 +98,7 @@ const Generate: React.FC = () => {
             accept='.csv, .xlsx' 
             className='hidden' 
             disabled={disable}
-          />
-          
+          />       
         </div>
         {emptyError && (
           <p className='text-red-600 pr-6'>{emptyError}</p>

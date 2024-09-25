@@ -16,6 +16,7 @@ const Sidebar: React.FC = () => {
     setToggle(!toggle);
   };
 
+
   return (
     <aside
       className={`fixed top-0 left-0 h-full transition-all duration-700 z-10 bg-white border-r shadow-sm
