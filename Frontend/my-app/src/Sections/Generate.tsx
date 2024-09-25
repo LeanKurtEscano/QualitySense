@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloud, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import NullChart from '../Components/NullChart';
 
 interface dataCount {
   totalRows: number,
@@ -16,6 +17,27 @@ const Generate: React.FC = () => {
     totalRows: 0,
     totalCols: 0
   });
+
+  const data = [
+    12, 19, 3, 5, 2, 3, 15, 8, 7, 10, 14, 11, 6, 9, 4, 13, 18, 1, 20, 17, 
+    22, 16, 25, 21, 30, 28, 24, 27, 29
+  ]; // Expanded to 40 data points
+  
+  const labels = [
+    'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 
+    'Cyan', 'Magenta', 'Lime', 'Pink', 'Brown', 'Teal', 
+    'Coral', 'Navy', 'Gold', 'Silver', 'Maroon', 'Olive', 
+    'Ivory', 'Violet', 'Indigo', 'Turquoise', 'Mint', 'Amber', 
+    'Peach', 'Beige', 'Lavender', 'Fuchsia', 'Sapphire', 'Ruby', 
+   
+  ]; // 40 labels corresponding to data points
+  
+
+  
+
+  
+
+  
 
   const [success, setSuccess] = useState(false);
 
@@ -84,7 +106,7 @@ const Generate: React.FC = () => {
   }
 
   return (
-    <section className='w-screen ml-2 h-auto pt-4 flex items-center flex-col  overflow-x-hidden overflow-y-auto justify-center'>
+    <section className='w-screen ml-2 h-auto pt-4 flex items-center flex-col  overflow-y-auto justify-center'>
       <div className='flex-col flex items-center justify-center border-2 p-4 rounded-lg shadow-lg mb-20'>
         <h2 className='pr-9 text-2xl text-customPurple3 font-bold'>Import your Dataset Here</h2>
         <div className='flex flex-row pr-28 pl-2 mt-1'>
@@ -119,7 +141,7 @@ const Generate: React.FC = () => {
         </div>
       </div>
       {success && (
-        <div className='flex flex-col md:flex-row w-auto h-auto '>
+        <div className='flex flex-col md:flex-row w-auto h-auto mb-4'>
           <div className='flex flex-row items-center mb-2 justify-center mr-10 border-2 w-[300px] h-[150px] p-6 rounded-lg  shadow-lg'>
             <h1 className='text-customPurple3 mr-1'>Total number of rows:</h1>
             <h1>{dataDetails.totalRows}</h1>
@@ -130,6 +152,17 @@ const Generate: React.FC = () => {
           </div>
         </div>
       )}
+
+{success && (
+  <div className='w-[600px] mb-4 h-[400px] border-slate p-4 flex items-center justify-center border-2 rounded-lg shadow-lg overflow-x-auto'>
+    <NullChart data={data} labels={labels} />
+  </div>
+)}
+
+
+
+     
+      
     </section>
   );
 }
