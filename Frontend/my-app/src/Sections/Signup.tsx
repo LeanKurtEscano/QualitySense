@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Signup: React.FC = () => {
     const [confirmEye, setConfirmEye] = useState(false);
@@ -13,6 +14,9 @@ const Signup: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
+    const [nameError, setNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const navigate = useNavigate();
   
     const toggleIcon = () => {
@@ -22,15 +26,62 @@ const Signup: React.FC = () => {
     const toggleConfirm = () => {
         setConfirmEye(!confirmEye);
     }
+
+    const signupSubmit = async(e: React.FormEvent) => {
+        e.preventDefault()
+        setNameError("");
+        setEmailError("");
+        setPasswordError("");
+
+        try {
+            const response = await axios.post("http://localhost:8000/api/signup/", {
+            username:username,
+            email:email,
+            password: password,
+            confirm: confirm,
+            },{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (response.data.Success) {
+                navigate('/');
+            }
+
+        } catch (error: any) {
+          
+            if(error.response) {
+               const {data} = error.response;
+               if(data.User) {
+                setNameError(data.User);
+            }
+
+            if(data.Email){
+                setEmailError(data.Email);
+            }
+
+            if(data.Pass) {
+                setPasswordError(data.Pass);
+            }
+            }       
+        }
+    }
   
   return (
     <section className='h-auto w-full flex justify-center items-center mt-60 mb-5 '>
     <div className='border-2  flex flex-col p-10 rounded-lg shadow-lg w-[480px] '> 
-      <div className='flex justify-center mb-3'>
+      <div className='flex justify-center mb-2'>
         <img src='#' alt='Logo' className='h-16' /> 
       </div>
-      <h2 className='text-2xl font-semibold  text-center text-customPurple3 mb-4'>Sign in</h2> 
-      <form className='flex flex-col' >
+      <h2 className='text-2xl font-semibold  text-center text-customPurple3 mb-1'>Sign in</h2>
+      <div className='flex items-center justify-center flex-row'>
+      <p className='text-center mr-1'>or </p>
+     <Link to = '/'><p className='text-center text-customPurple3 font-semibold hover:underline decoration-customPurple3'>sign in to your account</p></Link>
+      </div>
+      
+       
+      <form className='flex flex-col' onSubmit={signupSubmit} >
       <div className='mb-4 '>
           <label htmlFor='username' className='block mb-2'>Username:</label>
           <input
@@ -41,7 +92,13 @@ const Signup: React.FC = () => {
             className='border border-gray-300 rounded p-2 w-full'
             placeholder='Enter your email' 
           />
+          {nameError && (
+            <div className=''> 
+              <p className='text-red-600'>{nameError}</p>
+            </div>
+          )}
         </div>
+
         <div className='mb-4 '>
           <label htmlFor='username' className='block mb-2'>Email Address:</label>
           <input
@@ -52,6 +109,11 @@ const Signup: React.FC = () => {
             className='border border-gray-300 rounded p-2 w-full'
             placeholder='Enter your email' 
           />
+           {emailError && (
+            <div className=''> 
+              <p className='text-red-600'>{emailError}</p>
+            </div>
+          )}
         </div>
         <div className='mb-4 relative'>
           <label htmlFor='password' className='block mb-2'> Password:</label>
@@ -72,7 +134,7 @@ const Signup: React.FC = () => {
           />
         </div>
 
-        <div className='mb-4 relative'>
+        <div className='mb-1 relative'>
           <label htmlFor='password' className='block mb-2'> Confirm Password:</label>
           <input
             value={confirm}
@@ -90,6 +152,11 @@ const Signup: React.FC = () => {
             style={{ cursor: 'pointer' }}
           />
         </div>
+        {passwordError && (
+            <div className=''> 
+              <p className='text-red-600'>{passwordError}</p>
+            </div>
+          )}
         <button type='submit'className='bg-customPurple3 text-white rounded p-2
         hover:bg-purple-700 transition duration-300'>Sign in</button>
       </form>

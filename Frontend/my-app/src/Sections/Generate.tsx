@@ -60,7 +60,7 @@ const Generate: React.FC = () => {
       console.log(response.data)
 
     } catch(error) {
-      console.log("Invalid Format")
+     alert("Invalid Format")
     }
   }
 

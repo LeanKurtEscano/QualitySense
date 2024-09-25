@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from .serializers import UserFileSerializer
-from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Create your views here.
@@ -57,9 +57,34 @@ def login(request):
     except Exception as e:
         return Response({"error": str(e)}, status=500)
 
-
+@api_view(['POST'])
 def signup(request):
-    pass
+    try:
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        repeat_pass = request.data.get('confirm')
+
+        if User.objects.filter(username=username).exists():
+            return Response({"User": "Username already exists"}, status=400)
+
+        if User.objects.filter(email=email).exists():
+            return Response({"Email": "Email is already in use"}, status=400)
+
+        if password != repeat_pass:
+            return Response({"Pass": "Passwords does not match"}, status=400)
+
+        user = User.objects.create(
+            username=username,
+            email=email,
+            password=make_password(password)
+        )
+        user.save()
+        return Response({"Success": "User registered successfully"}, status=201)
+
+    except Exception as e:
+        return Response({"Error": str(e)}, status=500)
+   
 
 def logout(request):
     pass
