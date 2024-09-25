@@ -24,8 +24,8 @@ const Sidebar: React.FC = () => {
       )
 
       if(response){
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         navigate('/');
       }
 
@@ -54,7 +54,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-full transition-all duration-700 z-10 bg-white border-r shadow-sm
+      className={`fixed top-0 left-0 mr-2 h-full transition-all duration-700 z-10 bg-white border-r shadow-sm
         ${toggle ? 'w-16' : 'w-64'}`}
     >
       <div className='flex justify-center align-center absolute pl-3 pt-4'>

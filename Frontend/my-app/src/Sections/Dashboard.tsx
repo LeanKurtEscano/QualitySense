@@ -6,9 +6,14 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div className='h-screen flex'>
+    <div className='h-screen'>
+      <div className=''>
       <Sidebar />
-      <div className='flex-grow p-4'>
+
+      </div>
+
+     
+      <div>
         <Outlet/>
       </div>
     </div>

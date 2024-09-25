@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from '../Components/GoogleButton';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login: React.FC = () => {
@@ -60,7 +61,11 @@ const Login: React.FC = () => {
         <div className='flex justify-center mb-3'>
           <img src='#' alt='Logo' className='h-16' /> 
         </div>
-        <h2 className='text-2xl font-semibold  text-center text-customPurple3 mb-4'>Sign in</h2> 
+        <h2 className='text-2xl font-semibold  text-center text-customPurple3'>Sign in</h2> 
+        <div className='flex items-center justify-center flex-row mb-2'>
+          <p className='text-center mr-1'>or </p>
+          <Link to='/signup'><p className='text-center text-customPurple3 font-semibold hover:underline decoration-customPurple3'>sign up for an account</p></Link>
+        </div>
         <form className='flex flex-col  ' onSubmit={loginSubmit}>
           <div className='mb-4 '>
             <label htmlFor='username' className='block mb-2'>Email Address:</label>
