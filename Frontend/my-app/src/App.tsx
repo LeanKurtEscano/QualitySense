@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Sidebar from './Sections/Sidebar';
+
 import Generate from './Sections/Generate';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
-
+import Signup from './Sections/Signup';
 function App() {
   return (
     <main className='h-screen flex flex-row'>
@@ -18,10 +18,16 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
             <Route path="generate" element={<Generate />} />    
           </Route>
-        
-    
+        <Route path='/signup' element={
+          <section className='w-full h-screen flex justify-center items-center'>
+            <Signup />
+
+          </section>
+        }>
+        </Route>
 
       </Routes>
+     
     </main>
   );
 }
