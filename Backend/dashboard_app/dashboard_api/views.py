@@ -7,7 +7,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from .serializers import UserFileSerializer
-
+from .helpers.data_utils import dataset_overview
 
 
 # Create your views here.
@@ -24,19 +24,19 @@ def upload_file(request):
     serializer = UserFileSerializer(data = request.data)
     
     if serializer.is_valid():
+        total_rows , total_columns = dataset_overview(uploaded_file)
         serializer.save(user=request.user) 
-        return Response({"Success: File is Succesfully uploaded "}, status=201)
+        return Response({
+        "success": "File successfully uploaded",
+        "total_rows": total_rows,
+        "total_columns": total_columns  
+    }, status=201)
+        
     
     return Response(serializer.errors, status=400)    
    
 
 
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User
 
 @api_view(['POST'])
 def login(request):
