@@ -3,18 +3,53 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { menuItems } from '../Constants';
 import { Link } from 'react-router-dom';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [toggle, setToggle] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const logOut = async () => {
+    const userToken = localStorage.getItem('access_token');
+    try {
+      const response = await axios.post("http://localhost:8000/api/logout/", {},
+        {
+          headers: {
+            'Authorization': `Bearer ${userToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+
+      if(response){
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        navigate('/');
+      }
+
+    } catch {
+      alert("Failed to logout");
+
+    }
+
+  }
 
   const handleMenuClick = (index: number) => {
     setActiveIndex(index);
+
+    if (activeIndex === 6) {
+      logOut();
+    }
   };
 
   const showSideBar = () => {
     setToggle(!toggle);
   };
+  
+
+
 
 
   return (

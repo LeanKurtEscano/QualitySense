@@ -98,7 +98,9 @@ def signup(request):
     except Exception as e:
         return Response({"Error": str(e)}, status=500)
    
-
-def logout(request):
-    pass
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def log_out(request):
+    logout(request)
+    return Response({'Success': 'Logged out successfully'},status=200)
     
