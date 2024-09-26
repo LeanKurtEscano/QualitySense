@@ -7,6 +7,8 @@ import NullChart from '../Components/NullChart';
 interface dataCount {
   totalRows: number,
   totalCols: number,
+  columns: string[],
+  na_values: number[],
 }
 
 const Generate: React.FC = () => {
@@ -15,22 +17,11 @@ const Generate: React.FC = () => {
   const [emptyError, setEmptyError] = useState<string | null>(null);
   const [dataDetails, setDataDetails] = useState<dataCount>({
     totalRows: 0,
-    totalCols: 0
+    totalCols: 0,  
+    columns: [],
+    na_values: [],
   });
 
-  const data = [
-    12, 19, 3, 5, 2, 3, 15, 8, 7, 10, 14, 11, 6, 9, 4, 13, 18, 1, 20, 17, 
-    22, 16, 25, 21, 30, 28, 24, 27, 29
-  ]; // Expanded to 40 data points
-  
-  const labels = [
-    'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 
-    'Cyan', 'Magenta', 'Lime', 'Pink', 'Brown', 'Teal', 
-    'Coral', 'Navy', 'Gold', 'Silver', 'Maroon', 'Olive', 
-    'Ivory', 'Violet', 'Indigo', 'Turquoise', 'Mint', 'Amber', 
-    'Peach', 'Beige', 'Lavender', 'Fuchsia', 'Sapphire', 'Ruby', 
-   
-  ]; // 40 labels corresponding to data points
   
 
   
@@ -71,6 +62,7 @@ const Generate: React.FC = () => {
   }, [disable])
 
   const sendFile = async () => {
+
     const file = fileInputRef.current?.files?.[0];
     if (!file) {
       setEmptyError('Please select a file to file to upload.');
@@ -95,6 +87,8 @@ const Generate: React.FC = () => {
         setDataDetails({
           totalRows: response.data.total_rows,
           totalCols: response.data.total_columns,
+          columns : response.data.columns,
+          na_values: response.data.na_values,
         })
 
         setSuccess(!success);
@@ -155,7 +149,7 @@ const Generate: React.FC = () => {
 
 {success && (
   <div className='w-[600px] mb-4 h-[400px] border-slate p-4 flex items-center justify-center border-2 rounded-lg shadow-lg overflow-x-auto'>
-    <NullChart data={data} labels={labels} />
+    <NullChart data={dataDetails.na_values} labels={dataDetails.columns} />
   </div>
 )}
 
