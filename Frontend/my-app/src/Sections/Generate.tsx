@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloud, faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import NullChart from '../Components/NullChart';
+import Sparkle from '../Components/Sparkle';
 
 interface dataCount {
   totalRows: number,
@@ -15,24 +16,15 @@ const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string | null>(null);
   const [emptyError, setEmptyError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [success, setSuccess] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [dataDetails, setDataDetails] = useState<dataCount>({
     totalRows: 0,
-    totalCols: 0,  
+    totalCols: 0,
     columns: [],
     na_values: [],
   });
-
-  
-
-  
-
-  
-
-  
-
-  const [success, setSuccess] = useState(false);
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileName = () => {
     const file = fileInputRef.current?.files?.[0];
@@ -62,6 +54,8 @@ const Generate: React.FC = () => {
   }, [disable])
 
   const sendFile = async () => {
+    setLoading(true);
+    setSuccess(false);
 
     const file = fileInputRef.current?.files?.[0];
     if (!file) {
@@ -87,11 +81,12 @@ const Generate: React.FC = () => {
         setDataDetails({
           totalRows: response.data.total_rows,
           totalCols: response.data.total_columns,
-          columns : response.data.columns,
+          columns: response.data.columns,
           na_values: response.data.na_values,
         })
 
-        setSuccess(!success);
+        setLoading(false);
+        setSuccess(true);
       }
 
     } catch (error) {
@@ -134,6 +129,9 @@ const Generate: React.FC = () => {
           </button>
         </div>
       </div>
+      {loading && (
+        <Sparkle />
+      )}
       {success && (
         <div className='flex flex-col md:flex-row w-auto h-auto mb-4'>
           <div className='flex flex-row items-center mb-2 justify-center mr-10 border-2 w-[300px] h-[150px] p-6 rounded-lg  shadow-lg'>
@@ -146,18 +144,16 @@ const Generate: React.FC = () => {
           </div>
         </div>
       )}
+      <div className='pr-10 justify-center items-center lg:p-10'>
+  {success && (
+    <div className=' md:w-[600px] md:h-[400px] sm:w-[500px] sm:h-[350px] w-[400px] h-[300px] mb-4 border-slate p-4 flex items-center justify-center border-2 rounded-lg shadow-lg'>
+      <NullChart data={dataDetails.na_values} labels={dataDetails.columns} />
+    </div>
+  )}
+</div>
 
-{success && (
-  <div className='w-[600px] mb-4 h-[400px] border-slate p-4 flex items-center justify-center border-2 rounded-lg shadow-lg overflow-x-auto'>
-    <NullChart data={dataDetails.na_values} labels={dataDetails.columns} />
-  </div>
-)}
-
-
-
-     
       
-    </section>
+    </section>  
   );
 }
 

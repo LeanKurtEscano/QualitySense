@@ -1,9 +1,10 @@
 import pandas as pd
 
+
 def dataset_overview(file):
     
     if file.name.endswith('csv'):
-        df = pd.read_csv(file)
+        df = pd.read_csv(file, on_bad_lines='skip')
     
     elif file.name.endswith('xlsx'):
         df = pd.read_excel(file)
@@ -22,16 +23,9 @@ def dataset_overview(file):
       null_count.append(null_value)
       print(file_columns)
       print(null_count)
+      
+    
     
     return  total_rows, total_columns , file_columns, null_count
 
 
-
-def get_null_data(file):
-    if file.name.endswith('csv'):
-        df = pd.read_csv(file)
-    elif file.name.endswith('xlsx'):
-        df = pd.read_excel(file)
-        
-        return f"Success"
-            

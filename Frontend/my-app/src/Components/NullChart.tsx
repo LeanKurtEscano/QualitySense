@@ -32,9 +32,18 @@ const NullChart: React.FC<BarChartProps> = ({ data, labels }) => {
         ],
       },
       options: {
+        responsive: true, // Allow responsiveness
+        maintainAspectRatio: false, // Allow the chart to resize freely
         scales: {
           y: {
             beginAtZero: true,
+          },
+          x: {
+            ticks: {
+              autoSkip: false, 
+              maxRotation: 90, 
+              minRotation: 45, 
+            },
           },
         },
       },
@@ -45,8 +54,11 @@ const NullChart: React.FC<BarChartProps> = ({ data, labels }) => {
     };
   }, [data, labels]);
 
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return (
+    <div className="relative w-full h-full">
+      <canvas ref={canvasRef} className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
+    </div>
+  );
 };
 
 export default NullChart;
-
