@@ -16,6 +16,7 @@ const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string | null>(null);
   const [emptyError, setEmptyError] = useState<string | null>(null);
+  const [invalid, setInvalid] = useState<string | null> (null)
   const [loading, setLoading] = useState<Boolean>(false);
   const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -41,7 +42,7 @@ const Generate: React.FC = () => {
     setDisable(!disable);
     setFileName(null);
 
-    if (fileInputRef.current) {
+    if (fileInputRef.current) {   
       fileInputRef.current.value = '';
     }
 
@@ -89,8 +90,8 @@ const Generate: React.FC = () => {
         setSuccess(true);
       }
 
-    } catch (error) {
-      alert("Invalid Format")
+    } catch (error: any) {
+      setInvalid(error.response)
     }
   }
 
