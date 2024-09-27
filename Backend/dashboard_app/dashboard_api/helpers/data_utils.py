@@ -120,12 +120,11 @@ def promp_to_ai(prompt):
     ]
    )
     response = chat_session.send_message(
-    f"Summarize Data Types: For each column, provide the data type and indicate if there are any mismatches. Suggest appropriate corrections based on the column names.\n" \
-    "Categorical Value Review: Analyze the unique values in categorical columns and suggest any necessary corrections or improvements for misspellings or abnormalities.\n" \
-    "Null Value Analysis: List columns with null values and provide recommendations for handling these values, including suggestions for filling or removing them.\n" \
-    "Outlier Evaluation: Review the outlier data, detailing the counts of lower and upper outliers for each column. Provide suggestions on how to address these outliers, including verifying data accuracy and deciding whether to retain, transform, or remove them.\n" \
-    f"Here is the prompt: {prompt}. Dont add Tables"
+    f"Please assess the provided information and follow the prompt carefully. Generate a detailed Data Quality Summary Report. Here is the provided prompt: {prompt}. "
+    "Additionally, do not generate tables; only provide text. For each column, include the column name along with the following checks: data type validation, unique value assessment, null value count, and outlier detection. "
+    "If there are no issues for a column, explicitly state that there are no errors for transparency."
 )
+
 
     result = response.text
     print(result)
@@ -160,5 +159,5 @@ def dataset_overview(file):
       
     
     
-    return  total_rows, total_columns , file_columns, null_count
+    return  total_rows, total_columns , file_columns, null_count, result
 

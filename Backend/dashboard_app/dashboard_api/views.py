@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate,logout
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
+from .models import UserResults
 from rest_framework.decorators import api_view, permission_classes,parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
@@ -16,15 +17,21 @@ from .helpers.data_utils import dataset_overview
 @parser_classes([MultiPartParser, FormParser])
 def upload_file(request):
     uploaded_file = request.FILES.get('file')
-    print(uploaded_file)
+  
     
     if not uploaded_file.name.endswith(('.csv', '.xlsx')):
         return Response({"error": "Invalid file type."}, status=400)
     
+    if uploaded_file is not None:
+       file_name = uploaded_file.name  
+       print(f"Uploaded file name: {file_name}")
+    else:
+       return Response({"Empty": "Please put a file"}, status=400)
     serializer = UserFileSerializer(data = request.data)
     
     if serializer.is_valid():
-        total_rows , total_columns,file_columns,null_count = dataset_overview(uploaded_file)
+        total_rows, total_columns,file_columns,null_count,result = dataset_overview(uploaded_file)
+        user_results = UserResults.objects.create(user=request.user, file_name = file_name, result = result)
       
         serializer.save(user=request.user) 
         return Response({
@@ -33,6 +40,7 @@ def upload_file(request):
         "total_columns": total_columns,
         "columns": file_columns,
         "na_values": null_count,  
+        "result": result
     }, status=201)
         
     

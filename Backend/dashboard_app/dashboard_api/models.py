@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-from django.contrib.auth.models import AbstractUser, Permission, Group
+
 from django.db import models
 
 class UserFile(models.Model):
@@ -13,7 +12,11 @@ class UserFile(models.Model):
 
     def __str__(self):
         return f"{self.file.name} uploaded by {self.user} on {self.uploaded_at}"
-
+    
+class UserResults(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file_name = models.CharField(max_length=400)
+    result = models.TextField()
 
 
 
