@@ -10,3 +10,8 @@ export const menuItems = [
     { icon: faSignOutAlt, text: "Logout", url: '/' }, 
 ];
 
+export const navItems = [
+    {text: "Home", link: '/home'},
+    {text: "Generate", link: '/generate'},
+    {text: "Dashboard", link: '/dashboard'},
+]

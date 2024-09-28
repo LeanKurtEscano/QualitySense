@@ -107,7 +107,7 @@ const Generate: React.FC = () => {
   const isButtonDisabled = !fileName || emptyError !== null;
 
   return (
-    <section className='w-screen ml-2 h-auto pt-4 flex items-center flex-col  overflow-y-auto justify-center'>
+    <section className='w-screen  h-auto pt-4 flex items-center flex-col overflow-x-hidden  overflow-y-auto justify-center'>
       <div className='flex-col flex items-center justify-center border-2 p-4 rounded-lg shadow-lg mb-20'>
         <h2 className='pr-9 text-2xl text-customPurple3 font-bold'>Import your Dataset Here</h2>
         <div className='flex flex-row pr-28 pl-2 mt-1'>
@@ -169,7 +169,12 @@ const Generate: React.FC = () => {
           </div>
         )}
       </div>
-      <DataOverview />
+      {
+        success && (
+          <DataOverview result={dataDetails.result}/>
+        )
+      }
+      
     </section>
   );
 }

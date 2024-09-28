@@ -70,7 +70,7 @@ const Signup: React.FC = () => {
 
   return (
     <section className='h-auto w-full flex justify-center items-center mt-60 mb-5 '>
-      <div className='border-2  flex flex-col p-10 rounded-lg shadow-lg w-[480px] '>
+      <div className='border-2  flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16'>
         <div className='flex justify-center mb-2'>
           <img src='#' alt='Logo' className='h-16' />
         </div>
