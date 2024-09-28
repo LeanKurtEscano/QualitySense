@@ -56,7 +56,7 @@ def login(request):
 
       
         if not email or not password:
-            return Response({"error": "Email and password are required"}, status=400)
+            return Response({"Invalid": "Email and password are required"}, status=400)
 
         
         user = User.objects.filter(email=email).first()
@@ -71,7 +71,7 @@ def login(request):
             return Response({"Pass": "Incorrect password"}, status=401)
 
         refresh = RefreshToken.for_user(user)
-        return Response({
+        return Response({'success':"User successfully login",
             'refresh': str(refresh),
             'access': str(refresh.access_token)
         }, status=200)

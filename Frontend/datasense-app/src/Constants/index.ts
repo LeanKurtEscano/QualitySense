@@ -15,3 +15,6 @@ export const navItems = [
     {text: "Generate", link: '/generate'},
     {text: "Dashboard", link: '/dashboard'},
 ]
+
+export const ACCESS_TOKEN= ""
+export const REFRESH_TOKEN = ""

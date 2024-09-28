@@ -4,6 +4,8 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from '../Components/GoogleButton';
 import { useNavigate, Link } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
+
+
 import axios from 'axios';
 
 const Login: React.FC = () => {
@@ -18,6 +20,11 @@ const Login: React.FC = () => {
   const toggleIcon = () => {
     setShow(!show);
   };
+
+  interface userData{
+    email:string,
+    password:string
+  }
 
   const loginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,18 +53,23 @@ const Login: React.FC = () => {
         const { data } = error.response;
         if (data.Pass) {
           setPasswordError(data.Pass);
-        } else {
-          setPasswordError("Invalid password"); 
-        }
+          return;
+        } 
         
         if (data.Email) {
           setEmailError(data.Email);
-        } else {
-          setEmailError("Invalid email"); 
+          return;
+        } 
+
+        if (data.Invalid) {
+          alert("Please fill out all fields");
+          return;
         }
       }
     }
-  }
+ 
+};
+
 
   return (
     <section className='h-screen w-full flex justify-center items-center'>

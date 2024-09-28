@@ -107,7 +107,7 @@ const Generate: React.FC = () => {
     }
   }
 
-  // Determine whether the button should be disabled
+
   const isButtonDisabled = !fileName || emptyError !== null || isAuthenticated == false;
 
   return (
