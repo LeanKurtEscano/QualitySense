@@ -14,12 +14,12 @@ const DataOverview: React.FC<Result> = ({ result }) => {
   }
 
   return (
-    <div className='w-max h-screen flex flex-col'>
+    <div className='w-max h-screen flex flex-col '>
       <div>
         <h1 className='font-bold text-3xl mb-3 text-customPurple3 pr-32'>Data Overview</h1>
       </div>
 
-      <div className='w-[700px] h-auto'>
+      <div className='w-[680px] h-auto'>
         {sections.map((section, index) => {
           const cleanedSection = cleanText(section); 
           const lines = cleanedSection.split('\n'); 

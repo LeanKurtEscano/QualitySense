@@ -6,6 +6,7 @@ import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
 import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
+import { auth, refreshUserToken } from './Api/Api';
 
 function App() {
   return (
@@ -18,14 +19,18 @@ function App() {
 const Main: React.FC = () => {
   const { setIsAuthenticated } = useMyContext(); 
   useEffect(() => {
-    const userToken = localStorage.getItem('access_token');
-    if (userToken) {
-      setIsAuthenticated(true);
+    const checkUserAuth = async()=> {
+      const isAuthorized = await auth();
+      if(isAuthorized) {
+        setIsAuthenticated(true);
+      }
     }
+     
+    checkUserAuth();
   }, [setIsAuthenticated]); 
 
   return (
-    <main className='h-screen flex flex-col'>
+    <main className='h-auto flex flex-col'>
       <NavBar />
       <Routes>
         <Route path='/' element={
@@ -40,7 +45,7 @@ const Main: React.FC = () => {
           </section>
         } />
         <Route path='/generate' element={
-          <section className='w-max overflow-x-hidden  overflow-y-hidden h-screen'>
+          <section className=' '>
             <Generate />     
           </section>    
         } />

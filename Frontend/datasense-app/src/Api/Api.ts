@@ -34,11 +34,11 @@ api.interceptors.response.use(
 );
 
 
-export default api;
 
 
 
-const refreshUserToken = async() => {
+
+export const refreshUserToken = async() => {
     const refreshToken = localStorage.getItem('refresh_token');
 
     if(!refreshToken) {
@@ -47,7 +47,7 @@ const refreshUserToken = async() => {
 
     try {
         const response = await api.post("http://127.0.0.1:8000/api/refresh/", {
-            resfresh: refreshToken
+            refresh: refreshToken
         })
 
         if (response.status === 200) {         
@@ -63,7 +63,7 @@ const refreshUserToken = async() => {
 
 }
 
-const auth = async() => {
+export const auth = async() => {
     const accessToken = localStorage.getItem('access_token');
 
     if(!accessToken) {
@@ -95,20 +95,4 @@ interface userData {
     password:string,
 }
 
-export const userAuthentication = async (endpoint: string, data: userData) => {
-    const isLoginEndPoint = endpoint === "login/";
-
-    if (isLoginEndPoint) {
-        try {
-            const response = await api.post(endpoint, data, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            return response; 
-        } catch (error) {
-            throw error; 
-        }
-    }
-};
 
