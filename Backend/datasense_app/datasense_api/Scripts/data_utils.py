@@ -100,7 +100,7 @@ def generate_prompt(df):
     return final_prompt
 
 def promp_to_ai(prompt):
-    genai.configure(api_key="AIzaSyCiuAgyXsOFKIXVc-XI6rX4LqrOpaz9PHc")
+    genai.configure(api_key="")
     generation_config = {
     "temperature": 1,
     "top_p": 0.95,
