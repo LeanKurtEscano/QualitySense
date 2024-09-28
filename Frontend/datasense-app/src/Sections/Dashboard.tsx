@@ -9,10 +9,7 @@ const Dashboard: React.FC = () => {
     <div className='h-screen'>
       <div className=''>
       <Sidebar />
-
       </div>
-
-     
       <div>
         <Outlet/>
       </div>

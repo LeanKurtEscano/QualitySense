@@ -5,6 +5,7 @@ import axios from 'axios';
 import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import Sparkle from '../Components/Sparkle';
+import { useMyContext } from '../Components/MyContext';
 
 interface dataCount {
   totalRows: number,
@@ -21,6 +22,7 @@ const Generate: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { isAuthenticated } = useMyContext();
   const [dataDetails, setDataDetails] = useState<dataCount>({
     totalRows: 0,
     totalCols: 0,
@@ -28,6 +30,8 @@ const Generate: React.FC = () => {
     na_values: [],
     result: '',
   });
+
+ 
 
   const handleFileName = () => {
     const file = fileInputRef.current?.files?.[0];
@@ -104,7 +108,7 @@ const Generate: React.FC = () => {
   }
 
   // Determine whether the button should be disabled
-  const isButtonDisabled = !fileName || emptyError !== null;
+  const isButtonDisabled = !fileName || emptyError !== null || isAuthenticated == false;
 
   return (
     <section className='w-screen  h-auto pt-4 flex items-center flex-col overflow-x-hidden  overflow-y-auto justify-center'>

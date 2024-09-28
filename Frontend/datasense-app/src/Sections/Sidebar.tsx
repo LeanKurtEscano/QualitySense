@@ -4,12 +4,14 @@ import { menuItems } from '../Constants';
 import { Link } from 'react-router-dom';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useMyContext } from '../Components/MyContext';
 import axios from 'axios';
 
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [toggle, setToggle] = useState<boolean>(false);
   const navigate = useNavigate();
+  const {setIsAuthenticated} = useMyContext();
 
   const logOut = async () => {
     const userToken = localStorage.getItem('access_token');
@@ -23,9 +25,10 @@ const Sidebar: React.FC = () => {
         }
       )
 
-      if(response){
+      if(response.data.success){
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        setIsAuthenticated(false);
         navigate('/');
       }
 
@@ -39,9 +42,6 @@ const Sidebar: React.FC = () => {
   const handleMenuClick = (index: number) => {
     setActiveIndex(index);
 
-    if (activeIndex === 6) {
-      logOut();
-    }
   };
 
   const showSideBar = () => {

@@ -7,7 +7,7 @@ export const menuItems = [
     { icon: faCalendarAlt, text: "Calendar", url: '/dashboard/calendar' },
     { icon: faChartLine, text: "Visualizations", url: '/dashboard/visualizations' },
     { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
-    { icon: faSignOutAlt, text: "Logout", url: '/' }, 
+   /* { icon: faSignOutAlt, text: "Logout", url: '/' },*/ 
 ];
 
 export const navItems = [
