@@ -32,17 +32,28 @@ const NullChart: React.FC<BarChartProps> = ({ data, labels }) => {
         ],
       },
       options: {
-        responsive: true, // Allow responsiveness
-        maintainAspectRatio: false, // Allow the chart to resize freely
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
+            ticks: {
+              color: '#C9C9C9', // Set y-axis tick color
+            },
           },
           x: {
             ticks: {
-              autoSkip: false, 
-              maxRotation: 90, 
-              minRotation: 45, 
+              color: '#C9C9C9', // Set x-axis tick color
+              autoSkip: false,
+              maxRotation: 90,
+              minRotation: 45,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#C9C9C9', // Set legend text color
             },
           },
         },

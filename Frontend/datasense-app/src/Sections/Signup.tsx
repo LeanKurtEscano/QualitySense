@@ -53,7 +53,7 @@ const Signup: React.FC = () => {
       }
 
     } catch (error: any) {
-
+      setLoading(false)
       if (error.response) {
         const { data } = error.response;
         if (data.User) {
@@ -67,31 +67,35 @@ const Signup: React.FC = () => {
         if (data.Pass) {
           setPasswordError(data.Pass);
         }
+        if(data.Invalid) {
+          alert("Please fill out all fields");
+        }
       }
     }
   }
 
   return (
-    <section className='h-auto w-full flex justify-center items-center mt-60 mb-5 '>
-      <div className='border-2  flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16'>
+    <section className='h-auto w-full flex justify-center bg-darkbg items-center mt-48 pt-10 '>
+      <div className='border-1 bg-formcolor  flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16'>
         <div className='flex justify-center mb-2'>
           <img src='#' alt='Logo' className='h-16' />
         </div>
-        <h2 className='text-2xl font-semibold  text-center text-customPurple3 mb-1'>Sign in</h2>
+        <h2 className='text-2xl font-semibold  text-center text-darkpurple mb-1'>Sign in</h2>
         <div className='flex items-center justify-center flex-row'>
-          <p className='text-center mr-1'>or </p>
-          <Link to='/'><p className='text-center text-customPurple3 font-semibold hover:underline decoration-customPurple3'>sign in to your account</p></Link>
+          <p className='text-center text-slate-300 mr-1'>or </p>
+          <Link to='/'><p className='text-center text-darkpurple font-semibold hover:underline decoration-darkpurple'>sign in to your account</p></Link>
         </div>
         <form className='flex flex-col' onSubmit={signupSubmit} >
           <div className='mb-4 '>
-            <label htmlFor='username' className='block mb-2'>Username:</label>
+            <label htmlFor='username' className='block text-slate-300 mb-2'>Username:</label>
             <input
               type='text'
               value={username}
               onChange={(e) => setUserName(e.target.value)}
               id='username'
-              className='border border-gray-300 rounded p-2 w-full'
-              placeholder='Enter your email'
+              className='border  bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 w-full'
+              placeholder='Enter your username'
+              autoComplete='off'
             />
             {nameError && (
               <div className=''>
@@ -99,16 +103,16 @@ const Signup: React.FC = () => {
               </div>
             )}
           </div>
-
           <div className='mb-4 '>
-            <label htmlFor='username' className='block mb-2'>Email Address:</label>
+            <label htmlFor='username' className='block text-slate-300 mb-2'>Email Address:</label>
             <input
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id='username'
-              className='border border-gray-300 rounded p-2 w-full'
+              className=' bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 w-full'
               placeholder='Enter your email'
+              autoComplete='off'
             />
             {emailError && (
               <div className=''>
@@ -117,39 +121,39 @@ const Signup: React.FC = () => {
             )}
           </div>
           <div className='mb-4 relative'>
-            <label htmlFor='password' className='block mb-2'> Password:</label>
+            <label htmlFor='password' className='block  text-slate-300 mb-2'> Password:</label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
 
               type={show ? 'text' : 'password'}
               id='password'
-              className='border border-gray-300 rounded p-2 pr-10 w-full'
+              className='border  bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 pr-10 w-full'
               placeholder='Enter your password'
             />
             <FontAwesomeIcon
               icon={show ? faEyeSlash : faEye}
               onClick={toggleIcon}
-              className="absolute right-2 top-1/2 pt-2"
+              className="absolute right-2 text-white top-1/2 pt-2"
               style={{ cursor: 'pointer' }}
             />
           </div>
 
-          <div className='mb-1 relative'>
-            <label htmlFor='password' className='block mb-2'> Confirm Password:</label>
+          <div className='mb-3 relative'>
+            <label htmlFor='password' className='block text-slate-300 mb-2'> Confirm Password:</label>
             <input
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
 
               type={confirmEye ? 'text' : 'password'}
               id='password'
-              className='border border-gray-300 rounded p-2 pr-10 w-full'
+              className='border  bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 pr-10 w-full'
               placeholder='Enter your password'
             />
             <FontAwesomeIcon
               icon={confirmEye ? faEyeSlash : faEye}
               onClick={toggleConfirm}
-              className="absolute right-2 top-1/2 pt-2"
+              className="absolute right-2 text-white top-1/2 pt-2"
               style={{ cursor: 'pointer' }}
             />
           </div>
@@ -182,8 +186,8 @@ const Signup: React.FC = () => {
             )}
           </button>
         </form>
-        <div className='text-center pt-3 mb-1'>
-          <p>Or via</p>
+        <div className='text-center pt-3 mb-2'>
+          <p className='text-slate-200'>Or via</p>
         </div>
         <GoogleButton />
       </div>

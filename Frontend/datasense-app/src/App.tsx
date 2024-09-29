@@ -30,11 +30,11 @@ const Main: React.FC = () => {
   }, [setIsAuthenticated]); 
 
   return (
-    <main className='h-auto flex flex-col'>
+    <main className='h-auto  flex flex-col'>
       <NavBar />
       <Routes>
         <Route path='/' element={
-          <section className='w-full h-screen flex justify-center items-center pb-10'>
+          <section className='w-full h-screen flex justify-center items-center '>
             <Login />
           </section>
         } />
@@ -45,7 +45,7 @@ const Main: React.FC = () => {
           </section>
         } />
         <Route path='/generate' element={
-          <section className=' '>
+          <section className='h-auto '>
             <Generate />     
           </section>    
         } />

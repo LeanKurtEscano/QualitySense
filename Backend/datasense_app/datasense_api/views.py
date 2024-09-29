@@ -87,6 +87,9 @@ def signup(request):
         email = request.data.get('email')
         password = request.data.get('password')
         repeat_pass = request.data.get('confirm')
+        
+        if not username or not email or not password or not repeat_pass:
+            return Response({"Invalid": "Please fill out all fields"},status=400)
 
         if User.objects.filter(username=username).exists():
             return Response({"User": "Username already exists"}, status=400)

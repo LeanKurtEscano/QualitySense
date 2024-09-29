@@ -52,6 +52,7 @@ const Login: React.FC = () => {
       }
 
     } catch (error: any) {
+      setLoading(false);
       if (error.response) {
         const { data } = error.response;
         if (data.Pass) {
@@ -75,27 +76,30 @@ const Login: React.FC = () => {
 
 
   return (
-    <section className='h-screen w-full flex justify-center items-center'>
-      <div className='border-2 flex flex-col p-6 rounded-lg shadow-lg w-96'>
+    <section className='h-screen w-full flex  bg-darkbg justify-center items-center'>
+      <div className=' flex flex-col p-6 border-formcolor bg-formcolor border-2 rounded-lg shadow-xl w-96'>
         <div className='flex justify-center mb-3'>
           <img src='#' alt='Logo' className='h-16' />
         </div>
-        <h2 className='text-2xl font-semibold text-center text-customPurple3'>Sign in</h2>
+        <h2 className='text-2xl font-semibold text-center text-darkpurple'>Sign in</h2>
         <div className='flex items-center justify-center flex-row mb-2'>
-          <p className='text-center mr-1'>or </p>
+          <p className='text-center text-slate-300 mr-1'>or </p>
           <Link to='/signup'>
-            <p className='text-center text-customPurple3 font-semibold hover:underline decoration-customPurple3'>sign up for an account</p>
+            <p className='text-center text-darkpurple font-semibold hover:underline decoration-darkpurple'>sign up for an account</p>
           </Link>
         </div>
         <form className='flex flex-col' onSubmit={loginSubmit}>
           <div className='mb-4'>
-            <label htmlFor='username' className='block mb-2'>Email Address:</label>
+            <label htmlFor='username' className='block mb-2 text-slate-200'>Email Address:</label>
             <input
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id='username'
-              className='border border-gray-300 rounded p-2 w-full'
+                className='border border-inputcolor text-slate-300 placeholder:text-inputtext rounded p-2 w-full bg-inputcolor hover:bg-inputcolor focus:bg-inputcolor focus:ring-0 focus:border-inputcolor transition duration-300'
+              autoComplete='off'
+             
+           
               placeholder='Enter your email'
             />
             {emailError && (
@@ -104,31 +108,32 @@ const Login: React.FC = () => {
               </div>
             )}
           </div>
-          <div className='mb-4 relative'>
-            <label htmlFor='password' className='block mb-2'>Password:</label>
+          <div className='mb-2 relative'>
+            <label htmlFor='password' className='block  mb-2 text-slate-200'>Password:</label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type={show ? 'text' : 'password'}
               id='password'
-              className='border border-gray-300 rounded p-2 pr-10 w-full'
+              className='border bg-inputcolor text-slate-300 placeholder:text-inputtext border-inputcolor rounded p-2 pr-10 w-full'
               placeholder='Enter your password'
             />
             <FontAwesomeIcon
               icon={show ? faEyeSlash : faEye}
               onClick={toggleIcon}
-              className="absolute right-2 top-1/2 pt-2"
+              className="absolute right-2 text-white top-1/2 pt-2"
               style={{ cursor: 'pointer' }}
             />
-            {passwordError && (
-              <div>
-                <p className='text-red-600'>{passwordError}</p>
+          
+          </div>
+          {passwordError && (
+              <div className=' '>
+                <p className=' text-red-600'>{passwordError}</p>
               </div>
             )}
-          </div>
           <button
             type='submit'
-            className='bg-customPurple3 text-white rounded p-2 hover:bg-purple-700 transition duration-300 flex justify-center items-center'
+            className='bg-customPurple3 mt-2 text-white rounded p-2 hover:bg-purple-700 transition duration-300 flex justify-center items-center'
             disabled={loading}
           >
             {loading ? (
@@ -150,8 +155,8 @@ const Login: React.FC = () => {
             )}
           </button>
         </form>
-        <div className='text-center pt-3 mb-1'>
-          <p>Or via</p>
+        <div className='text-center pt-3 mb-2'>
+          <p className='text-slate-300'>Or via</p>
         </div>
         <GoogleButton />
       </div>
