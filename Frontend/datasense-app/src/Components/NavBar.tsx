@@ -44,82 +44,78 @@ const Navbar = () => {
 
     return (
         <header className='bg-darkbg'>
-
-            <nav className="flex items-center justify-end bg-formcolor transition-all duration-700 w-full  shadow-xl pt-4 pb-4   pr-36">
-                <div className='mr-8 absolute  left-24'>
-                    <Link to='/home'>
-                        <img
-                            className="w-16 cursor-pointer"
-                            src="#"
-                            alt="Logo"
-                        />
-                    </Link>
-                </div>
-                <div className="nav-links duration-500 md:static p-4 absolute bg-formcolor md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
-                    <ul className="flex md:flex-row  md:items-center md:gap-[4vw] gap-8">
+        <nav className="flex items-center justify-end bg-formcolor transition-all duration-700 w-full shadow-xl pt-4 pb-4 pr-36">
+            <div className='mr-8 absolute left-24'>
+                <Link to='/home'>
+                    <img
+                        className="w-16 cursor-pointer"
+                        src="#"
+                        alt="Logo"
+                    />
+                </Link>
+            </div>
+            <div className="nav-links duration-500 md:static p-4 absolute bg-formcolor md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto w-full flex items-center px-5">
+                <ul className="flex md:flex-row md:items-center md:gap-[4vw] gap-8">
+                    {navItems.map((item) => (
+                        <li className='relative group font-normal' key={item.text}>
+                            <Link to={item.link} className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent font-normal mb-1">
+                                {item.text}
+                                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                    ))}
+                    {isAuthenticated ? (
+                        <li className='relative group font-normal' onClick={logOut}>
+                            <Link to='/' className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent ">
+                                Logout
+                                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px]  bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                    ) : (
+                        <li className='relative group font-normal'>
+                            <Link to='/' className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent ">
+                                Login
+                                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                            </Link>
+                        </li>
+                    )}
+                </ul>
+            </div>
+            <div className='md:hidden  text-cyan-400  cursor-pointer' onClick={toggleNav}>
+                <FontAwesomeIcon icon={faBars} className='text-lg pt-4 pb-4'></FontAwesomeIcon>
+            </div>
+            {toggle && (
+                <div className={`absolute mt-14 bg-formcolor rounded-lg transition-all w-[300px] z-10 right-1 shadow-lg ${toggle ? "top-12 translate-y-0" : "top-9 translate-y-full"} duration-300 ease-in-out`}>
+                    <ul className="flex flex-col items-center p-4">
                         {navItems.map((item) => (
-                            <li className='relative group font-normal' key={item.text}>
-                                <Link to={item.link} className="text-darkpurple mb-1 ">
+                            <li className='relative group font-normal my-2' key={item.text}>
+                                <Link to={item.link} className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent mb-1 ">
                                     {item.text}
-                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-darkpurple transition-all duration-300 group-hover:w-full"></span>
+                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px]  bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                                 </Link>
                             </li>
                         ))}
                         {isAuthenticated ? (
-                            <li className='relative group font-normal' onClick={logOut}>
-                                <Link to='/' className="text-darkpurple ">
+                            <li className='relative group font-normal my-2' onClick={logOut}>
+                                <Link to='/' className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent font-bold mb-1 ">
                                     Logout
-                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-darkpurple transition-all duration-300 group-hover:w-full"></span>
+                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px]  bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                                 </Link>
                             </li>
                         ) : (
-                            <li className='relative group font-normal'>
-                                <Link to='/' className="text-darkpurple ">
+                            <li className='relative group font-normal my-2'>
+                                <Link to='/' className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent  mb-1 ">
                                     Login
-                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-darkpurple transition-all duration-300 group-hover:w-full"></span>
+                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px]  bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                                 </Link>
                             </li>
-                        )
-                        }
+                        )}
                     </ul>
                 </div>
-                <div className='md:hidden text-customPurple3 cursor-pointer' onClick={toggleNav}>
-                    <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
-                </div>
-                {toggle && (
-                    <div className={`absolute mt-7 bg-formcolor  rounded-lg transition-all w-[300px] z-10  right-1 shadow-lg ${toggle ? "top-12 translate-y-0" : "top-9 translate-y-full"} duration-300 ease-in-out`}>
-
-                        <ul className="flex flex-col items-center p-4">
-                            {navItems.map((item) => (
-                                <li className='relative group font-normal my-2' key={item.text}>
-                                    <Link to={item.link} className="text-white mb-1 hover:text-purple-600">
-                                        {item.text}
-                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-purple-600 transition-all duration-300 group-hover:w-full"></span>
-                                    </Link>
-                                </li>
-                            ))}
-                            {isAuthenticated ? (
-                                <li className='relative group font-normal my-2' onClick={logOut}>
-                                    <Link to='/' className="text-white mb-1 hover:text-purple-600">
-                                        Logout
-                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-purple-600 transition-all duration-300 group-hover:w-full"></span>
-                                    </Link>
-                                </li>
-
-                            ) : (
-                                <li className='relative group font-normal my-2'>
-                                    <Link to='/' className="text-white mb-1 hover:text-purple-600">
-                                        Login
-                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-purple-600 transition-all duration-300 group-hover:w-full"></span>
-                                    </Link>
-                                </li>
-                            )}
-
-                        </ul>
-                    </div>
-                )}
-            </nav>
-        </header>
+            )}
+        </nav>
+    </header>
+    
     );
 };
 

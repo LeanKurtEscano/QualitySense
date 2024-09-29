@@ -22,10 +22,6 @@ const Login: React.FC = () => {
     setShow(!show);
   };
 
-  interface userData {
-    email: string,
-    password: string
-  }
 
   const loginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,16 +72,20 @@ const Login: React.FC = () => {
 
 
   return (
-    <section className='h-screen w-full flex  bg-darkbg justify-center items-center'>
-      <div className=' flex flex-col p-6 border-formcolor bg-formcolor border-2 rounded-lg shadow-xl w-96'>
+    <section className='h-screen w-full flex bg-darkbg justify-center items-center'>
+      <div className='flex flex-col p-6 border-formcolor bg-formcolor border-2 rounded-lg shadow-xl w-96'>
         <div className='flex justify-center mb-3'>
           <img src='#' alt='Logo' className='h-16' />
         </div>
-        <h2 className='text-2xl font-semibold text-center text-darkpurple'>Sign in</h2>
+        <h2 className='text-2xl font-semibold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent'>
+          Sign in
+        </h2>
         <div className='flex items-center justify-center flex-row mb-2'>
           <p className='text-center text-slate-300 mr-1'>or </p>
           <Link to='/signup'>
-            <p className='text-center text-darkpurple font-semibold hover:underline decoration-darkpurple'>sign up for an account</p>
+            <p className='text-center text-cyan-500 hover:underline decoration-blue'>
+              sign up for an account
+            </p>
           </Link>
         </div>
         <form className='flex flex-col' onSubmit={loginSubmit}>
@@ -96,10 +96,8 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id='username'
-                className='border border-inputcolor text-slate-300 placeholder:text-inputtext rounded p-2 w-full bg-inputcolor hover:bg-inputcolor focus:bg-inputcolor focus:ring-0 focus:border-inputcolor transition duration-300'
+              className='border border-inputcolor text-slate-300 placeholder:text-inputtext rounded p-2 w-full bg-inputcolor hover:bg-inputcolor focus:bg-inputcolor focus:ring-0 focus:border-inputcolor transition duration-300'
               autoComplete='off'
-             
-           
               placeholder='Enter your email'
             />
             {emailError && (
@@ -109,7 +107,7 @@ const Login: React.FC = () => {
             )}
           </div>
           <div className='mb-2 relative'>
-            <label htmlFor='password' className='block  mb-2 text-slate-200'>Password:</label>
+            <label htmlFor='password' className='block mb-2 text-slate-200'>Password:</label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -124,16 +122,15 @@ const Login: React.FC = () => {
               className="absolute right-2 text-white top-1/2 pt-2"
               style={{ cursor: 'pointer' }}
             />
-          
           </div>
           {passwordError && (
-              <div className=' '>
-                <p className=' text-red-600'>{passwordError}</p>
-              </div>
-            )}
+            <div>
+              <p className='text-red-600'>{passwordError}</p>
+            </div>
+          )}
           <button
             type='submit'
-            className='bg-customPurple3 mt-2 text-white rounded p-2 hover:bg-purple-700 transition duration-300 flex justify-center items-center'
+            className='bg-gradient-to-r from-cyan-500 to-blue-500 mt-2 text-white rounded p-2 hover:bg-blue-600 transition duration-300 flex justify-center items-center'
             disabled={loading}
           >
             {loading ? (
@@ -161,6 +158,7 @@ const Login: React.FC = () => {
         <GoogleButton />
       </div>
     </section>
+
   );
 }
 

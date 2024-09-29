@@ -25,8 +25,8 @@ const NullChart: React.FC<BarChartProps> = ({ data, labels }) => {
           {
             label: 'Null Values',
             data: data,
-            backgroundColor: 'rgba(136, 38, 228, 0.5)', // Transparent purple
-            borderColor: 'rgba(136, 38, 228, 1)', // Opaque purple
+            backgroundColor: 'rgba(0, 255, 255, 0.5)', // Transparent cyan
+            borderColor: 'rgba(0, 255, 255, 1)', // Opaque cyan
             borderWidth: 1,
           },
         ],

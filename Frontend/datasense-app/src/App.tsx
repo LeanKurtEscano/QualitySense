@@ -6,8 +6,9 @@ import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
 import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
+import Home from './Sections/Home';
 import { auth, refreshUserToken } from './Api/Api';
-
+import Features from './Components/Features';
 function App() {
   return (
     <MyProvider>
@@ -49,6 +50,17 @@ const Main: React.FC = () => {
             <Generate />     
           </section>    
         } />
+        <Route path='/home' element={
+          
+          <section className='h-auto'>
+            <Home />
+            <Features/>
+
+          </section>
+          
+
+        }/>
+       
       </Routes>
     </main>
   );

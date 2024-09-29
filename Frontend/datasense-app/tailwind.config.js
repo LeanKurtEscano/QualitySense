@@ -4,6 +4,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
     extend: {
+      backgroundImage: {
+        'spotlight': 'radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 40%, rgba(0, 255, 255, 0.3) 70%, rgba(0, 255, 255, 0.6) 80%, rgba(0, 255, 255, 0.8) 100%)',
+      },
       colors: {
         customPurple3:'#8826E4',
 
