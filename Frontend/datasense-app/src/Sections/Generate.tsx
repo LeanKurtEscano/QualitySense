@@ -152,8 +152,26 @@ const Generate: React.FC = () => {
         </div>
       </div>
       {loading && (
-        <Sparkle />
+          <div className='flex flex-col items-center justify-center pb-[200px]h-screen'>
+          <div className='flex space-x-2 justify-center pb-4 items-center'>
+              <span className='sr-only'>Loading...</span>
+              <div className='h-8 w-8 bg-customPurple3 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+              <div className='h-8 w-8 bg-customPurple3 rounded-full animate-bounce [animation-delay:-0.15s] '></div>
+              <div className='h-8 w-8 bg-customPurple3 rounded-full  animate-bounce'></div>
+          </div>
+          <p className='text-black mt-2 flex items-center'>
+          AI is currently assessing your data for insights and recommendations, please wait
+              <span className='ml-2 animate-bounce [animation-delay:-0.3s]'>.</span>
+              <span className='animate-bounce [animation-delay:-0.15s]'>.</span>
+              <span className=' animate-bounce'>.</span>
+          </p>
+      </div>
       )}
+    
+
+
+   
+
       {success && (
         <div className='flex flex-col md:flex-row w-auto h-auto mb-4'>
           <div className='flex flex-row items-center mb-2 justify-center mr-10 border-2 w-[300px] h-[150px] p-6 rounded-lg  shadow-lg'>
