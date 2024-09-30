@@ -30,8 +30,9 @@ def upload_file(request):
     
     if serializer.is_valid():
         total_rows, total_columns,file_columns,null_count,result = dataset_overview(uploaded_file)
+
         user_results = UserResults.objects.create(user=request.user, file_name = file_name, result = result)
-      
+       
         serializer.save(user=request.user) 
         return Response({
         "success": "File successfully uploaded",
@@ -39,7 +40,7 @@ def upload_file(request):
         "total_columns": total_columns,
         "columns": file_columns,
         "na_values": null_count,  
-        "result": result
+        "result": result,
     }, status=201)
         
     

@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import logo from '../assets/logo.png';
 const Signup: React.FC = () => {
   const [confirmEye, setConfirmEye] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,15 +75,15 @@ const Signup: React.FC = () => {
   }
 
   return (
-    <section className='h-auto w-full flex justify-center bg-darkbg items-center mt-48 pt-10'>
-      <div className='border-1 bg-formcolor flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16'>
+    <section className='h-auto w-full flex justify-center bg-darkbg items-center mt-40 pt-9 '>
+      <div className='border-1 bg-loginbg flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16'>
         <div className='flex justify-center mb-2'>
-          <img src='#' alt='Logo' className='h-16' />
+          <img src={logo} alt='Logo' className='h-10' />
         </div>
-        <h2 className='text-2xl font-semibold text-center bg-gradient-to-r from-cyan-500 to-blue-500  bg-clip-text text-transparent mb-1'>Sign up</h2>
+        <h2 className='text-2xl font-semibold text-center  text-cyan-500  mb-1'>Sign up</h2>
         <div className='flex items-center justify-center flex-row'>
           <p className='text-center text-slate-300 mr-1'>or </p>
-          <Link to='/signin'>
+          <Link to='/login'>
             <p className='text-center text-cyan-500 font-semibold hover:underline decoration-cyan-500'>
               sign in to your account
             </p>

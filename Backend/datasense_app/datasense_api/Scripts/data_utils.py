@@ -82,7 +82,12 @@ def get_outliers_prompt(df):
     
     return outlier_prompt
 
-     
+
+
+
+
+
+        
 def generate_prompt(df):
     data_type_prompt = get_data_type_prompt(df)
     categorical_prompt = get_categorical_prompt(df)
@@ -149,6 +154,7 @@ def dataset_overview(file):
     nullvalue = dict(df.isna().sum())
     prompt = generate_prompt(df)
     result = promp_to_ai(prompt)
+    
     
     
 

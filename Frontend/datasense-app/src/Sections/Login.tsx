@@ -4,7 +4,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from '../Components/GoogleButton';
 import { useNavigate, Link } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
-
+import logo from '../assets/logo.png';
 
 import axios from 'axios';
 
@@ -73,11 +73,11 @@ const Login: React.FC = () => {
 
   return (
     <section className='h-screen w-full flex bg-darkbg justify-center items-center'>
-      <div className='flex flex-col p-6 border-formcolor bg-formcolor border-2 rounded-lg shadow-xl w-96'>
+      <div className='flex flex-col p-6 border-formcolor bg-loginbg border-2 rounded-lg shadow-xl w-96'>
         <div className='flex justify-center mb-3'>
-          <img src='#' alt='Logo' className='h-16' />
+          <img src={logo} alt='Logo' className='h-10' />
         </div>
-        <h2 className='text-2xl font-semibold text-center bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent'>
+        <h2 className='text-2xl font-semibold text-center text-cyan-500'>
           Sign in
         </h2>
         <div className='flex items-center justify-center flex-row mb-2'>

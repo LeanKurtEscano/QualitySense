@@ -4,20 +4,17 @@ import { Chart, registerables } from 'chart.js';
 // Register Chart.js components
 Chart.register(...registerables);
 
+// Define the interface for BoxPlotData
 interface BoxPlotData {
   min: number;
   q1: number;
   median: number;
   q3: number;
   max: number;
+  label: string; // Changed from labels to label to accept a single column name
 }
 
-interface BoxPlotChartProps {
-  data: BoxPlotData[];
-  labels: string[];
-}
-
-const OutlierChart: React.FC<BoxPlotChartProps> = ({ data, labels }) => {
+const BoxPlotChart: React.FC<BoxPlotData> = ({ min, q1, median, q3, max, label }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -29,40 +26,40 @@ const OutlierChart: React.FC<BoxPlotChartProps> = ({ data, labels }) => {
     const chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: labels,
+        labels: [label], // Use an array with the single label
         datasets: [
           {
             label: 'Min',
-            data: data.map(d => d.min),
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            data: [min], // Wrap single value in an array
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
           },
           {
             label: 'Q1',
-            data: data.map(d => d.q1),
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            data: [q1], // Wrap single value in an array
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,
           },
           {
             label: 'Median',
-            data: data.map(d => d.median),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            data: [median], // Wrap single value in an array
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
+            borderWidth: 2,
           },
           {
             label: 'Q3',
-            data: data.map(d => d.q3),
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            data: [q3], // Wrap single value in an array
+            backgroundColor: 'rgba(153, 102, 255, 0.5)',
             borderColor: 'rgba(153, 102, 255, 1)',
             borderWidth: 1,
           },
           {
             label: 'Max',
-            data: data.map(d => d.max),
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            data: [max], // Wrap single value in an array
+            backgroundColor: 'rgba(255, 206, 86, 0.5)',
             borderColor: 'rgba(255, 206, 86, 1)',
             borderWidth: 1,
           },
@@ -73,14 +70,6 @@ const OutlierChart: React.FC<BoxPlotChartProps> = ({ data, labels }) => {
         scales: {
           y: {
             beginAtZero: true,
-            ticks: {
-              color: '#C9C9C9',
-            },
-          },
-          x: {
-            ticks: {
-              color: '#C9C9C9',
-            },
           },
         },
       },
@@ -89,14 +78,13 @@ const OutlierChart: React.FC<BoxPlotChartProps> = ({ data, labels }) => {
     return () => {
       chart.destroy();
     };
-  }, [data, labels]);
+  }, [min, q1, median, q3, max, label]); // Adjusted dependencies
 
   return (
-    <div className="relative w-full h-full">
-      <canvas ref={canvasRef} className="w-full h-[400px] md:h-[500px] lg:h-[600px]" />
-    </div>
+   
+      <canvas ref={canvasRef} className="w-[200px] h-[600px] " />
+
   );
 };
 
-export default OutlierChart;
-
+export default BoxPlotChart;

@@ -9,9 +9,9 @@ export default {
       },
       colors: {
         customPurple3:'#8826E4',
-
+        navcolor: "#050a0d",
         customtext:'#1DB6C1',
-        darkbg:"#1F1F1F",
+        darkbg:"#091216",
         darkpurple:"#9171f8",
         inputcolor: "#3f3f3f",
         inputtext: "#717171",
@@ -21,7 +21,8 @@ export default {
         darktext2: "#8b8b8b",
         darktext3: "#C9C9C9",
         buttonbg: '#1DB6C1',
-        googlebg: '#828592'
+        googlebg: '#828592',
+        loginbg: "#0e1b21",
           // 8826E4
       }
     },

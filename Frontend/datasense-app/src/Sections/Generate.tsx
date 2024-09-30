@@ -5,8 +5,7 @@ import axios from 'axios';
 import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import { useMyContext } from '../Components/MyContext';
-import OutlierChart from '../Components/OutlierChart';
-
+import QuartileDisplay	 from '../Components/QuartileDisplay';
 interface dataCount {
   totalRows: number;
   totalCols: number;
@@ -22,11 +21,7 @@ interface outlierData {
   q3: number;
   max: number;
 }
-interface outlierChart {
-  data : outlierData[]
-  labels: string[]
 
-}
 
 const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false);
@@ -43,11 +38,7 @@ const Generate: React.FC = () => {
     na_values: [],
     result: '',
   });
-const [outlierData, setOutlierData] = useState<outlierChart>({
-  data: [],  
-  labels: [],
-})
- 
+
   
 
   const handleFileName = () => {
@@ -108,8 +99,14 @@ const [outlierData, setOutlierData] = useState<outlierChart>({
           result: response.data.result,
         });
 
+        
+
         setLoading(false);
         setSuccess(true);
+      }
+
+      if(response.status == 500) {
+        alert("Something is wrong with the dataset");
       }
     } catch (error: any) {
       if (error.response) {
@@ -120,6 +117,7 @@ const [outlierData, setOutlierData] = useState<outlierChart>({
           setEmptyError(data.Empty);
         }
       }
+
     }
   };
 
@@ -127,7 +125,7 @@ const [outlierData, setOutlierData] = useState<outlierChart>({
 
   return (
     <section className='w-full min-h-screen bg-darkbg pt-4 flex flex-col items-center justify-center'>
-      <div className='flex-col flex items-center justify-center border-1 bg-formcolor p-4 rounded-lg shadow-lg mb-20'>
+      <div className='flex-col flex items-center justify-center border-1 bg-loginbg p-4 rounded-lg shadow-lg mb-20'>
         <h2 className='pr-9 text-2xl text-cyan-500 font-bold'>Import your Dataset Here</h2>
         <div className='flex flex-row pr-28 pl-2 mt-1'>
           <p className='mr-2 text-darktext2'>Accepted Formats: .csv & .xlsx</p>
@@ -200,11 +198,11 @@ const [outlierData, setOutlierData] = useState<outlierChart>({
         )}
         {success && (
           <div className='flex flex-col md:flex-row w-auto h-auto mb-4'>
-            <div className='flex flex-row items-center mb-2 justify-center mr-10 border-1 bg-formcolor w-[300px] h-[150px] p-6 rounded-lg shadow-lg'>
+            <div className='flex flex-row items-center mb-2 justify-center mr-10 border-1 bg-loginbg w-[300px] h-[150px] p-6 rounded-lg shadow-lg'>
               <h1 className='text-cyan-500 mr-1'>Total number of rows:</h1>
               <h1 className='text-slate-200'>{dataDetails.totalRows}</h1>
             </div>
-            <div className='flex flex-row items-center justify-center border-1 bg-formcolor p-6 rounded-lg shadow-lg w-[300px] h-[150px]'>
+            <div className='flex flex-row items-center justify-center border-1 bg-loginbg p-6 rounded-lg shadow-lg w-[300px] h-[150px]'>
               <h1 className='text-cyan-500 mr-1 '>Total number of columns:</h1>
               <h1 className='text-slate-200'>{dataDetails.totalCols}</h1>
             </div>
@@ -212,24 +210,19 @@ const [outlierData, setOutlierData] = useState<outlierChart>({
         )}
         <div className='pr-10 justify-center items-center lg:p-10'>
           {success && (
-            <div className='md:w-[600px] md:h-[400px] sm:w-[500px] sm:h-[350px] w-[400px] h-[300px] mb-4 p-4 flex items-center justify-center bg-formcolor rounded-lg shadow-lg'>
+            <div className='md:w-[600px] md:h-[400px] sm:w-[500px] sm:h-[350px] w-[400px] h-[300px] mb-4 p-4 flex items-center justify-center bg-loginbg rounded-lg shadow-lg'>
               <NullChart data={dataDetails.na_values} labels={dataDetails.columns} />
             </div>
             
           )}
         </div>
-        {success && (
-          <div className='pr-10 justify-center items-center lg:p-10'>
-           <div className='md:w-[600px] md:h-[400px] sm:w-[500px] sm:h-[350px] w-[400px] h-[300px] mb-4 p-4 flex items-center justify-center bg-formcolor rounded-lg shadow-lg'>
-             <OutlierChart data={outlierData.data} labels={outlierData.labels} />
-           </div>    
-       </div>
-        )}
        
-        
+       
+  
         {success && (
           <DataOverview result={dataDetails.result} />
         )}
+       
       </div>
     </section>
   );
