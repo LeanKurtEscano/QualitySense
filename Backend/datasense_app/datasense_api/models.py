@@ -19,3 +19,15 @@ class UserResults(models.Model):
 
     def __str__(self):
         return f"Result for {self.file_name} by {self.user}"
+    
+class UserData(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE )
+    file_name = models.CharField(max_length=455)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=255)
+    total_rows= models.IntegerField(default=0)
+    total_columns  = models.IntegerField(default=0)
+      
+   
+    
+    

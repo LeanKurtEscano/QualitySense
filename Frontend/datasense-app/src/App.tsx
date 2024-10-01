@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { MyProvider, useMyContext } from './Components/MyContext'; // Import the context here
+import { MyProvider, useMyContext } from './Components/MyContext';
 import Generate from './Sections/Generate';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
@@ -10,6 +10,8 @@ import Footer from './Components/Footer';
 import Home from './Sections/Home';
 import { auth, refreshUserToken } from './Api/Api';
 import Features from './Components/Features';
+import Activity from './Sections/Activity';
+
 function App() {
   return (
     <MyProvider>
@@ -40,7 +42,10 @@ const Main: React.FC = () => {
             <Login />
           </section>
         } />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="activity" element={<Activity />}/>
+        </Route>
+     
         <Route path='/signup' element={
           <section className='w-full h-screen flex justify-center items-center'>
             <Signup />

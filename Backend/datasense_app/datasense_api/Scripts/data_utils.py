@@ -132,7 +132,6 @@ def promp_to_ai(prompt):
 
 
     result = response.text
-    print(result)
     return result
    
 

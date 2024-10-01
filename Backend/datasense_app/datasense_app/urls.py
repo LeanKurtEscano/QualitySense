@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('datasense_api.urls')),
+    path('dashboard-api/',include('dashboard_api.urls')),
 ]

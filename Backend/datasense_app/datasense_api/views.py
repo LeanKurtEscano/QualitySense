@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate,logout
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
-from .models import UserResults
+from .models import UserResults,UserData
 from rest_framework.decorators import api_view, permission_classes,parser_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
@@ -17,35 +17,55 @@ from .Scripts.data_utils import dataset_overview
 @parser_classes([MultiPartParser, FormParser])
 def upload_file(request):
     uploaded_file = request.FILES.get('file')
-  
-    
+
+    # Check if the file is valid
+    if uploaded_file is None:
+        return Response({"error": "Please provide a file"}, status=400)
+
     if not uploaded_file.name.endswith(('.csv', '.xlsx')):
         return Response({"error": "Invalid file type."}, status=400)
     
-    if uploaded_file is not None:
-       file_name = uploaded_file.name  
-    else:
-       return Response({"Empty": "Please put a file"}, status=400)
-    serializer = UserFileSerializer(data = request.data)
-    
-    if serializer.is_valid():
-        total_rows, total_columns,file_columns,null_count,result = dataset_overview(uploaded_file)
+    file_name = uploaded_file.name
 
-        user_results = UserResults.objects.create(user=request.user, file_name = file_name, result = result)
-       
-        serializer.save(user=request.user) 
-        return Response({
-        "success": "File successfully uploaded",
-        "total_rows": total_rows,
-        "total_columns": total_columns,
-        "columns": file_columns,
-        "na_values": null_count,  
-        "result": result,
-    }, status=201)
-        
+    serializer = UserFileSerializer(data=request.data)
+
+    if serializer.is_valid():
+        try:
+           
+            total_rows, total_columns, file_columns, null_count, result = dataset_overview(uploaded_file)
+
+            user_results = UserResults.objects.create(user=request.user, file_name=file_name, result=result)
+            user_data = UserData.objects.create(
+                user=request.user,
+                file_name=file_name,
+                status="Success",
+                total_rows=total_rows,
+                total_columns=total_columns
+            )
+            serializer.save(user=request.user)
+
+            return Response({
+                "success": "File successfully uploaded",
+                "total_rows": total_rows,
+                "total_columns": total_columns,
+                "columns": file_columns,
+                "na_values": null_count,
+                "result": result,
+            }, status=201)
+
+        except Exception as e:
+     
+            user_data = UserData.objects.create(
+                user=request.user,
+                file_name=file_name,
+                status="Failed",
+                total_rows=0,  
+                total_columns=0
+            )
+            return Response({"error": str(e)}, status=500)
     
-    return Response(serializer.errors, status=400)    
-   
+    return Response(serializer.errors, status=400)
+
 
 
 
