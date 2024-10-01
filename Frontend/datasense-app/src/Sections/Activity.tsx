@@ -14,9 +14,9 @@ const Activity = () => {
 
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [userData, setUserData] = useState<UserData[]>([]);
-    const [totalPages, setTotalPages] = useState<number>(1);
-    const itemsPerPage = 10
-  
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [totalItems , setTotalItems] = useState<number>(0);
+   
 
     const getUserData = async () => {
         const UserToken = localStorage.getItem('access_token');
@@ -28,9 +28,11 @@ const Activity = () => {
             });
 
             if (response.status === 200) {
-                setUserData(response.data);
-                setTotalPages(totalPages + 1); 
-                console.log(totalPages);
+                setUserData(response.data.data);
+                setTotalPages(response.data.totalPages);
+                setTotalItems(response.data.totalItems);
+                
+               
             }
         } catch {
             alert("Something Went Wrong.");
