@@ -11,7 +11,7 @@ const DataSources = () => {
           Discover and utilize these datasets within DataGuard to  assess your data quality for machine learning and data science projects.
         </p>
       </div>
-      <div className='flex w-[1000px] h-auto p-4 pl-24 justify-center items-center flex-wrap'>
+      <div className='flex w-[1000px] h-auto p-4 pl-28 justify-center items-center flex-wrap'>
         {cardItems.map((item) => (
           <SourcesCard text={item.text} desc={item.desc} url={item.url} />
         ))}

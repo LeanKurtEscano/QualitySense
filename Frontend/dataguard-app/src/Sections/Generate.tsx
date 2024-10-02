@@ -5,7 +5,8 @@ import axios from 'axios';
 import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import { useMyContext } from '../Components/MyContext';
-import QuartileDisplay	 from '../Components/QuartileDisplay';
+import GenerateLogin from '../Components/GenerateLogin';
+
 interface dataCount {
   totalRows: number;
   totalCols: number;
@@ -14,13 +15,6 @@ interface dataCount {
   result: string;
 }
 
-interface outlierData {
-  min: number;
-  q1: number;
-  median: number;
-  q3: number;
-  max: number;
-}
 
 
 const Generate: React.FC = () => {
@@ -30,6 +24,7 @@ const Generate: React.FC = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
   const { isAuthenticated } = useMyContext();
   const [dataDetails, setDataDetails] = useState<dataCount>({
     totalRows: 0,
@@ -39,7 +34,12 @@ const Generate: React.FC = () => {
     result: '',
   });
 
-  
+  const loginToGenerate = () => {
+    setShowLogin(!showLogin);
+
+  }
+
+
 
   const handleFileName = () => {
     const file = fileInputRef.current?.files?.[0];
@@ -99,13 +99,13 @@ const Generate: React.FC = () => {
           result: response.data.result,
         });
 
-        
+
 
         setLoading(false);
         setSuccess(true);
       }
 
-      if(response.status == 500) {
+      if (response.status == 500) {
         alert("Something is wrong with the dataset");
       }
     } catch (error: any) {
@@ -130,7 +130,8 @@ const Generate: React.FC = () => {
         <div className='flex flex-row pr-28 pl-2 mt-1'>
           <p className='mr-2 text-darktext2'>Accepted Formats: .csv & .xlsx</p>
         </div>
-        <div className="flex items-center   justify-center pt-4 mb-1 w-80">
+        {isAuthenticated ? (
+          <div className="flex items-center   justify-center pt-4 mb-1 w-80">
           <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center hover:bg-formhover transition w-full">
             <FontAwesomeIcon icon={faCloud} className=' mr-2 text-cyan-400 text-base' />
             <p className={`${fileName ? 'hidden' : ''} text-darktext2 text-center`}>Browse Files to Upload</p>
@@ -148,6 +149,19 @@ const Generate: React.FC = () => {
             disabled={disable}
           />
         </div>
+       ) : (
+          <div onClick={loginToGenerate} className="flex items-center   justify-center pt-4 mb-1 w-80">
+            <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center hover:bg-formhover transition w-full">
+              <FontAwesomeIcon icon={faCloud} className=' mr-2 text-cyan-400 text-base' />
+              <p className={`${fileName ? 'hidden' : ''} text-darktext2 text-center`}>Browse Files to Upload</p>
+              {fileName && <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>}
+              {fileName && <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />}
+            </label>
+
+          </div>
+
+        )}
+
         {emptyError && (
           <p className='text-red-600 pr-6'>{emptyError}</p>
         )}
@@ -196,6 +210,13 @@ const Generate: React.FC = () => {
             </p>
           </div>
         )}
+
+        {showLogin && !isAuthenticated &&(
+          
+            <GenerateLogin setShowLogin={setShowLogin}/>
+          
+          
+        )}
         {success && (
           <div className='flex flex-col md:flex-row w-auto h-auto mb-4'>
             <div className='flex flex-row items-center mb-2 justify-center mr-10 border-1 bg-loginbg w-[300px] h-[150px] p-6 rounded-lg shadow-lg'>
@@ -213,16 +234,16 @@ const Generate: React.FC = () => {
             <div className='md:w-[600px] md:h-[400px] sm:w-[500px] sm:h-[350px] w-[400px] h-[300px] mb-4 p-4 flex items-center justify-center bg-loginbg rounded-lg shadow-lg'>
               <NullChart data={dataDetails.na_values} labels={dataDetails.columns} />
             </div>
-            
+
           )}
         </div>
-       
-       
-  
+
+
+
         {success && (
           <DataOverview result={dataDetails.result} />
         )}
-       
+
       </div>
     </section>
   );

@@ -83,9 +83,9 @@ const Signup: React.FC = () => {
         <h2 className='text-2xl font-semibold text-center  text-cyan-500  mb-1'>Sign up</h2>
         <div className='flex items-center justify-center flex-row'>
           <p className='text-center text-slate-300 mr-1'>or </p>
-          <Link to='/login'>
+          <Link to='/'>
             <p className='text-center text-cyan-500 font-semibold hover:underline decoration-cyan-500'>
-              sign in to your account
+              Login in to your account
             </p>
           </Link>
         </div>

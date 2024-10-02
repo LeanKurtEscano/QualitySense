@@ -78,7 +78,7 @@ const Login: React.FC = () => {
           <img src={logo} alt='Logo' className='h-10' />
         </div>
         <h2 className='text-2xl font-semibold text-center text-cyan-500'>
-          Sign in
+          Log in
         </h2>
         <div className='flex items-center justify-center flex-row mb-2'>
           <p className='text-center text-slate-300 mr-1'>or </p>
@@ -148,7 +148,7 @@ const Login: React.FC = () => {
                 loading
               </>
             ) : (
-              'Sign in'
+              'Log in'
             )}
           </button>
         </form>
