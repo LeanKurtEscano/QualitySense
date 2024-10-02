@@ -14,7 +14,7 @@ const Features = () => {
         <div className='md:w-[700px] w-[300px] mb-8'>
           <p className='text-darktext3'>DataSense combines the intelligence of AI
             with advanced data validation capabilities. Effortlessly detect data quality issues,
-            validate categorical values, and receive real-time AI-driven
+            validate categorical values, and receive real-time AI
             suggestions for smarter, more accurate decisions.</p>
         </div>
 

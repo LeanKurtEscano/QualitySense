@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
 import { auth, refreshUserToken } from './Api/Api';
+import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
 import DataSources from './Sections/DataSources';
@@ -69,6 +70,7 @@ const Main: React.FC = () => {
 
           <section className='h-auto'>
             <Home />
+            <VideoSection />
             <Features />
             <Footer />
 
