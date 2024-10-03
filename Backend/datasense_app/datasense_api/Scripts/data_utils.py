@@ -101,7 +101,6 @@ def generate_prompt(df):
     outlier_prompt
     )
     
-    print(final_prompt)
     return final_prompt
 
 def promp_to_ai(prompt):

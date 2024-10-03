@@ -6,7 +6,7 @@ import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import { useMyContext } from '../Components/MyContext';
 import GenerateLogin from '../Components/GenerateLogin';
-
+import PdfDownloadButton from '../Components/PdfDownload';
 interface dataCount {
   totalRows: number;
   totalCols: number;
@@ -19,7 +19,7 @@ interface dataCount {
 
 const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string>('');
   const [emptyError, setEmptyError] = useState<string | null>(null);
   const [loading, setLoading] = useState<Boolean>(false);
   const [success, setSuccess] = useState(false);
@@ -48,14 +48,14 @@ const Generate: React.FC = () => {
       setEmptyError(null);
       setDisable(false);
     } else {
-      setFileName(null);
+      setFileName('');
       setDisable(true);
     }
   };
 
   const removeFile = () => {
     setDisable(true);
-    setFileName(null);
+    setFileName('');
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -192,6 +192,7 @@ const Generate: React.FC = () => {
 
 
         </div>
+       
       </div>
       <div className='flex flex-col items-center justify-center flex-grow'>
         {loading && (
@@ -241,7 +242,7 @@ const Generate: React.FC = () => {
 
 
         {success && (
-          <DataOverview result={dataDetails.result} />
+          <DataOverview result={dataDetails.result} dataDetails={dataDetails.result} fileName={fileName} />
         )}
 
       </div>
