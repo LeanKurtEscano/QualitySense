@@ -6,7 +6,7 @@ import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import { useMyContext } from '../Components/MyContext';
 import GenerateLogin from '../Components/GenerateLogin';
-import PdfDownloadButton from '../Components/PdfDownload';
+
 interface dataCount {
   totalRows: number;
   totalCols: number;
@@ -125,20 +125,34 @@ const Generate: React.FC = () => {
 
   return (
     <section className='w-full min-h-screen bg-darkbg pt-4 flex flex-col items-center justify-center'>
-      <div className='flex-col flex items-center justify-center border-1 bg-loginbg p-4 rounded-lg shadow-lg mb-20'>
-        <h2 className='pr-9 text-2xl text-cyan-500 font-bold'>Import your Dataset Here</h2>
-        <div className='flex flex-row pr-28 pl-2 mt-1'>
-          <p className='mr-2 text-darktext2'>Accepted Formats: .csv & .xlsx</p>
-        </div>
+      <div className='flex-col flex   bg-darkbg p-4 rounded-lg shadow-lg mb-20'>
+      <h2 className="pr-9 text-4xl text-cyan-500 mb-3 font-bold">Import your Dataset Here</h2>
+                <div className="flex flex-wrap w-[550px]">
+                    <p className="text-darktext2">
+                        AI-powered Data Quality Checker will automatically detect and suggest improvements for data issues such as missing values, outliers, and potential errors.
+                    </p>
+                </div>
         {isAuthenticated ? (
-          <div className="flex items-center   justify-center pt-4 mb-1 w-80">
-          <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center hover:bg-formhover transition w-full">
-            <FontAwesomeIcon icon={faCloud} className=' mr-2 text-cyan-400 text-base' />
-            <p className={`${fileName ? 'hidden' : ''} text-darktext2 text-center`}>Browse Files to Upload</p>
-
-            {fileName && <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>}
-            {fileName && <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />}
+        <div className='flex items-center justify-center'>
+        <div className="flex items-center justify-center pt-4 mb-1">
+          <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center hover:bg-formhover transition w-[550px] h-48 ">
+            <FontAwesomeIcon icon={faCloud} className='mr-2 text-cyan-400 text-base' />
+            
+            {!fileName && (
+              <div className="pt-2 text-center">
+                <p className="text-darktext2">Browse Files to Upload</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Accepted Formats: .csv & .xlsx</p>
+              </div>
+            )}
+      
+            {fileName && (
+              <>
+                <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>
+                <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />
+              </>
+            )}
           </label>
+          
           <input
             id="file-upload"
             ref={fileInputRef}
@@ -149,15 +163,20 @@ const Generate: React.FC = () => {
             disabled={disable}
           />
         </div>
+      </div>
+      
        ) : (
-          <div onClick={loginToGenerate} className="flex items-center   justify-center pt-4 mb-1 w-80">
-            <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center hover:bg-formhover transition w-full">
+        <div className='flex items-center justify-center'>
+          <div onClick={loginToGenerate} className="flex items-center   justify-center pt-4 mb-1 ">
+            <label htmlFor="file-upload" className="cursor-pointer border-2 border-dashed border-cyan-400 text-white rounded-md p-4 flex items-center justify-center w-[550px] h-48 hover:bg-formhover transition ">
               <FontAwesomeIcon icon={faCloud} className=' mr-2 text-cyan-400 text-base' />
-              <p className={`${fileName ? 'hidden' : ''} text-darktext2 text-center`}>Browse Files to Upload</p>
-              {fileName && <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>}
-              {fileName && <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />}
+              <div className="pt-2 text-center">
+                <p className="text-darktext2">Browse Files to Upload</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Accepted Formats: .csv & .xlsx</p>
+              </div>
             </label>
 
+          </div>
           </div>
 
         )}
@@ -165,7 +184,7 @@ const Generate: React.FC = () => {
         {emptyError && (
           <p className='text-red-600 pr-6'>{emptyError}</p>
         )}
-        <div>
+        <div className='flex items-center justify-center'>
           <button
             onClick={sendFile}
             className={`flex items-center justify-center p-2 pr-5 pl-5 mt-2 text-white  transition duration-300 ${isButtonDisabled ? 'bg-formhover cursor-not-allowed' : 'bg-gradient-to-r from-cyan-500 to-blue-500'} w-48 `} // Set a fixed width
@@ -246,6 +265,7 @@ const Generate: React.FC = () => {
         )}
 
       </div>
+      
     </section>
   );
 };

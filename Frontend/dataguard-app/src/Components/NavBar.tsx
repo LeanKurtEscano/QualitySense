@@ -49,7 +49,7 @@ const Navbar = () => {
             <div className='mr-8 absolute left-24'>
                 <Link to='/home'>
                     <img
-                        className="w-10 cursor-pointer"
+                        className="w-10 h-9 cursor-pointer"
                         src={logo}
                         alt="Logo"
                     />

@@ -38,7 +38,7 @@ const UserTable: React.FC<UserDataArray> = ({data}) => {
                 <tbody>
                     {data.map((item, index) => (
                         <tr key={index} className="bg-white border-b dark:bg-loginbg dark:border-gray-800">
-                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs dark:text-white">
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  overflow-hidden text-ellipsis max-w-60 dark:text-white">
                                 {item.file_name}
                             </th>
                             <td className="px-6 py-4">
