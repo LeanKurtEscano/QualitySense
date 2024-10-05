@@ -77,8 +77,9 @@ const Main: React.FC = () => {
 
           </section>
         } />
+        </Routes>
        
-      
+   
     </main>
   );
 }

@@ -9,7 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from .serializers import UserFileSerializer
 from .Scripts.data_utils import dataset_overview
-
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 # Create your views here.
 @api_view(["POST"])
@@ -23,7 +24,7 @@ def upload_file(request):
         return Response({"error": "Please provide a file"}, status=400)
 
     if not uploaded_file.name.endswith(('.csv', '.xlsx')):
-        return Response({"error": "Invalid file type."}, status=400)
+        return Response({"Invalid": "Invalid file type."}, status=400)
     
     file_name = uploaded_file.name
 
@@ -137,4 +138,20 @@ def signup(request):
 def log_out(request):
     logout(request)
     return Response({'Success': 'Logged out successfully'},status=200)
+
+@api_view(["POST"])
+def google_login(request):
     
+    token = request.data.get('token')
+    try:
+        CLIENT_ID =''  
+        id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+        print(id_info)
+       
+        
+        
+        return Response({"Success": "Successfully sign in with google"}, status=200)
+
+    except Exception:
+        
+        return Response({"error": "Invalid token."}, status=400)
