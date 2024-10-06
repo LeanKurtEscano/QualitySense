@@ -8,5 +8,5 @@ urlpatterns = [
     path('signup/', views.signup, name = 'signup'),
     path('login/', views.login, name = 'login'),
     path('logout/', views.log_out, name= 'logout'),
-    path('google-signin/',views.google_login, name='google_login')
+    path('google-signin/',views.google_signin, name='google_login')
 ]

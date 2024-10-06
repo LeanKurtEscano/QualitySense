@@ -78,10 +78,8 @@ export const auth = async() => {
 
         if (tokenExpiration < now) {
             await refreshUserToken();
-        } else {
-           console.log("Failed to refresh Token");
-
-        }
+        } 
+            
 
         return true
     

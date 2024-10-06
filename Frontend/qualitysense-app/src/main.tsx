@@ -7,7 +7,7 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId='664429121212-bht17lrm8vaj4m7avd9nmtgs78e22n0a.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId='664429121212-ca76movfvnte69rh93f1urarkf2s6fmt.apps.googleusercontent.com'>
     <BrowserRouter>
       <App />
     </BrowserRouter>

@@ -16,7 +16,7 @@ const Home = () => {
 
       <div className='flex flex-row z-10 relative'>
         <h1 className='text-slate-200 md:text-6xl text-2xl font-bold mr-2'>Welcome to</h1>
-        <h1 className='bg-gradient-to-br md:text-6xl text-2xl from-cyan-500 to-blue-500 bg-clip-text text-transparent font-bold'>DataGuard</h1>
+        <h1 className='bg-gradient-to-br md:text-6xl text-2xl from-cyan-500 to-blue-500 bg-clip-text text-transparent font-bold'>QualitySense</h1>
       </div>
 
       <div className='md:w-[700px] w-[380px] items-center mt-4 mb-4 z-10 relative'>

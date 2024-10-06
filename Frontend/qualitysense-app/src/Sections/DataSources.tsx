@@ -8,7 +8,7 @@ const DataSources = () => {
       <div className='pl-40 flex-wrap w-[1000px]'>
         <h1 className='text-slate-200 font-bold text-4xl'>Explore a wide range of datasets for machine learning and data science projects</h1>
         <p className='text-slate-300 text-md mt-4'>
-          Discover and utilize these datasets within DataGuard to  assess your data quality for machine learning and data science projects.
+          Discover and utilize these datasets within QualitySense to  assess your data quality for machine learning and data science projects.
         </p>
       </div>
       <div className='flex w-[1000px] h-auto p-4 pl-28 justify-center items-center flex-wrap'>
