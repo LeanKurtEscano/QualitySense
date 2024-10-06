@@ -148,7 +148,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 def google_signin(request):
     code = request.data.get('code') 
     
-
     if not code:
         return Response({"error": "Authorization code is required"}, status=400)
 
@@ -172,8 +171,6 @@ def google_signin(request):
     if token_response.status_code != 200:
         return Response({"error": "Failed to obtain access token"}, status=token_response.status_code)
 
-       
-
     # Step 2: Verify the ID token
     try:
         token_info = token_response.json()
@@ -196,7 +193,7 @@ def google_signin(request):
 
         user, created = User.objects.get_or_create(email=email, defaults={'username': username})
 
-        # Generate tokens 
+        #Step 3: Generate tokens 
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)

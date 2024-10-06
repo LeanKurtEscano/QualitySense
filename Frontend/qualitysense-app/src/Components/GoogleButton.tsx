@@ -10,7 +10,7 @@ const GoogleButton: React.FC = () => {
 
     const handleSuccess = (response: any) => {
         const code = response.code;
-        console.log(code)
+     
         handleGoogleLogin(code);
     };
 
@@ -29,11 +29,11 @@ const GoogleButton: React.FC = () => {
                 },
             });
 
-            // Make sure your backend sends the correct field names
+           
             if (response.data.Success) {
                 setIsAuthenticated(true);
-                const accessToken = response.data.access_token; // Ensure your backend sends this
-                const refreshToken = response.data.refresh_token; // Ensure your backend sends this
+                const accessToken = response.data.access_token; 
+                const refreshToken = response.data.refresh_token; 
                 localStorage.setItem('access_token', accessToken);
                 localStorage.setItem('refresh_token', refreshToken);
                 navigate('/generate');
@@ -47,7 +47,7 @@ const GoogleButton: React.FC = () => {
     return (
         <div className="flex justify-center">
             <button 
-                onClick={login} // Call login function directly
+                onClick={login} 
                 type="button" 
                 className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
             >

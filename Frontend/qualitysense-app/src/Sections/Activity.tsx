@@ -49,8 +49,8 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
     }, [pageNumber]); 
 
     return (
-        <section className='w-full flex min-h-screen justify-center pb-20 pt-20 pl-36 bg-darkbg'>
-            <div className='flex justify-center items-center flex-col'>
+        <section className='w-full  flex min-h-screen justify-center pb-20 pt-20 md:pl-36 pl-20 bg-darkbg'>
+            <div className='flex overflow-x-auto justify-center items-center flex-col'>
                 <UserTable data={userData} />
                 <Paginator pageNumber={pageNumber} totalPages={totalPages} setPageNumber={setPageNumber}/> 
             </div>
