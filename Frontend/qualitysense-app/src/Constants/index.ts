@@ -1,13 +1,14 @@
-import { faMagicWandSparkles, faHistory, faDatabase, faCalendarAlt, faChartLine, faInfoCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHistory, faDatabase, faCalendarAlt, faChartLine, faInfoCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt, faFileImport } from '@fortawesome/free-solid-svg-icons';
 export const menuItems = [
 
     { icon: faHistory, text: "Activity Logs", url: '/dashboard/activity' },
     { icon: faDatabase, text: "Data Sources", url: '/dashboard/data' },
     { icon: faCalendarAlt, text: "Calendar", url: '/dashboard/calendar' },
-    { icon: faChartLine, text: "Visualizations", url: '/dashboard/visualizations' },
+    { icon: faChartLine, text: "Response Logs", url: '/dashboard/response' },
     { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
-   /* { icon: faSignOutAlt, text: "Logout", url: '/' },*/ 
+    {icon: faSignOutAlt, text: "Logout"}
+   
 ];
 
 export const cardItems = [

@@ -85,14 +85,15 @@ WSGI_APPLICATION = 'datasense_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'datasense_new',
-        'USER': 'admin1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'qualitysense',
+        'USER': 'postgres',
         'PASSWORD': 'leankurt124*',
-        'HOST': 'localhost', 
-        'PORT': '3306',     
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 
 REST_FRAMEWORK = {

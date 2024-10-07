@@ -140,9 +140,7 @@ def log_out(request):
     logout(request)
     return Response({'Success': 'Logged out successfully'},status=200)
 
-import requests
-from google.auth.transport import requests as google_requests
-from rest_framework_simplejwt.tokens import RefreshToken
+
 
 @api_view(['POST'])
 def google_signin(request):

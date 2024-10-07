@@ -5,15 +5,18 @@ import axios from 'axios';
 
 interface isAuthenticated {
     isAuthenticated: boolean;
+
 }
+
+interface UserData {
+    file_name: string;
+    uploaded_at: string;
+    status: string;
+    total_rows: number;
+    total_columns: number;
+}
+
 const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
-    interface UserData {
-        file_name: string;
-        uploaded_at: string;
-        status: string;
-        total_rows: number;
-        total_columns: number;
-    }
 
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [userData, setUserData] = useState<UserData[]>([]);

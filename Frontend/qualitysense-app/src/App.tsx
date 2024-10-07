@@ -14,6 +14,7 @@ import Features from './Components/Features';
 import Activity from './Sections/Activity';
 import DataSources from './Sections/DataSources';
 import ProtectedRoutes from './Components/ProtectedRoutes';
+import ResponseLogs from './Sections/ResponseLogs';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ const Main: React.FC = () => {
           }
         >
           <Route path="activity" element={<Activity isAuthenticated={isAuthenticated} />} />
+          <Route path="response" element={<ResponseLogs />}/>
           <Route path="data" element={<DataSources />} />
         </Route>
 

@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
         }
       )
 
-      if(response.data.success){
+      if(response.data.Success){
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         setIsAuthenticated(false);
@@ -40,8 +40,11 @@ const Sidebar: React.FC = () => {
   }
 
   const handleMenuClick = (index: number) => {
-    setActiveIndex(index);
-
+    if (index === 5) {
+      logOut(); 
+    } else {
+      setActiveIndex(index); 
+    }
   };
 
   const showSideBar = () => {
