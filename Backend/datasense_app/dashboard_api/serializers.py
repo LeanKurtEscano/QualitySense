@@ -13,4 +13,4 @@ class UserResultsSerializer(serializers.ModelSerializer):
     generated_at = serializers.DateTimeField(format="%Y-%m-%d")
     class Meta:
         model = UserResults
-        fields = ['file_name','generated_at','result']
+        fields = ['id','file_name','generated_at','result']
