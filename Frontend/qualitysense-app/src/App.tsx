@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { MyProvider, useMyContext } from './Components/MyContext';
 import Generate from './Sections/Generate';
@@ -15,6 +15,7 @@ import Activity from './Sections/Activity';
 import DataSources from './Sections/DataSources';
 import ProtectedRoutes from './Components/ProtectedRoutes';
 import ResponseLogs from './Sections/ResponseLogs';
+import Help from './Sections/Help';
 
 function App() {
   return (
@@ -25,20 +26,34 @@ function App() {
 }
 
 const Main: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate(); 
   const { isAuthenticated, setIsAuthenticated } = useMyContext();
+
+  useEffect(() => { 
+    if (isAuthenticated) {
+      localStorage.setItem('currentPath', location.pathname);
+    }
+  }, [location, isAuthenticated]);
+
   useEffect(() => {
+    const storedPath = localStorage.getItem('currentPath');
     const checkUserAuth = async () => {
       const isAuthorized = await auth();
-      if (isAuthorized) {
-        setIsAuthenticated(true);
+      setIsAuthenticated(isAuthorized);
+
+      if (isAuthorized && storedPath) {
+        navigate(storedPath);
+      } else if (!isAuthorized) {
+        navigate('/'); 
       }
-    }
+    };
 
     checkUserAuth();
-  }, [setIsAuthenticated]);
+  }, [setIsAuthenticated, navigate]);
 
   return (
-    <main className='h-auto  flex flex-col'>
+    <main className='h-auto flex flex-col'>
       <NavBar />
       <Routes>
         <Route path='/' element={
@@ -55,8 +70,9 @@ const Main: React.FC = () => {
           }
         >
           <Route path="activity" element={<Activity isAuthenticated={isAuthenticated} />} />
-          <Route path="response" element={<ResponseLogs />}/>
+          <Route path="response" element={<ResponseLogs />} />
           <Route path="data" element={<DataSources />} />
+          <Route path = "help" element={<Help/>} />
         </Route>
 
         <Route path='/signup' element={
@@ -70,21 +86,16 @@ const Main: React.FC = () => {
           </section>
         } />
         <Route path='/home' element={
-
           <section className='h-auto'>
             <Home />
             <VideoSection />
             <Features />
             <Footer />
-
           </section>
         } />
-        </Routes>
-       
-   
+      </Routes>
     </main>
   );
 }
 
 export default App;
-

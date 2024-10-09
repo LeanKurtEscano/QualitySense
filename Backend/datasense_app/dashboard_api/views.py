@@ -39,7 +39,7 @@ def menu_items_list(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def get_generated(request):
+def generated_data(request):
     user = UserResults.objects.filter(user = request.user).order_by('-generated_at')
     page_number = request.query_params.get('page', default = 1)
     paginator = Paginator(user, per_page = 10)
@@ -53,3 +53,11 @@ def get_generated(request):
         'currentPage': page_data.number,  
         'totalPages': paginator.num_pages,  
     },status=status.HTTP_200_OK)    
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def delete_generated(request):
+    gen_id = request.data.get('id')
+    user = UserResults.objects.get(id=gen_id, user= request.user)
+    user.delete()
+    return Response({"Success": "Data Deleted"}, status=status.HTTP_200_OK)

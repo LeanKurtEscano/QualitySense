@@ -64,6 +64,7 @@ def upload_file(request):
                 total_rows=0,  
                 total_columns=0
             )
+            print(e)
             return Response({"error": str(e)}, status=500)
     
     return Response(serializer.errors, status=400)

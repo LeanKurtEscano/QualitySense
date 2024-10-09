@@ -21,7 +21,7 @@ const Home = () => {
 
       <div className='md:w-[700px] w-[380px] items-center mt-4 mb-4 z-10 relative'>
         <p className='text-slate-200 font-normal md:text-lg text-sm text-center'>
-          Effortlessly assess your datasets and uncover valuable insights with AI, helping you achieve smarter data-driven decisions.
+          Effortlessly assess your data quality and uncover valuable insights with AI, helping you achieve smarter data-driven decisions.
         </p>
       </div>
 

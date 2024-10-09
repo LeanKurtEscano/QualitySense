@@ -10,7 +10,7 @@ const api = axios.create({
     baseURL: "http://localhost:8000/api/login/",
 });
 
-const handleError = (error:any) => {
+const handleError = (error: any) => {
     if (error.response) {
         const { status } = error.response;
 
@@ -38,10 +38,10 @@ api.interceptors.response.use(
 
 
 
-export const refreshUserToken = async() => {
+export const refreshUserToken = async () => {
     const refreshToken = localStorage.getItem('refresh_token');
 
-    if(!refreshToken) {
+    if (!refreshToken) {
         return false;
     }
 
@@ -50,23 +50,23 @@ export const refreshUserToken = async() => {
             refresh: refreshToken
         })
 
-        if (response.status === 200) {         
+        if (response.status === 200) {
             localStorage.setItem('access_token', response.data.access);
             return true
         }
 
-    } catch(error) {
-    
+    } catch (error) {
+
         return false
     }
-    
+
 
 }
 
-export const auth = async() => {
+export const auth = async () => {
     const accessToken = localStorage.getItem('access_token');
 
-    if(!accessToken) {
+    if (!accessToken) {
         return false;
     }
 
@@ -78,19 +78,16 @@ export const auth = async() => {
 
         if (tokenExpiration < now) {
             await refreshUserToken();
-        } 
-            
+        }
+
 
         return true
-    
-    } catch(error) {
+
+    } catch (error) {
         return false;
     }
 }
 
-interface userData {
-    email: string,
-    password:string,
-}
+
 
 

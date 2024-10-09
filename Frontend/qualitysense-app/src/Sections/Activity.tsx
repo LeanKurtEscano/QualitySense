@@ -49,7 +49,7 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
         if(isAuthenticated){
             getUserData();
         }
-    }, [pageNumber]); 
+    }, [isAuthenticated,pageNumber]); 
 
     return (
         <section className='w-full  flex min-h-screen justify-center pb-20 pt-20 md:pl-36 pl-20 bg-darkbg'>
