@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Paginator from '../Components/Paginator';
 import axios from 'axios';
 import { useMyContext } from '../Components/MyContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { deleteGenerated } from '../Api/Axios';
-import { faTrash, faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { faTrash} from '@fortawesome/free-solid-svg-icons';
 import Download from '../Components/Download';
 import Paginator2 from '../Components/Paginator2';
 

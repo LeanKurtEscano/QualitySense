@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { MyProvider, useMyContext } from './Components/MyContext';
 import Generate from './Sections/Generate';
@@ -44,13 +44,20 @@ const Main: React.FC = () => {
 
       if (isAuthorized && storedPath) {
         navigate(storedPath);
-      } else if (!isAuthorized) {
-        navigate('/'); 
-      }
-    };
+      } 
 
+    };
     checkUserAuth();
   }, [setIsAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (location.pathname === '/dashboard') {
+      navigate('/dashboard/activity');
+    }
+  }, [location, navigate]);
+
+
+
 
   return (
     <main className='h-auto flex flex-col'>
@@ -62,17 +69,24 @@ const Main: React.FC = () => {
           </section>
         } />
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             <ProtectedRoutes isAuthenticated={isAuthenticated}>
               <Dashboard />
             </ProtectedRoutes>
           }
         >
+           <Route path="" element={<Navigate to="/dashboard/activity" replace />} />
           <Route path="activity" element={<Activity isAuthenticated={isAuthenticated} />} />
           <Route path="response" element={<ResponseLogs />} />
           <Route path="data" element={<DataSources />} />
-          <Route path = "help" element={<Help/>} />
+         
+          <Route path = "help" element={
+          <section>
+            <Help/>
+            <Footer/>
+          </section>
+            } />
         </Route>
 
         <Route path='/signup' element={
@@ -93,6 +107,13 @@ const Main: React.FC = () => {
             <Footer />
           </section>
         } />
+         <Route path='/help' element={
+          <section className='h-auto'>
+            <Help />
+            <Footer />
+          </section>
+        } />
+
       </Routes>
     </main>
   );

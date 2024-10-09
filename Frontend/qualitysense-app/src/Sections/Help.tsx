@@ -1,25 +1,39 @@
 import React from 'react'
+import { getStarted, dashboardSections } from '../Constants'
 
-const Help = () => {
+const Help: React.FC = () => {
   return (
-    <section className='w-full bg-darkbg flex flex-col items-center justify-start min-h-screen p-10'>
-    <h1 className='text-slate-200 text-3xl mb-6'>Help</h1>
-    
-    <div className='bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl'>
-        <h2 className='text-slate-200 text-2xl mb-4'>Getting Started</h2>
-        <p className='text-slate-300 mb-4'>Learn how to navigate our data quality assistant and make the most of its features.</p>
-        
-        <h3 className='text-slate-200 text-xl mt-4'>Importing Datasets</h3>
-        <p className='text-slate-300 mb-4'>Follow these steps to import your datasets...</p>
-        
-        <h3 className='text-slate-200 text-xl mt-4'>Generating Quality Reports</h3>
-        <p className='text-slate-300 mb-4'>To generate quality reports, simply...</p>
-      
-       
+    <section className='w-full min-h-screen h-auto bg-darkbg flex flex-col p-10'>
+    <div className='flex pl-72 h-auto w-full'>
+      <h1 className='text-slate-200 text-3xl font-bold mb-6'>Getting Started</h1>
     </div>
-</section>
-
     
+    <div className='mb-12'>
+      {getStarted.map((item, index) => (
+        <div className='pl-72 m-2 w-[800px]' key={index}>
+          <h1 className='text-slate-200 text-lg font-semibold mb-4'>{index + 1}. {item.title}</h1>
+          <p className='text-slate-200'>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  
+    <div>
+      <h1 className='text-slate-200 pl-72 text-3xl font-bold mb-6'>Dashboard</h1>
+      {dashboardSections.map((item, index) => (
+        <div className='flex flex-col m-1 mb-3' key={index}>
+          <div className='pl-72 m-2 w-[800px]'>
+            <h1 className='text-slate-200 text-lg font-semibold mb-4'>{index + 1}. {item.title}</h1>
+            <p className='text-slate-200'>{item.description}</p>
+          </div>
+          <div className='pl-12 flex justify-center'>
+            <img src={item.image} className='w-[600px] h-auto mt-4' alt={`Dashboard section ${index + 1}`} />
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  
+
   )
 }
 

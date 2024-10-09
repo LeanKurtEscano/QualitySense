@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.png'
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-gradient-to-t from-darkcyan to-teal-950 border  border-transparent ">
     <div className="mx-auto w-full max-w-screen-xl p-4 mb-6 py-6 lg:py-8">
@@ -14,10 +14,10 @@ const Footer = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                  <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                  <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Support</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="" className="hover:underline">Gemini</a>
+                          <a href="/help" className="hover:underline">Help</a>
                       </li>
                       <li>
                           <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>

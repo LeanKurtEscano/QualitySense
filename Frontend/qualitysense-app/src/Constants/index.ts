@@ -1,5 +1,9 @@
-import { faHistory, faDatabase, faCalendarAlt, faChartLine, faInfoCircle, faSignOutAlt, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt,faSignature,faList,faClipboardCheck, faFileImport } from '@fortawesome/free-solid-svg-icons';
+import { faHistory, faDatabase, faCalendarAlt, faInfoCircle, faSignOutAlt, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt, faFileImport } from '@fortawesome/free-solid-svg-icons';
+import activity from '../assets/activity.png';
+import data from '../assets/data.png';
+import report from '../assets/report.png';
+import Help from '../assets/Help.png';
 export const menuItems = [
 
     { icon: faHistory, text: "Activity Logs", url: '/dashboard/activity' },
@@ -9,6 +13,50 @@ export const menuItems = [
     { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
     {icon: faSignOutAlt, text: "Logout"}
    
+];
+
+
+
+export const getStarted = [
+  {
+      title: "Login with a Valid Email Address",
+      description: "To begin using the application, you must log in with a valid email address. You can use either your Gmail account or a custom registration to create your account."
+  },
+  {
+      title: "Navigating the Dashboard",
+      description: "After logging in, you'll be directed to the generate page where you can access various features. Familiarize yourself with the sidebar for easy navigation."
+  },
+  {
+      title: "Importing Datasets",
+      description: "You can import datasets directly into the application. Ensure your files are in the correct format to avoid errors during the import process. Accepted formats are CSV and Excel files only."
+  },
+  {
+      title: "Generating Data Quality Reports",
+      description: "Once your datasets are uploaded, you can generate quality reports. The AI will assess the quality of your data, check for possible errors in categorical values, column data types, and provide suggestions to address columns with null values and the count of detected outliers."
+  }
+]
+
+export const dashboardSections = [
+  {
+      title: "Activity Logs",
+      description: "This section displays a history of your actions within the app, such as the file uploaded, date and time of upload, status, and total columns and rows. Use this to track your progress and review past actions.",
+      image: activity
+  },
+  {
+      title: "Quality Reports",   
+      description: "This section contains cards for each dataset you've uploaded. Click on a card to view AI-generated reports, which contain the suggestions and checking of data. Users can also delete their generated data or download it as a PDF file.",
+      image: report
+  },
+  {
+      title: "Data Sources",
+      description: "Links to get datasets for machine learning and data science projects which you can access in QualitySense.",
+      image: data
+  },
+  {
+      title: "Help (This Page)",   
+      description:"User’s guide to QualitySense. This section provides comprehensive information about the various pages and features within the application. ",
+      image: Help
+   }
 ];
 
 export const cardItems = [

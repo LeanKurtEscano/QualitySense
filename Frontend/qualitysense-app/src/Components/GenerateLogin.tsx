@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash,faTimes } from '@fortawesome/free-solid-svg-icons';
 import GoogleButton from '../Components/GoogleButton';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
 import logo from '../assets/logo.png';
 import axios from 'axios';
@@ -18,8 +18,7 @@ const GenerateLogin: React.FC<ShowGenerateLogin> = ({setShowLogin}) => {
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const navigate = useNavigate();
-
+  
     const toggleIcon = () => {
         setShow(!show);
     };
