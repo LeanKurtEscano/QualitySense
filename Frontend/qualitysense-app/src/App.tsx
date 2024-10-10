@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
 import { auth } from './Api/Api';
+import Profile from './Sections/Profile';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -80,6 +81,7 @@ const Main: React.FC = () => {
           <Route path="activity" element={<Activity isAuthenticated={isAuthenticated} />} />
           <Route path="response" element={<ResponseLogs />} />
           <Route path="data" element={<DataSources />} />
+          <Route path="profile" element={<Profile />} />
          
           <Route path = "help" element={
           <section>

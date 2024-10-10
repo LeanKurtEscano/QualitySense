@@ -1,17 +1,48 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect } from 'react';
 import { menuItems } from '../Constants';
 import { Link } from 'react-router-dom';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
 import axios from 'axios';
+import { getUserDetails } from '../Api/Axios';
 
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [toggle, setToggle] = useState<boolean>(false);
   const navigate = useNavigate();
-  const {setIsAuthenticated} = useMyContext();
+  const { setIsAuthenticated } = useMyContext();
+
+  const { isAuthenticated, userDetails, setUserDetails } = useMyContext();
+
+  const toUserProfile = () => {
+    navigate('/dashboard/profile');
+    setActiveIndex(3);
+  }
+  const fetchDetails = async () => {
+    try {
+      const response = await getUserDetails();
+
+      if (response) {
+        console.log(response.data);
+        setUserDetails(response.data);
+      }
+
+    } catch (error) {
+      alert("Something went wrong");
+
+    }
+
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchDetails();
+    }
+
+  }, [])
 
   const logOut = async () => {
     const userToken = localStorage.getItem('access_token');
@@ -25,7 +56,7 @@ const Sidebar: React.FC = () => {
         }
       )
 
-      if(response.data.Success){
+      if (response.data.Success) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         setIsAuthenticated(false);
@@ -41,16 +72,16 @@ const Sidebar: React.FC = () => {
 
   const handleMenuClick = (index: number) => {
     if (index === 5) {
-      logOut(); 
+      logOut();
     } else {
-      setActiveIndex(index); 
+      setActiveIndex(index);
     }
   };
 
   const showSideBar = () => {
     setToggle(!toggle);
   };
-  
+
 
 
 
@@ -65,6 +96,20 @@ const Sidebar: React.FC = () => {
           <FontAwesomeIcon icon={toggle ? faBars : faTimes} className=' text-cyan-400' />
         </button>
       </div>
+      <div
+        onClick={toUserProfile}
+        className={`flex pt-3 cursor-pointer  items-center w-full justify-center ${toggle ? 'invisible h-0' : ''}`}
+      >
+        <div className='flex p-2 hover:bg-gray-800 rounded-lg flex-col items-center pt-5'>
+          <div className='flex pr-14'>
+            <p className='text-slate-200 text-xs'>{userDetails.username}</p>
+          </div>
+          <div>
+            <p className='text-gray-400 text-xs'>{userDetails.email}</p>
+          </div>
+        </div>
+      </div>
+
       <nav className='h-full flex flex-col justify-self-center p-4 items-center pt-20'>
         {menuItems.map((item, index) => (
           <div
@@ -72,16 +117,16 @@ const Sidebar: React.FC = () => {
             onClick={() => handleMenuClick(index)}
             className={`flex flex-row items-center w-full h-11 p-4 mb-3 transition-all duration-500 rounded-full 
               ${activeIndex === index ? 'bg-cyan-500 text-cyan-500' : 'hover:bg-cyan-500 hover:text-white group'}
-            ${toggle ? 'w-full h-11 pr-8':''}`}
+            ${toggle ? 'w-full h-11 pr-8' : ''}`}
           >
             <div className='mr-1 '>
-            <Link to = {item.url}>    
-               <FontAwesomeIcon
-                icon={item.icon}
-                className={`transition-colors duration-300 
+              <Link to={item.url}>
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  className={`transition-colors duration-300 
                   ${activeIndex === index ? 'text-white' : 'text-cyan-500 group-hover:text-white'}`}
-              />
-            </Link>
+                />
+              </Link>
             </div>
             <div className={`flex justify-center items-center w-full pr-5 overflow-hidden  
                ${toggle ? 'max-w-0 opacity-0' : 'max-w-full opacity-100 '}`}>

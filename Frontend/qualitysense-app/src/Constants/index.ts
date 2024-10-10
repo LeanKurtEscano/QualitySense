@@ -1,5 +1,5 @@
 import { faHistory, faDatabase, faCalendarAlt, faInfoCircle, faSignOutAlt, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt, faFileImport } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt,faUser, faFileImport } from '@fortawesome/free-solid-svg-icons';
 import activity from '../assets/activity.png';
 import data from '../assets/data.png';
 import report from '../assets/report.png';
@@ -9,7 +9,7 @@ export const menuItems = [
     { icon: faHistory, text: "Activity Logs", url: '/dashboard/activity' },
     { icon: faFileCircleCheck, text: "Quality Reports", url: '/dashboard/response' },
     { icon: faDatabase, text: "Data Sources", url: '/dashboard/data' },
-    { icon: faCalendarAlt, text: "Calendar", url: '/dashboard/calendar' },
+    { icon: faUser, text: "Profile", url: '/dashboard/profile' },
     { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
     {icon: faSignOutAlt, text: "Logout"}
    

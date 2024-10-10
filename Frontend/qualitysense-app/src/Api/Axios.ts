@@ -22,3 +22,25 @@ export const deleteGenerated = async (id: number): Promise<boolean> => {
 
 }
 
+
+export const getUserDetails = async() => {
+    const accessToken = localStorage.getItem("access_token");
+    const response = await axios.get("http://localhost:8000/dashboard-api/profile/",{
+       headers: {
+        'Authorization' : `Bearer ${accessToken}`
+       }
+    })
+
+    return response
+}
+
+export const deleteAccount = async() => {
+    const accessToken = localStorage.getItem("access_token");
+    const response = await axios.delete("http://localhost:8000/dashboard-api/account/",{
+       headers: {
+        'Authorization' : `Bearer ${accessToken}`
+       }
+    })
+
+    return response
+}
