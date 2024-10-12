@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Features from '../Components/Features';
-const Home = () => {
+
+const Home:React.FC = () => {
   const navigate = useNavigate();
 
   const goToGenerate = () => {

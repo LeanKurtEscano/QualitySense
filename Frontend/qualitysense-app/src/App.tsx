@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import {  Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { MyProvider, useMyContext } from './Components/MyContext';
 import Generate from './Sections/Generate';
+import OTP from './Sections/OTP';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
 import Signup from './Sections/Signup';
@@ -9,7 +10,6 @@ import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
 import { auth } from './Api/Api';
-import Profile from './Sections/Profile';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -17,7 +17,7 @@ import DataSources from './Sections/DataSources';
 import ProtectedRoutes from './Components/ProtectedRoutes';
 import ResponseLogs from './Sections/ResponseLogs';
 import Help from './Sections/Help';
-
+import Profile from './Sections/Profile';
 function App() {
   return (
     <MyProvider>
@@ -82,6 +82,7 @@ const Main: React.FC = () => {
           <Route path="response" element={<ResponseLogs />} />
           <Route path="data" element={<DataSources />} />
           <Route path="profile" element={<Profile />} />
+
          
           <Route path = "help" element={
           <section>
@@ -115,6 +116,11 @@ const Main: React.FC = () => {
             <Footer />
           </section>
         } />
+        <Route path='/auth' element={
+          <OTP/>
+        } />
+
+        
 
       </Routes>
     </main>

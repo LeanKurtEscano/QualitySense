@@ -10,7 +10,6 @@ const GoogleButton: React.FC = () => {
 
     const handleSuccess = (response: any) => {
         const code = response.code;
-     
         handleGoogleLogin(code);
     };
 

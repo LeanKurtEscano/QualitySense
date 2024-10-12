@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import GoogleButton from '../Components/GoogleButton';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+
 const Signup: React.FC = () => {
   const [confirmEye, setConfirmEye] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,20 +21,80 @@ const Signup: React.FC = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
+  const validateName = () => {
+    const specialCharacterRegex = /[^a-zA-Z0-9]/;
+    if (username.length < 4) {
+      setNameError("Username should be a minimum of 4 characters");
+      return false;
+    } else if (username.length > 20) {
+      setNameError("Username should not exceed 20 characters");
+      return false;
+    } else if (specialCharacterRegex.test(username)) {
+      setNameError("Username should not contain special characters");
+      return false;
+    } else {
+      setNameError("");
+      return true;
+    }
+  };
+
+  const validateEmail = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|[a-z]{2,})$/;
+
+    if (!emailRegex.test(email)) {
+      setEmailError("Invalid email format");
+      return false;
+    } else {
+      setEmailError("");
+      return true;
+    }
+  };
+
+  const validatePassword = () => {
+    if (password.length < 6) {
+      setPasswordError("Password should be a minimum of 6 characters");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  };
+
+  const validateConfirmPassword = () => {
+    if (password !== confirm) {
+      setPasswordError("Passwords do not match");
+      return false;
+    } else {
+      setPasswordError('');
+      return true;
+    }
+  };
+
   const toggleIcon = () => {
     setShow(!show);
   };
 
   const toggleConfirm = () => {
     setConfirmEye(!confirmEye);
-  }
+  };
 
   const signupSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     setNameError("");
     setEmailError("");
     setPasswordError("");
     setLoading(true);
+
+    const isValidName = validateName();
+    const isValidEmail = validateEmail();
+    const isValidPassword = validatePassword();
+    const isValidConfirmPassword = validateConfirmPassword();
+
+    // Fixing the logical condition to check all validations
+    if (!isValidName || !isValidEmail || !isValidPassword || !isValidConfirmPassword) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post("http://localhost:8000/api/signup/", {
@@ -45,7 +106,7 @@ const Signup: React.FC = () => {
         headers: {
           'Content-Type': 'application/json'
         }
-      })
+      });
 
       if (response.data.Success) {
         navigate('/');
@@ -53,7 +114,7 @@ const Signup: React.FC = () => {
       }
 
     } catch (error: any) {
-      setLoading(false)
+      setLoading(false);
       if (error.response) {
         const { data } = error.response;
         if (data.User) {
@@ -72,7 +133,7 @@ const Signup: React.FC = () => {
         }
       }
     }
-  }
+  };
 
   return (
     <section className='h-auto w-full flex justify-center bg-darkbg items-center mt-40 pt-9 '>
@@ -85,7 +146,7 @@ const Signup: React.FC = () => {
           <p className='text-center text-slate-300 mr-1'>or </p>
           <Link to='/'>
             <p className='text-center text-cyan-500 font-semibold hover:underline decoration-cyan-500'>
-              Login in to your account
+              Login to your account
             </p>
           </Link>
         </div>
@@ -117,6 +178,7 @@ const Signup: React.FC = () => {
               className='bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 w-full'
               placeholder='Enter your email'
               autoComplete='off'
+              required
             />
             {emailError && (
               <div className=''>
@@ -141,7 +203,7 @@ const Signup: React.FC = () => {
               style={{ cursor: 'pointer' }}
             />
           </div>
-          <div className='mb-3 relative'>
+          <div className='mb-1 relative'>
             <label htmlFor='confirmPassword' className='block text-slate-300 mb-2'>Confirm Password:</label>
             <input
               value={confirm}
@@ -159,13 +221,13 @@ const Signup: React.FC = () => {
             />
           </div>
           {passwordError && (
-            <div className=''>
+            <div className='mb-2'>
               <p className='text-red-600'>{passwordError}</p>
             </div>
           )}
           <button
             type='submit'
-            className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded p-2 hover:bg-blue-600 transition duration-300 flex justify-center items-center'
+            className='bg-gradient-to-r mt-4 from-cyan-500 to-blue-500 text-white rounded p-2 hover:bg-blue-600 transition duration-300 flex justify-center items-center'
             disabled={loading}
           >
             {loading ? (
@@ -178,22 +240,27 @@ const Signup: React.FC = () => {
                   viewBox="0 0 1792 1792"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+                  <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zm905-77q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zm-1132 0q0 52 37 89.5t90 37.5q52 0 90-38t38-90q0-53-37.5-90.5t-90.5-37.5-90 38-37 90q0 2 0 2zm181-418q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zm905-77q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zM80 887q0 52 37 89.5t90 37.5q52 0 90-38t38-90q0-53-37.5-90.5t-90.5-37.5-90 38-37 90q0 2 0 2zm906-77q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zm-1132 0q0 52 37 89.5t90 37.5q52 0 90-38t38-90q0-53-37.5-90.5t-90.5-37.5-90 38-37 90q0 2 0 2zm181-418q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zM117 826q0 52 37 89.5t90 37.5q52 0 90-38t38-90q0-53-37.5-90.5t-90.5-37.5-90 38-37 90q0 2 0 2zm1198 414q0 52-37 89.5t-90 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90 38 37 90q0 2 0 2zM0 745q0 52 37 89.5t90 37.5q52 0 90-38t38-90q0-53-37.5-90.5t-90.5-37.5-90 38-37 90q0 2 0 2z" />
                 </svg>
-                loading
+                Loading...
               </>
             ) : (
-              'Sign up'
+              'Sign Up'
             )}
           </button>
+          <div className='flex justify-center items-center mt-2'>
+            <p className='text-slate-300 mr-1'>Already have an account?</p>
+            <Link to='/'>
+              <p className='text-cyan-500 hover:underline'>Login</p>
+            </Link>
+          </div>
         </form>
-        <div className='text-center pt-3 mb-2'>
-          <p className='text-slate-200'>Or via</p>
+        <div className='mt-4'>
+          <GoogleButton />
         </div>
-        <GoogleButton />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
