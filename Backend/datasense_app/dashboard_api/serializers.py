@@ -1,5 +1,6 @@
 from datasense_api.models import UserData, UserResults
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
 
 class UserDataSerializer(serializers.ModelSerializer):
@@ -14,3 +15,9 @@ class UserResultsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserResults
         fields = ['id','file_name','generated_at','result']
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        
+        fields = ['username','email']

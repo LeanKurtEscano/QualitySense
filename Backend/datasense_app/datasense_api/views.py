@@ -7,20 +7,66 @@ from rest_framework.decorators import api_view, permission_classes,parser_classe
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
-from .serializers import UserFileSerializer
+from .serializers import UserFileSerializer, UserEmailSerializer
 from .Scripts.data_utils import dataset_overview
+from django.core.cache import cache
 from google.oauth2 import id_token
 import requests
-from google.auth.transport import requests as google_requests
+from .Scripts.emails import send_otp_to_email
 
-# Create your views here.
+
+OTP_EXPIRATION_TIME = 120 
+
+@api_view(["POST"])
+def user_otp(request):
+    try:
+        email = request.data.get('email')
+        otp_generated = send_otp_to_email(email)
+        cache.set(email, otp_generated, OTP_EXPIRATION_TIME)
+       
+
+    
+        return Response({"Success": "OTP Sent"}, status = 200)
+    except Exception as e:
+        print(f"{e}")
+    return Response({"error": "Verification failed"}, status= 400)
+
+@api_view(["POST"])
+def verify_otp(request):
+    username = request.data.get('username')
+    email = request.data.get('email')
+    password = request.data.get('password')
+    user_otp = request.data.get('otpCode')
+    
+    cached_otp = cache.get(email)
+    
+    if cached_otp is None:
+        return Response({"error" : "OTP expired. Please request a new one"},status = 400)
+    
+    if cached_otp and str(cached_otp) == str(user_otp):     
+           user = User.objects.create(
+            username=username,
+            email=email,
+            password=make_password(password)
+           )
+           user.save()
+           refresh = RefreshToken.for_user(user)
+          
+           return Response({"success": "Account is verified",
+                            "refresh":str(refresh),
+                            "access": str(refresh.access_token)}, status=200)
+    
+
+    
+    return Response({"success": "Verified"}, status = 200)
+    
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def upload_file(request):
     uploaded_file = request.FILES.get('file')
 
-    # Check if the file is valid
+ 
     if uploaded_file is None:
         return Response({"error": "Please provide a file"}, status=400)
 
@@ -44,7 +90,7 @@ def upload_file(request):
                 total_rows=total_rows,
                 total_columns=total_columns
             )
-            serializer.save(user=request.user)
+           
 
             return Response({
                 "success": "File successfully uploaded",
@@ -64,7 +110,7 @@ def upload_file(request):
                 total_rows=0,  
                 total_columns=0
             )
-            print(e)
+            
             return Response({"error": str(e)}, status=500)
     
     return Response(serializer.errors, status=400)
@@ -123,14 +169,9 @@ def signup(request):
 
         if password != repeat_pass:
             return Response({"Pass": "Passwords does not match"}, status=400)
+        
 
-        user = User.objects.create(
-            username=username,
-            email=email,
-            password=make_password(password)
-        )
-        user.save()
-        return Response({"Success": "User registered successfully"}, status=201)
+        return Response({"success": "User pass data validation"}, status=200)
 
     except Exception as e:
         return Response({"Error": str(e)}, status=500)

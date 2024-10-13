@@ -3,14 +3,16 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.core.paginator import Paginator
 from datasense_api.models import UserData, UserResults
-from .serializers import UserDataSerializer,UserResultsSerializer
+from .serializers import UserDataSerializer,UserResultsSerializer,UserDetailsSerializer
 from rest_framework.decorators import api_view, permission_classes,parser_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -61,3 +63,22 @@ def delete_generated(request):
     user = UserResults.objects.get(id=gen_id, user= request.user)
     user.delete()
     return Response({"Success": "Data Deleted"}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_details(request):
+    
+    user = request.user
+    serializer = UserDetailsSerializer(user)
+    
+    return Response(serializer.data,status=status.HTTP_200_OK) 
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_account(request):
+    
+    user = request.user  
+    user.delete()
+    
+    return Response({"Success": "Account is Successfully Deleted"}, status = status.HTTP_200_OK)
