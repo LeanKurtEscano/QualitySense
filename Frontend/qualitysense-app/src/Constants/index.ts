@@ -115,13 +115,11 @@ export const cardItems = [
 
 
 export const navItems = [
-    {text: "Home", link: '/home'},
+    {text: "Home", link: '/'},
     {text: "Generate", link: '/generate'},
     {text: "Dashboard", link: '/dashboard'},
 ]
 
-export const ACCESS_TOKEN= ""
-export const REFRESH_TOKEN = ""
 
  export const features = [
     {

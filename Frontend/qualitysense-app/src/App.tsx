@@ -9,7 +9,7 @@ import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
-import { auth } from './Api/Api';
+import { auth } from './Api/token';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -64,7 +64,7 @@ const Main: React.FC = () => {
     <main className='h-auto flex flex-col'>
       <NavBar />
       <Routes>
-        <Route path='/' element={
+        <Route path='/login' element={
           <section className='w-full h-screen flex justify-center items-center '>
             <Login />
           </section>
@@ -102,7 +102,7 @@ const Main: React.FC = () => {
             <Generate />
           </section>
         } />
-        <Route path='/home' element={
+        <Route path='/' element={
           <section className='h-auto'>
             <Home />
             <VideoSection />

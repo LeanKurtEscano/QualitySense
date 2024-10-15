@@ -11,6 +11,12 @@ interface UserDetails {
   email:string
 }
 
+interface UserSignUp {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword:string;
+}
 
 const MyContext = createContext<any>(null);
 
@@ -21,10 +27,19 @@ export const MyProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     username: "",
     email: "",
   })
+
+  const [userSignUp , setUserSignUp] = useState<UserSignUp>({
+    username:'',
+    email:'',
+    password:'',
+    confirmPassword:'',
+
+  })
   const [result, setResult] = useState(0);
+  const [runTimer, setRunTimer] = useState(false);
 
   return (
-    <MyContext.Provider value={{ isAuthenticated, setIsAuthenticated, data , setData, result, setResult, userDetails, setUserDetails }}>
+    <MyContext.Provider value={{ isAuthenticated, setIsAuthenticated, data , setData, result, setResult, userDetails, setUserDetails,userSignUp,setUserSignUp,runTimer,setRunTimer }}>
       {children}
     </MyContext.Provider>
   );

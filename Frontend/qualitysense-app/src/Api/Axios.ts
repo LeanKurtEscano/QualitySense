@@ -43,4 +43,36 @@ export const deleteAccount = async() => {
     })
 
     return response
+
+    
+}
+
+
+export const getUserOTP= async(email:string) => {
+    const otpResponse = await axios.post("http://localhost:8000/api/otp/",{
+        email : email
+    },{
+       headers: {
+        'Content-Type' : 'application/json'
+       }
+    })
+
+    return otpResponse
+}
+
+export const verifyOTP = async(otpCode:string, username: string, email: string, password:string) => {
+    const otpVerify = await axios.post("http://localhost:8000/api/verify/",{
+        username:username,
+        email:email,
+        password:password,
+        otpCode:otpCode,
+
+    },{
+       headers: {
+        'Content-Type' : 'application/json'
+       }
+    })
+
+    return otpVerify
+
 }
