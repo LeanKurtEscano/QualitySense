@@ -2,43 +2,28 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { navItems } from '../Constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons';
 import { useMyContext } from './MyContext';
 import logo from '../assets/logo.png';
 import axios from 'axios';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-    const { isAuthenticated, setIsAuthenticated } = useMyContext();
+    const { isAuthenticated, setIsAuthenticated,toggleLog, setToggleLog } = useMyContext();
     const navigate = useNavigate();
 
     const toggleNav = () => {
         setToggle(!toggle);
     };
 
-    const logOut = async () => {
-        const userToken = localStorage.getItem('access_token');
-        try {
-            const response = await axios.post("http://localhost:8000/api/logout/", {}, {
-                headers: {
-                    'Authorization': `Bearer ${userToken}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response) {
-                setIsAuthenticated(false);
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                navigate('/');
-            }
-        } catch {
-            alert("Failed to logout");
-        }
-    };
+    const toggleLogOut = () => {
+      
+        setToggleLog(!toggleLog);
+        
+    }
 
     const handleLogin = () => {
-        setToggle(false); // Close the mobile menu
+        setToggle(false); 
         navigate('/login');
     };
 
@@ -61,8 +46,8 @@ const Navbar = () => {
                             </li>
                         ))}
                         {isAuthenticated ? (
-                            <li className='relative group font-normal' onClick={logOut}>
-                                <Link to='/' className="text-white font-bold">
+                            <li className='relative group font-normal' onClick={toggleLogOut}>
+                                <Link to='#' className="text-white font-bold">
                                     Logout
                                     <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                                 </Link>
@@ -78,10 +63,10 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className='md:hidden text-cyan-400 cursor-pointer' onClick={toggleNav}>
-                    <FontAwesomeIcon icon={faBars} className='text-lg pt-4 pb-4' />
+                    <FontAwesomeIcon icon={toggle ? faTimes : faBars} className='text-lg pt-4 pb-4' />
                 </div>
                 {toggle && (
-                    <div className={`absolute mt-14 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg transition-all w-[300px] z-10 right-1 shadow-lg ${toggle ? "top-12 translate-y-0" : "top-9 translate-y-full"} duration-300 ease-in-out`}>
+                    <div className={`absolute mt-14 bg-loginbg rounded-lg border-cyan-600 shadow-lg border-2 transition-all w-[300px] z-50 right-1 ${toggle ? "top-12 translate-y-0" : "top-9 translate-y-full"} duration-300 ease-in-out`}>
                         <ul className="flex flex-col items-center p-4">
                             {navItems.map((item) => (
                                 <li className='relative group font-normal my-2' key={item.text}>
@@ -92,8 +77,8 @@ const Navbar = () => {
                                 </li>
                             ))}
                             {isAuthenticated ? (
-                                <li className='relative group font-normal my-2' onClick={logOut}>
-                                    <Link to='/' className="text-white font-bold mb-1">
+                                <li className='relative group font-normal my-2' onClick={toggleLogOut}>
+                                    <Link to='#' className="text-white font-bold mb-1">
                                         Logout
                                         <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                                     </Link>

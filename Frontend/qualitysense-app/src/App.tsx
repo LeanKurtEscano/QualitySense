@@ -9,7 +9,7 @@ import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
-import { auth } from './Api/token';
+import { auth } from './Api/Token';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -17,7 +17,10 @@ import DataSources from './Sections/DataSources';
 import ProtectedRoutes from './Components/ProtectedRoutes';
 import ResponseLogs from './Sections/ResponseLogs';
 import Help from './Sections/Help';
+import LogOut from './Components/LogOut';
 import Profile from './Sections/Profile';
+import PrivacyPolicy from './Sections/PrivacyPolicy';
+import TermsAndConditions from './Sections/TermsAndCondition';
 function App() {
   return (
     <MyProvider>
@@ -29,7 +32,7 @@ function App() {
 const Main: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
-  const { isAuthenticated, setIsAuthenticated } = useMyContext();
+  const { isAuthenticated, setIsAuthenticated,toggleLog } = useMyContext();
 
   useEffect(() => { 
     if (isAuthenticated) {
@@ -63,6 +66,11 @@ const Main: React.FC = () => {
   return (
     <main className='h-auto flex flex-col'>
       <NavBar />
+
+      {toggleLog && (
+        <LogOut />
+      )}
+      
       <Routes>
         <Route path='/login' element={
           <section className='w-full h-screen flex justify-center items-center '>
@@ -100,6 +108,7 @@ const Main: React.FC = () => {
         <Route path='/generate' element={
           <section className='h-auto '>
             <Generate />
+            <Footer/>
           </section>
         } />
         <Route path='/' element={
@@ -119,6 +128,21 @@ const Main: React.FC = () => {
         <Route path='/auth' element={
           <OTP/>
         } />
+         <Route path='/privacy' element={
+          <section>
+            <PrivacyPolicy/>
+            <Footer/>
+
+          </section>       
+        } />
+        <Route path='/terms' element={
+          <section>
+            <TermsAndConditions/>
+            <Footer/>
+
+          </section>       
+        } />
+
 
         
 

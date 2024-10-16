@@ -76,7 +76,7 @@ const GenerateLogin: React.FC<ShowGenerateLogin> = ({setShowLogin}) => {
     return (
         <section className="h-screen w-full absolute top-20 pb-10 inset-0 flex justify-center items-center">
          
-        <div className="absolute inset-0 bg-white opacity-40 z-10"></div>
+        <div className="absolute inset-0 bg-gray-900 bg-opacity-75  z-10"></div>
       
       
         <div className="relative flex flex-col p-6 z-20 bg-loginbg  border-formcolor border-2 rounded-lg shadow-2xl w-96">

@@ -6,13 +6,6 @@ import { getUserDetails } from '../Api/Axios';
 import { useEffect } from 'react';
 const Dashboard: React.FC = () => {
 
-
-  
-
-
-
- 
-
   return (
     <div className='h-screen'>
       <div className=''>

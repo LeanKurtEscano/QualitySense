@@ -15,7 +15,7 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated } = useMyContext();
 
-  const { isAuthenticated, userDetails, setUserDetails } = useMyContext();
+  const { isAuthenticated, userDetails, setUserDetails, setToggleLog } = useMyContext();
 
   const toUserProfile = () => {
     navigate('/dashboard/profile');
@@ -44,35 +44,10 @@ const Sidebar: React.FC = () => {
 
   }, [])
 
-  const logOut = async () => {
-    const userToken = localStorage.getItem('access_token');
-    try {
-      const response = await axios.post("http://localhost:8000/api/logout/", {},
-        {
-          headers: {
-            'Authorization': `Bearer ${userToken}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-
-      if (response.data.Success) {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        setIsAuthenticated(false);
-        navigate('/');
-      }
-
-    } catch {
-      alert("Failed to logout");
-
-    }
-
-  }
 
   const handleMenuClick = (index: number) => {
     if (index === 5) {
-      logOut();
+       setToggleLog(true);
     } else {
       setActiveIndex(index);
     }
@@ -104,11 +79,11 @@ const Sidebar: React.FC = () => {
     style={{ height: '80px', visibility: toggle ? 'hidden' : 'visible' }}  
   >
     <div className='flex p-2 hover:bg-gray-800 rounded-lg flex-col items-center'>
-      <div className='flex pr-14'>
+      <div className='w-full flex '>
         <p className='text-slate-200 text-xs'>{userDetails.username}</p>
       </div>
-      <div>
-        <p className='text-gray-400 text-xs'>{userDetails.email}</p>
+      <div className='overflow-hidden'>
+        <p className='flex text-gray-400 text-xs'>{userDetails.email}</p>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState(''); // New state for confirm password error
+  const [confirmPasswordError, setConfirmPasswordError] = useState(''); 
   const {  setUserSignUp, runTimer, setRunTimer } = useMyContext();
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const Signup: React.FC = () => {
 
   const validateConfirmPassword = () => {
     if (password !== confirm) {
-      setConfirmPasswordError('Passwords do not match'); // Use the new confirm password error state
+      setConfirmPasswordError('Passwords do not match'); 
       return false;
     }
     setConfirmPasswordError('');
@@ -108,6 +108,7 @@ const Signup: React.FC = () => {
           setRunTimer(!runTimer);
           localStorage.setItem('run', String(runTimer));
           localStorage.setItem('email', email);
+          localStorage.setItem('username',username);
           setUserSignUp({ username, email, password, confirmPassword: confirm });
           navigate('/auth');
         }
@@ -124,7 +125,7 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <section className="h-auto w-full flex justify-center bg-darkbg items-center mt-40 pt-9">
+    <section className="min-h-screen w-full flex justify-center bg-darkbg items-center  pt-56">
       <div className="border-1 bg-loginbg flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16">
         <div className="flex justify-center mb-2">
           <img src={logo} alt="Logo" className="h-10" />

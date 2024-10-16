@@ -80,7 +80,7 @@ const Profile: React.FC = () => {
 
             {confirm && (
                 <div className='fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center'>
-                    <div className='bg-darkbg p-6 rounded-lg border border-gray-800 w-[250px] md:w-full max-w-md'>
+                    <div className='bg-loginbg p-6 rounded-lg border border-cyan-600 w-[250px] md:w-full max-w-md'>
                         <h2 className='text-red-600 mb-4 text-lg md:text-xl'>Are you sure?</h2>
                         <p className='text-slate-200 mb-4'>This action is irreversible. Do you really want to delete your account?</p>
                         <div className='flex justify-end'>

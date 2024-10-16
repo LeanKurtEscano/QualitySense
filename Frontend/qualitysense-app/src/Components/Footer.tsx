@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom'
 
 const Footer: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const Footer: React.FC = () => {
                           <a href="/help" className="hover:underline">Help</a>
                       </li>
                       <li>
-                          <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                          <a href="https://tailwindcss.com/" className="hover:underline">About Us</a>
                       </li>
                   </ul>
               </div>
@@ -28,10 +29,10 @@ const Footer: React.FC = () => {
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="" className="hover:underline ">Github</a>
+                          <a href="" className="hover:underline ">Twitter</a>
                       </li>
                       <li>
-                          <a href="" className="hover:underline">Discord</a>
+                          <a href="" className="hover:underline">Linkedin</a>
                       </li>
                   </ul>
               </div>
@@ -39,10 +40,10 @@ const Footer: React.FC = () => {
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <a href="#" className="hover:underline">Privacy Policy</a>
+                          <Link to= "/privacy" className="hover:underline">Privacy Policy</Link>
                       </li>
                       <li>
-                          <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                          <Link to= "/terms" className="hover:underline">Terms & Conditions </Link>
                       </li>
                   </ul>
               </div>
