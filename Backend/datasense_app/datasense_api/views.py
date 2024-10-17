@@ -3,21 +3,22 @@ from django.contrib.auth import authenticate,logout
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from .models import UserResults,UserData
-from rest_framework.decorators import api_view, permission_classes,parser_classes
+from rest_framework.decorators import api_view, permission_classes,parser_classes,throttle_classes
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from .serializers import UserFileSerializer, UserEmailSerializer
 from .Scripts.data_utils import dataset_overview
 from django.core.cache import cache
-from google.oauth2 import id_token
 import requests
 from .Scripts.emails import send_otp_to_email
+from rest_framework.throttling import UserRateThrottle
 
 
 OTP_EXPIRATION_TIME = 120 
 
 @api_view(["POST"])
+@throttle_classes([UserRateThrottle])
 def user_otp(request):
     try:
         email = request.data.get('email')
@@ -31,34 +32,52 @@ def user_otp(request):
         print(f"{e}")
     return Response({"error": "Verification failed"}, status= 400)
 
+
+
 @api_view(["POST"])
 def verify_otp(request):
-    username = request.data.get('username')
-    email = request.data.get('email')
-    password = request.data.get('password')
-    user_otp = request.data.get('otpCode')
-    
-    cached_otp = cache.get(email)
-    
-    if cached_otp is None:
-        return Response({"error" : "OTP expired. Please request a new one"},status = 400)
-    
-    if cached_otp and str(cached_otp) == str(user_otp):     
-           user = User.objects.create(
-            username=username,
-            email=email,
-            password=make_password(password)
-           )
-           user.save()
-           refresh = RefreshToken.for_user(user)
+    try:
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        user_otp = request.data.get('otpCode')
+
+      
+        cached_otp = cache.get(email)
+
+   
+        if cached_otp is None:
+            return Response({"error": "OTP expired. Please request a new one."}, status=400)
+
+       
+        if cached_otp and str(cached_otp) == str(user_otp):
+            
+            try:
+                user = User.objects.create(
+                    username=username,
+                    email=email,
+                    password=make_password(password)
+                )
+                user.save()
+
           
-           return Response({"success": "Account is verified",
-                            "refresh":str(refresh),
-                            "access": str(refresh.access_token)}, status=200)
-    
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    "success": "Account is verified",
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token)
+                }, status=200)
+            except :
+                return Response({"error": "User with this email or username already exists."}, status=400)
+        else:
+            
+            return Response({"error": "Incorrect OTP. Please try again."}, status=400)
+
+    except Exception as e:
+        return Response({"error": f"An error occurred: {str(e)}"}, status=500)
 
     
-    return Response({"success": "Verified"}, status = 200)
+    
     
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
