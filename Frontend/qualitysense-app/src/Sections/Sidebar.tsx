@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
-import axios from 'axios';
+
 import { getUserDetails } from '../Api/Axios';
 
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [toggle, setToggle] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useMyContext();
+
 
   const { isAuthenticated, userDetails, setUserDetails, setToggleLog } = useMyContext();
 

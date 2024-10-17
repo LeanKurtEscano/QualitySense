@@ -12,7 +12,7 @@ const OTPForm: React.FC = () => {
   const navigate = useNavigate();
 
   const resetTimer = () => {
-    const newExpirationTime = Math.floor(Date.now() / 1000) + 120; // 2 minutes from now
+    const newExpirationTime = Math.floor(Date.now() / 1000) + 120; 
     localStorage.setItem('otpExpiration', newExpirationTime.toString());
     setSeconds(120);
     setRunTimer(true);
@@ -100,9 +100,8 @@ const OTPForm: React.FC = () => {
         navigate('/home');
       }
     } catch (error: any) {
-      if (error.response) {
-        const errorMessage = error.response.data.error || 'An unknown error occurred';
-        setInvalid(errorMessage);
+      if (error.response.status == 429) {
+        alert("Wait again for 2 minutes");
       } else {
         alert('Something went wrong. Please try again.');
       }
@@ -110,9 +109,28 @@ const OTPForm: React.FC = () => {
   };
 
   const handleResendOTP = async () => {
-    await getUserOTP(userSignUp.email);
-    resetTimer();
-  };
+    try {
+        const otpResponse = await getUserOTP(userSignUp.email);
+        resetTimer(); 
+
+    } catch (error:any) {
+        if (error.response) {
+          
+            if (error.response.status === 429) {
+              
+                alert('Please wait a few minutes before requesting a new OTP.');
+            } else {
+               
+               alert(error.response.data.error || 'Something went wrong');
+            }
+        } else {
+          
+           alert('Network error. Please try again later.');
+        }
+    }
+};
+
+
 
   return (
     <section className='flex items-center min-h-screen justify-center bg-darkbg'>

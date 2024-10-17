@@ -21,6 +21,7 @@ import LogOut from './Components/LogOut';
 import Profile from './Sections/Profile';
 import PrivacyPolicy from './Sections/PrivacyPolicy';
 import TermsAndConditions from './Sections/TermsAndCondition';
+import AboutUs from './Sections/AboutUs';
 function App() {
   return (
     <MyProvider>
@@ -144,8 +145,12 @@ const Main: React.FC = () => {
         } />
 
 
-        
-
+        <Route path = '/about' element={
+          <section>
+            <AboutUs />
+            <Footer />
+          </section>
+        } />
       </Routes>
     </main>
   );

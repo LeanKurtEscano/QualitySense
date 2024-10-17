@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                           <a href="/help" className="hover:underline">Help</a>
                       </li>
                       <li>
-                          <a href="https://tailwindcss.com/" className="hover:underline">About Us</a>
+                         <Link to = '/about' className="hover:underline">About Us</Link>
                       </li>
                   </ul>
               </div>
