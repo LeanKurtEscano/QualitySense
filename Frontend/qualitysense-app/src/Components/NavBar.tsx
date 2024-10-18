@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { navItems } from '../Constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useMyContext } from './MyContext';
 import logo from '../assets/logo.png';
-import axios from 'axios';
+
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-    const { isAuthenticated, setIsAuthenticated,toggleLog, setToggleLog } = useMyContext();
+    const { isAuthenticated, setIsAuthenticated, toggleLog, setToggleLog } = useMyContext();
     const navigate = useNavigate();
 
     const toggleNav = () => {
@@ -17,13 +17,13 @@ const Navbar = () => {
     };
 
     const toggleLogOut = () => {
-      
+
         setToggleLog(!toggleLog);
-        
+
     }
 
     const handleLogin = () => {
-        setToggle(false); 
+        setToggle(false);
         navigate('/login');
     };
 
@@ -45,6 +45,19 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         ))}
+
+                        {isAuthenticated ? (
+                            <li className='relative group font-normal'>
+                                <Link to='/dashboard' className="text-white font-bold">
+
+                                    Dashboard
+                                    <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                                </Link>
+                            </li>
+                        ) : (
+                            null
+                        )}
+
                         {isAuthenticated ? (
                             <li className='relative group font-normal' onClick={toggleLogOut}>
                                 <Link to='#' className="text-white font-bold">
@@ -76,6 +89,20 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                             ))}
+
+
+                            {isAuthenticated ? (
+                                <li className='relative group font-normal'>
+                                    <Link to='/dashboard' className="text-white font-bold">
+
+                                        Dashboard
+                                        <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-0 h-[2px] bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                                    </Link>
+                                </li>
+                            ) : (
+                                null
+                            )}
+                            
                             {isAuthenticated ? (
                                 <li className='relative group font-normal my-2' onClick={toggleLogOut}>
                                     <Link to='#' className="text-white font-bold mb-1">

@@ -117,7 +117,6 @@ export const cardItems = [
 export const navItems = [
     {text: "Home", link: '/'},
     {text: "Generate", link: '/generate'},
-    {text: "Dashboard", link: '/dashboard'},
 ]
 
 

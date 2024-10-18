@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useMyContext } from '../Components/MyContext';
 import { verifyOTP, getUserOTP } from '../Api/Axios';
 import { useNavigate } from 'react-router-dom';
+import Notification from '../Components/Notification';
+import Warning from '../Components/Warning';
 
 const OTPForm: React.FC = () => {
   const [otpValues, setOtpValues] = useState<string[]>(Array(6).fill(''));
@@ -9,10 +11,13 @@ const OTPForm: React.FC = () => {
   const { runTimer, setRunTimer, userSignUp, setUserSignUp } = useMyContext();
   const [seconds, setSeconds] = useState<number>(120);
   const [expired, setExpired] = useState(false);
+  const [toggleNotif, setToggleNotif] = useState(false);
+  const [toggleWarning, setToggleWarning] = useState(false);
+
   const navigate = useNavigate();
 
   const resetTimer = () => {
-    const newExpirationTime = Math.floor(Date.now() / 1000) + 120; 
+    const newExpirationTime = Math.floor(Date.now() / 1000) + 120;
     localStorage.setItem('otpExpiration', newExpirationTime.toString());
     setSeconds(120);
     setRunTimer(true);
@@ -20,7 +25,6 @@ const OTPForm: React.FC = () => {
   };
 
   useEffect(() => {
-    // Load user data from localStorage if userSignUp is not populated
     if (!userSignUp.username && !userSignUp.email && !userSignUp.password) {
       const username = localStorage.getItem('username');
       const email = localStorage.getItem('email');
@@ -32,7 +36,6 @@ const OTPForm: React.FC = () => {
       });
     }
 
-    // Handle timer persistence on page reload
     const otpExpiration = localStorage.getItem('otpExpiration');
     if (otpExpiration) {
       const currentTime = Math.floor(Date.now() / 1000);
@@ -50,6 +53,24 @@ const OTPForm: React.FC = () => {
       resetTimer();
     }
   }, [setUserSignUp]);
+
+  useEffect(() => {
+    if (toggleNotif) {
+      const timer = setTimeout(() => {
+        setToggleNotif(false);
+      }, 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [toggleNotif]);
+
+  useEffect(() => {
+    if (toggleWarning) {
+      const timer = setTimeout(() => {
+        setToggleWarning(false);
+      }, 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [toggleWarning]);
 
   useEffect(() => {
     if (runTimer && seconds > 0) {
@@ -99,38 +120,28 @@ const OTPForm: React.FC = () => {
         localStorage.setItem('refresh_token', refreshToken);
         navigate('/home');
       }
-    } catch (error: any) {
-      if (error.response.status == 429) {
-        alert("Wait again for 2 minutes");
-      } else {
-        alert('Something went wrong. Please try again.');
-      }
+    } catch (error: any) { 
+      alert('Something went wrong. Please try again.');
     }
   };
 
   const handleResendOTP = async () => {
     try {
-        const otpResponse = await getUserOTP(userSignUp.email);
-        resetTimer(); 
-
-    } catch (error:any) {
-        if (error.response) {
-          
-            if (error.response.status === 429) {
-              
-                alert('Please wait a few minutes before requesting a new OTP.');
-            } else {
-               
-               alert(error.response.data.error || 'Something went wrong');
-            }
+      const otpResponse = await getUserOTP(userSignUp.email);
+      setToggleNotif(true);
+      resetTimer();
+    } catch (error: any) {
+      if (error.response) {
+        if (error.response.status === 429) {
+          setToggleWarning(true); 
         } else {
-          
-           alert('Network error. Please try again later.');
+          alert(error.response.data.error || 'Something went wrong');
         }
+      } else {
+        alert('Network error. Please try again later.');
+      }
     }
-};
-
-
+  };
 
   return (
     <section className='flex items-center min-h-screen justify-center bg-darkbg'>
@@ -193,6 +204,17 @@ const OTPForm: React.FC = () => {
           </div>
         </div>
       </div>
+      {toggleNotif && (
+        <div className={`absolute right-5 top-20 ${toggleNotif ? 'notification-enter' : 'notification-exit'}`}>
+          <Notification setToggleNotif={setToggleNotif} />
+        </div>
+      )}
+
+      {toggleWarning && (
+        <div className={`absolute right-5 top-48 ${toggleWarning ? 'notification-enter' : 'notification-exit'}`}>
+          <Warning setToggleWarning={setToggleWarning} />
+        </div>
+      )}
     </section>
   );
 };

@@ -6,6 +6,7 @@ import DataOverview from '../Components/DataOverview';
 import NullChart from '../Components/NullChart';
 import { useMyContext } from '../Components/MyContext';
 import GenerateLogin from '../Components/GenerateLogin';
+import Warning from '../Components/Warning';
 
 interface dataCount {
   totalRows: number;
@@ -26,6 +27,7 @@ const Generate: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const { isAuthenticated } = useMyContext();
+  const [toggleWarning, setToggleWarning] = useState(false);
   const [dataDetails, setDataDetails] = useState<dataCount>({
     totalRows: 0,
     totalCols: 0,
@@ -119,6 +121,11 @@ const Generate: React.FC = () => {
     } catch (error: any) {
       if (error.response) {
         setLoading(false);
+
+        if (error.response.status === 429) {
+            setToggleWarning(true); 
+        }
+
         const { data } = error.response;
 
         if (data.Empty) {
@@ -210,6 +217,11 @@ const Generate: React.FC = () => {
         </button>
       </div>
     </div>
+    {toggleWarning && (
+        <div className={`absolute right-5 top-28 ${toggleWarning ? 'notification-enter' : 'notification-exit'}`}>
+          <Warning setToggleWarning={setToggleWarning} />
+        </div>
+      )}
   
     <div className='flex flex-col items-center justify-center flex-grow'>
       {loading && (

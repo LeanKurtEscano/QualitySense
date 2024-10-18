@@ -26,7 +26,6 @@ const Sidebar: React.FC = () => {
       const response = await getUserDetails();
 
       if (response) {
-        console.log(response.data);
         setUserDetails(response.data);
       }
 
