@@ -7,18 +7,18 @@ from rest_framework.decorators import api_view, permission_classes,parser_classe
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
-from .serializers import UserFileSerializer, UserEmailSerializer
+from .serializers import UserFileSerializer
 from .Scripts.data_utils import dataset_overview
 from django.core.cache import cache
 import requests
 from .Scripts.emails import send_otp_to_email
-from rest_framework.throttling import UserRateThrottle
+from .throttle import ResendThrottle, UploadThrottle
 
 
 OTP_EXPIRATION_TIME = 120 
 
 @api_view(["POST"])
-@throttle_classes([UserRateThrottle])
+@throttle_classes([ResendThrottle])
 def user_otp(request):
     try:
         email = request.data.get('email')
@@ -81,6 +81,7 @@ def verify_otp(request):
     
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
+@throttle_classes([UploadThrottle])
 @parser_classes([MultiPartParser, FormParser])
 def upload_file(request):
     uploaded_file = request.FILES.get('file')
