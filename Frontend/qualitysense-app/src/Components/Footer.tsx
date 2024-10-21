@@ -32,7 +32,8 @@ const Footer: React.FC = () => {
                           <a href="" className="hover:underline ">Twitter</a>
                       </li>
                       <li>
-                          <a href="" className="hover:underline">Linkedin</a>
+                          <a href="https://www.linkedin.com/in/leankurtescano/"  target="_blank" 
+                rel="noopener noreferrer" className="hover:underline">Linkedin</a>
                       </li>
                   </ul>
               </div>

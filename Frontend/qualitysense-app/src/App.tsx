@@ -5,6 +5,7 @@ import Generate from './Sections/Generate';
 import OTP from './Sections/OTP';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
+import EmailOTP from './Sections/EmailOTP';
 import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
@@ -148,6 +149,13 @@ const Main: React.FC = () => {
         <Route path = '/about' element={
           <section>
             <AboutUs />
+            <Footer />
+          </section>
+        } />
+
+        <Route path = '/email' element={
+          <section>
+            <EmailOTP />
             <Footer />
           </section>
         } />

@@ -76,3 +76,15 @@ export const verifyOTP = async(otpCode:string, username: string, email: string, 
     return otpVerify
 
 }
+
+export const resetPassword = async(email:String) => {
+    const response = await axios.post("http://localhost:8000/api/reset/",{
+        email: email
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return response
+}

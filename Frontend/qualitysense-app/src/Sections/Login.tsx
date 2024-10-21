@@ -124,11 +124,17 @@ const Login: React.FC = () => {
               style={{ cursor: 'pointer' }}
             />
           </div>
-          {passwordError && (
-            <div>
+          <div className='flex flex-row'>
+            <div className='w-[140px]' style={{ visibility: passwordError ? 'visible' : 'hidden' }}>
               <p className='text-red-600'>{passwordError}</p>
             </div>
-          )}
+
+            <div className='flex items-end pl-16 justify-end'>
+              <Link to='/email' className='text-cyan-500 hover:underline'>Forgot Password</Link>
+            </div>
+          </div>
+
+
           <button
             type='submit'
             className='bg-gradient-to-r from-cyan-500 to-blue-500 mt-2 text-white rounded p-2 hover:bg-blue-600 transition duration-300 flex justify-center items-center'

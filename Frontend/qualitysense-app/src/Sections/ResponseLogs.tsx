@@ -85,19 +85,19 @@ const ResponseLogs: React.FC = () => {
 
     return (
         <section className="w-full min-h-screen h-auto flex flex-col overflow-hidden bg-darkbg">
-            <div className='w-full flex justify-center pr-80'>
+            <div className='w-full flex justify-center pt-10 md:pr-80'>
                 <Paginator2 pageNumber={pageNumber} totalPages={totalPages} setPageNumber={setPageNumber} />
 
             </div>
-            <div className="flex pb-10 h-full">
-                <div className="flex-1 pt-20 flex flex-col justify-start pl-40 min-h-screen items-center bg-darkbg">
+            <div className="flex pb-10 md:flex-row items-center justify-center  flex-col h-full">
+                <div className="flex-1 pt-20 flex flex-col justify-start md:pl-40 min-h-screen items-center bg-darkbg">
                     {data.map((item: any, index: any) => (
                         <div
                             onClick={() => selectGenerated(item.id)}
                             key={index}
                             className={`flex cursor-pointer 
-            hover:bg-gray-800
-            flex-row w-[450px] bg-loginbg border border-gray-800 text-slate-200 shadow-lg p-4`}
+            hover:bg-gray-800 w-[200px]
+            flex-row md:w-[450px] bg-loginbg border border-gray-800 text-slate-200 shadow-lg p-4`}
                         >
                             <div className='mr-2 pt-2 w-[250px] whitespace-nowrap overflow-hidden text-ellipsis font-bold'>
                                 <span className='truncate'>{item.file_name}</span>
@@ -116,7 +116,7 @@ const ResponseLogs: React.FC = () => {
                                     ...
                                 </div>
                                 {showOptions && item.id === ItemID ? (
-                                    <div className='flex border  border-gray-800 bg-darkbg rounded-lg shadow-lg absolute flex-col items-center justify-center ml-16 p-4'>
+                                    <div className='flex border  border-gray-800 bg-darkbg rounded-lg shadow-lg absolute flex-col items-center justify-center  md:ml-16 p-4'>
                                         <div className='flex pr-8 flex-row items-center justify-center cursor-pointer hover:bg-gray-800 p-2 rounded-md' onClick={() => deleteData(item.id)}>
                                             <FontAwesomeIcon icon={faTrash} className='text-red-600' />
                                             <p className='ml-2 text-red-600'>Delete</p>
@@ -130,7 +130,7 @@ const ResponseLogs: React.FC = () => {
                     ))}
                 </div>
 
-                <div className="flex-1 pt-16 h-full overflow-hidden flex justify-center items-center bg-darkbg">
+                <div className="flex-1 pt-16 h-full overflow-hidden flex  justify-center md:pb-20 items-center bg-darkbg">
                     <div className="max-h-screen w-full p-4 overflow-y-auto">
                         {generatedData.map((item: any, index: any) => {
                             const cleanedText = cleanText(item.result || '');
