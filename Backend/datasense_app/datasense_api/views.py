@@ -11,11 +11,26 @@ from .serializers import UserFileSerializer
 from .Scripts.data_utils import dataset_overview
 from django.core.cache import cache
 import requests
-from .Scripts.emails import send_otp_to_email
+from .Scripts.emails import send_otp_to_email,reset_password_otp
 from .throttle import ResendThrottle, UploadThrottle
 
 
-OTP_EXPIRATION_TIME = 120 
+@api_view(["POST"])
+def reset_password(request):
+    try:
+        email = request.data.get('email')
+        
+        if User.objects.filter(email = email).exists():         
+           otp_generated = reset_password_otp(email)
+           OTP_EXPIRATION_TIME = 120 
+           cache.set(email, otp_generated, OTP_EXPIRATION_TIME)
+           
+           return Response({"message": "OTP sent successfully."}, status=202)
+        else:
+            return Response({"error" : "Email is not Registered"}, status=404)
+           
+    except Exception as e:
+        return Response({"error": "Something Went Wrong"}, status=500)
 
 @api_view(["POST"])
 @throttle_classes([ResendThrottle])
@@ -23,6 +38,7 @@ def user_otp(request):
     try:
         email = request.data.get('email')
         otp_generated = send_otp_to_email(email)
+        OTP_EXPIRATION_TIME = 120 
         cache.set(email, otp_generated, OTP_EXPIRATION_TIME)
        
 
