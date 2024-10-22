@@ -159,10 +159,13 @@ const Generate: React.FC = () => {
                 </div>
               )}
               {fileName && (
-                <>
-                  <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>
-                  <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />
-                </>
+                <div className='flex flex-row items-center justify-center'>
+                  <div className='max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis'>
+                  <span className="ml-2 mr-4 overflow-hidden">{fileName}</span>          
+                </div>
+                   <FontAwesomeIcon icon={faTrash} className='text-red-600 pl-2' onClick={removeFile} />
+                </div>
+               
               )}
             </label>
             <input
