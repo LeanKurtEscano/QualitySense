@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
 import logo from '../assets/logo.png';
 import axios from 'axios';
+
 interface ShowGenerateLogin {
     setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const GenerateLogin: React.FC<ShowGenerateLogin> = ({setShowLogin}) => {
     const [show, setShow] = useState(false);
     const { setIsAuthenticated } = useMyContext();

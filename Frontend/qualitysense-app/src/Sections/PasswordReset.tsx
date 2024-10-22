@@ -1,63 +1,30 @@
-import React, { useState,useEffect } from 'react';
-import GoogleButton from '../Components/GoogleButton';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { resetPassword } from '../Api/Axios';
+import { useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import { getUserOTP } from '../Api/Axios';
 import logo from '../assets/logo.png';
-import { useMyContext } from '../Components/MyContext';
 
-const Signup: React.FC = () => {
+const PasswordReset: React.FC = () => {
   const [confirmEye, setConfirmEye] = useState(false);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-  const [username, setUserName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(''); 
-  const {  setUserSignUp, runTimer, setRunTimer } = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userEmail = localStorage.getItem('email');
-    if(userEmail) {
-      localStorage.removeItem('email');
+    const email = localStorage.getItem('email_otp');
+    if(!email) {
+        navigate('/login');
+        
     }
-    
 
-  }, [navigate])
+}, [navigate])
 
 
-  const validateName = () => {
-    const specialCharacterRegex = /[^a-zA-Z0-9]/;
-    if (username.length < 4) {
-      setNameError('Username should be a minimum of 4 characters');
-      return false;
-    } else if (username.length > 20) {
-      setNameError('Username should not exceed 20 characters');
-      return false;
-    } else if (specialCharacterRegex.test(username)) {
-      setNameError('Username should not contain special characters');
-      return false;
-    }
-    setNameError('');
-    return true;
-  };
-
-  const validateEmail = () => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|[a-z]{2,})$/;
-    if (!emailRegex.test(email)) {
-      setEmailError('Invalid email format');
-      return false;
-    }
-    setEmailError('');
-    return true;
-  };
 
   const validatePassword = () => {
     if (password.length < 6) {
@@ -86,101 +53,51 @@ const Signup: React.FC = () => {
   const toggleIcon = () => setShow(!show);
   const toggleConfirm = () => setConfirmEye(!confirmEye);
 
-  const signupSubmit = async (e: React.FormEvent) => {
+  const resetSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setNameError('');
-    setEmailError('');
+    
     setPasswordError('');
     setConfirmPasswordError(''); 
     setLoading(true);
 
-    const isValidName = validateName();
-    const isValidEmail = validateEmail();
     const isValidPassword = validatePassword();
     const isValidConfirmPassword = validateConfirmPassword();
 
-    if (!isValidName || !isValidEmail || !isValidPassword || !isValidConfirmPassword) {
+    if (!isValidPassword || !isValidConfirmPassword) {
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/signup/', {
-        username,
-        email,
-        password,
-        confirm,
-      });
-
-      if (response.data.success) {
-        const userOTP = await getUserOTP(email);
-        if (userOTP.status === 200) {
-          setRunTimer(!runTimer);
-          localStorage.setItem('run', String(runTimer));
-          localStorage.setItem('email', email);
-          localStorage.setItem('username',username);
-          setUserSignUp({ username, email, password, confirmPassword: confirm });
-          navigate('/auth');
-        }
+      const response = await resetPassword(password, confirm);
+      if(response.status === 200) {
+        localStorage.removeItem('email_otp');
+        navigate('/login');
       }
     } catch (error: any) {
       setLoading(false);
       if (error.response) {
         const { data } = error.response;
-        setNameError(data.User || '');
-        setEmailError(data.Email || '');
         setPasswordError(data.Pass || data.Invalid || '');
+      } else {
+        alert("Network error. Please try again.")
       }
     }
   };
 
   return (
-    <section className="min-h-screen w-full flex justify-center bg-darkbg items-center  pt-56">
+    <section className="min-h-screen w-full flex justify-center items-center bg-darkbg  ">
       <div className="border-1 bg-loginbg flex flex-col p-10 rounded-lg shadow-lg w-[480px] mb-16">
         <div className="flex justify-center mb-2">
           <img src={logo} alt="Logo" className="h-10" />
         </div>
-        <h2 className="text-2xl font-semibold text-center text-cyan-500 mb-1">Sign up</h2>
-        <div className="flex items-center justify-center flex-row">
-          <p className="text-center text-slate-300 mr-1">or </p>
-          <Link to="/login">
-            <p className="text-center text-cyan-500 font-semibold hover:underline decoration-cyan-500">
-              Login to your account
-            </p>
-          </Link>
-        </div>
-        <form className="flex flex-col" onSubmit={signupSubmit}>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-slate-300 mb-2">Username:</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-              id="username"
-              className="border bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 w-full"
-              placeholder="Enter your username"
-              autoComplete="off"
-            />
-            {nameError && <p className="text-red-600">{nameError}</p>}
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-slate-300 mb-2">Email Address:</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              id="email"
-              className="bg-inputcolor border-inputcolor placeholder:text-inputtext text-darktext3 focus:bg-inputcolor rounded p-2 w-full"
-              placeholder="Enter your email"
-              autoComplete="off"
-              required
-            />
-            {emailError && <p className="text-red-600">{emailError}</p>}
-          </div>
+        <h2 className="text-2xl font-semibold text-center text-cyan-500 mb-1">Reset your password</h2>
+       
+        <form className="flex flex-col" onSubmit={resetSubmit}>
+         
 
           <div className="mb-4 relative">
-            <label htmlFor="password" className="block text-slate-300 mb-2">Password:</label>
+            <label htmlFor="password" className="block text-slate-300 mb-2">New Password:</label>
             <input
               type={show ? 'text' : 'password'}
               value={password}
@@ -235,21 +152,13 @@ const Signup: React.FC = () => {
                 loading...
               </>
             ) : (
-              'Sign up'
+              'Change Password'
             )}
           </button>
         </form>
-
-        <div className="flex items-center mb-3 mt-3">
-          <span className="border-b border-slate-600 w-full"></span>
-          <span className="mx-2 text-slate-500">or</span>
-          <span className="border-b border-slate-600 w-full"></span>
-        </div> 
-
-        <GoogleButton />
       </div>
     </section>
   );
 };
 
-export default Signup;
+export default PasswordReset;

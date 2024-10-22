@@ -31,7 +31,7 @@ const Navbar = () => {
         <header className='bg-navcolor'>
             <nav className="flex items-center justify-end bg-darkbg transition-all duration-700 w-full shadow-xl pt-4 pb-4 pr-36">
                 <div className='mr-8 absolute left-24'>
-                    <Link to='/home'>
+                    <Link to='/'>
                         <img className="w-10 h-9 cursor-pointer" src={logo} alt="Logo" />
                     </Link>
                 </div>

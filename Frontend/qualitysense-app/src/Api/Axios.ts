@@ -47,7 +47,20 @@ export const deleteAccount = async() => {
     
 }
 
+export const userEmailReset = async() => {
+    const email = localStorage.getItem('email_otp');
 
+    const otpResponse = await axios.post("http://localhost:8000/api/reset-otp/",{
+        email : email,
+    },{
+       headers: {
+        'Content-Type' : 'application/json'
+       }
+    })
+
+    return otpResponse
+
+}
 export const getUserOTP= async(email:string) => {
     const otpResponse = await axios.post("http://localhost:8000/api/otp/",{
         email : email
@@ -58,6 +71,22 @@ export const getUserOTP= async(email:string) => {
     })
 
     return otpResponse
+}
+
+export const passwordOTP = async(otpCode: string) => {
+    const userEmail = localStorage.getItem('email_otp');
+    const response = await axios.post("http://localhost:8000/api/email-otp/",{
+        email: userEmail,
+        otpCode:otpCode,
+
+    },{
+       headers: {
+        'Content-Type' : 'application/json'
+       }
+    })
+
+    return response
+
 }
 
 export const verifyOTP = async(otpCode:string, username: string, email: string, password:string) => {
@@ -77,14 +106,29 @@ export const verifyOTP = async(otpCode:string, username: string, email: string, 
 
 }
 
-export const resetPassword = async(email:String) => {
-    const response = await axios.post("http://localhost:8000/api/reset/",{
+export const sendEmail = async(email:String) => {
+    const response = await axios.post("http://localhost:8000/api/email/",{
         email: email
     }, {
         headers: {
             'Content-Type': 'application/json'
         }
     })
+
+    return response
+}
+
+export const resetPassword = async(password:string, confirm:string) => {
+    const email = localStorage.getItem('email_otp');
+    const response = await axios.post("http://localhost:8000/api/reset/", {
+        email: email,
+        password: password,
+        confirm: confirm,
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
     return response
 }

@@ -5,7 +5,7 @@ import Generate from './Sections/Generate';
 import OTP from './Sections/OTP';
 import Dashboard from './Sections/Dashboard';
 import Login from './Sections/Login';
-import EmailOTP from './Sections/EmailOTP';
+import Email from './Sections/Email';
 import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
@@ -23,6 +23,8 @@ import Profile from './Sections/Profile';
 import PrivacyPolicy from './Sections/PrivacyPolicy';
 import TermsAndConditions from './Sections/TermsAndCondition';
 import AboutUs from './Sections/AboutUs';
+import PasswordReset from './Sections/PasswordReset';
+import EmailOTP from './Sections/EmailOTP';
 function App() {
   return (
     <MyProvider>
@@ -155,11 +157,27 @@ const Main: React.FC = () => {
 
         <Route path = '/email' element={
           <section>
+            <Email />
+            <Footer />
+          </section>
+        } />
+
+        <Route path = '/emailotp' element={
+          <section>
             <EmailOTP />
             <Footer />
           </section>
         } />
+
+         <Route path = '/reset' element={
+          <section>
+            <PasswordReset />
+            <Footer />
+          </section>
+        } />
       </Routes>
+
+      
     </main>
   );
 }

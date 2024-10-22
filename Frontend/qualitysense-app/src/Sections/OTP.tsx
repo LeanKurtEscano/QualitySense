@@ -16,6 +16,15 @@ const OTPForm: React.FC = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userEmail = localStorage.getItem('email');
+    if(!userEmail) {
+      navigate('/login');
+    }
+    console.log(userEmail);
+
+  }, [navigate])
+
   const resetTimer = () => {
     const newExpirationTime = Math.floor(Date.now() / 1000) + 120;
     localStorage.setItem('otpExpiration', newExpirationTime.toString());
@@ -114,6 +123,7 @@ const OTPForm: React.FC = () => {
     try {
       const otpVerify = await verifyOTP(otpCode, userSignUp.username, userSignUp.email, userSignUp.password);
       if (otpVerify && otpVerify.data.success) {
+        localStorage.removeItem('email');
         const accessToken = otpVerify.data.access;
         const refreshToken = otpVerify.data.refresh;
         localStorage.setItem('access_token', accessToken);
@@ -121,7 +131,8 @@ const OTPForm: React.FC = () => {
         navigate('/home');
       }
     } catch (error: any) { 
-      alert('Something went wrong. Please try again.');
+      const errorMessage = error.response.data.error || 'An unknown error occurred';
+      setInvalid(errorMessage);
     }
   };
 
