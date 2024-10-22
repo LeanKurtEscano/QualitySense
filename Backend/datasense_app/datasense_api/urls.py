@@ -11,5 +11,8 @@ urlpatterns = [
     path('google-signin/',views.google_signin, name='google_login'),
     path('otp/', views.user_otp, name = "otp"),
     path('verify/',views.verify_otp,name = "verify"),
-    path('reset/',views.reset_password, name="login"),
+    path('email/',views.user_email, name="login"),
+    path('email-otp/',views.email_otp, name = "email_otp"),
+    path('reset/',views.reset_password, name = "reset_password"),
+    path('reset-otp/', views.reset_otp_password, name="reset_otp")
 ]

@@ -14,9 +14,67 @@ import requests
 from .Scripts.emails import send_otp_to_email,reset_password_otp
 from .throttle import ResendThrottle, UploadThrottle
 
+@api_view(["POST"])
+@throttle_classes([ResendThrottle])
+def reset_otp_password(request):
+    try:
+        email = request.data.get('email')
+        
+        if User.objects.filter(email = email).exists():         
+           otp_generated = reset_password_otp(email)
+           OTP_EXPIRATION_TIME = 120 
+           cache.set(email, otp_generated, OTP_EXPIRATION_TIME)
+           
+           return Response({"message": "OTP sent successfully."}, status=202)
+           
+    except Exception as e:
+        return Response({"error": "Something Went Wrong"}, status=500)
+    
+    
+
+    
 
 @api_view(["POST"])
 def reset_password(request):
+    try:
+        email = request.data.get('email')
+        password = request.data.get('password')
+        confirm_password = request.data.get('confirm')
+        
+        if password != confirm_password:
+            return Response({"error", "Password does not match"}, status=400)
+        
+        else:     
+            user = User.objects.get(email = email)
+            user.set_password(password)
+            user.save()
+            return Response({"success": "Password has been reset successfully."}, status=200)
+
+    except Exception as e:
+        return Response({"error": "Something Went Wrong"}, status=500)
+    
+@api_view(["POST"])
+def email_otp(request):
+    try:
+        email = request.data.get('email')
+        user_otp = request.data.get('otpCode')
+        
+        
+        cached_otp = cache.get(email)
+        
+        if cached_otp is None:
+            return Response({"error": "OTP expired. Please request a new one."}, status=400)
+        
+        if str(cached_otp) == str(user_otp):
+            return Response({"success": "email verified"}, status=200)
+        else:
+            return Response({"error": "Incorrect OTP. Please try again."}, status=400)
+    
+    except Exception as e:
+            return Response({"error" : "Something Went Wrong"}, status=500)
+    
+@api_view(["POST"])
+def user_email(request):
     try:
         email = request.data.get('email')
         
