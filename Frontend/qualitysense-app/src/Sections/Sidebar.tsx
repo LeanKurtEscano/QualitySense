@@ -88,7 +88,7 @@ const Sidebar: React.FC = () => {
   </div>
 
  
-  <nav className='h-full flex flex-col justify-self-center p-4 items-center pt-20'>
+  <nav className='h-full flex flex-col justify-center p-4 items-center pb-20'>
     {menuItems.map((item, index) => (
       <div
         key={index}
@@ -98,7 +98,7 @@ const Sidebar: React.FC = () => {
           ${toggle ? 'w-full h-11 pr-8' : ''}`}
       >
       
-        <div className='mr-1'>
+        <div className='mr-1 '>
           <Link to={item.url}>
             <FontAwesomeIcon
               icon={item.icon}
