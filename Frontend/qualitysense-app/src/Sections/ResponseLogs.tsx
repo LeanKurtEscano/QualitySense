@@ -84,7 +84,7 @@ const ResponseLogs: React.FC = () => {
     const generatedData = data.filter((item: { id: any; }) => item.id === result);
 
     return (
-        <section className="w-full min-h-screen h-auto flex flex-col overflow-hidden bg-darkbg">
+        <section className="w-full min-h-screen sm:overflow-y-auto h-auto flex flex-col overflow-hidden bg-darkbg">
             <div className='w-full flex justify-center pt-10 md:pr-80'>
                 <Paginator2 pageNumber={pageNumber} totalPages={totalPages} setPageNumber={setPageNumber} />
 
@@ -116,7 +116,7 @@ const ResponseLogs: React.FC = () => {
                                     ...
                                 </div>
                                 {showOptions && item.id === ItemID ? (
-                                    <div className='flex border  border-gray-800 bg-darkbg rounded-lg shadow-lg absolute flex-col items-center justify-center  md:ml-16 p-4'>
+                                    <div className='flex border  border-gray-800 bg-darkbg rounded-lg shadow-lg absolute flex-col items-center justify-center  right-7 mt-40 md:right-[420px] md:mb-20 md:ml-16 p-4'>
                                         <div className='flex pr-8 flex-row items-center justify-center cursor-pointer hover:bg-gray-800 p-2 rounded-md' onClick={() => deleteData(item.id)}>
                                             <FontAwesomeIcon icon={faTrash} className='text-red-600' />
                                             <p className='ml-2 text-red-600'>Delete</p>
