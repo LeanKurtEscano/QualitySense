@@ -25,6 +25,7 @@ import TermsAndConditions from './Sections/TermsAndCondition';
 import AboutUs from './Sections/AboutUs';
 import PasswordReset from './Sections/PasswordReset';
 import EmailOTP from './Sections/EmailOTP';
+import Notfound from './Sections/Notfound';
 function App() {
   return (
     <MyProvider>
@@ -81,6 +82,14 @@ const Main: React.FC = () => {
             <Login />
           </section>
         } />
+
+        <Route path = "*" element={
+          <section>
+            <Notfound />
+            <Footer/>
+
+          </section>
+          } />
         <Route
           path="/dashboard/*"
           element={
