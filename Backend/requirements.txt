@@ -1,0 +1,8 @@
+Django
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+google-generativeai
+pandas
+psycopg2-binary
+PyJWT

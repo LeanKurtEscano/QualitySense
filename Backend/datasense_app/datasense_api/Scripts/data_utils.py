@@ -1,5 +1,9 @@
 import pandas as pd
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def get_data_type_prompt(df):
     get_dtypes = dict(df.dtypes)
@@ -104,7 +108,7 @@ def generate_prompt(df):
     return final_prompt
 
 def promp_to_ai(prompt):
-    genai.configure(api_key="")
+    genai.configure(api_key=os.getenv("API_KEY"))
     generation_config = {
     "temperature": 1,
     "top_p": 0.95,

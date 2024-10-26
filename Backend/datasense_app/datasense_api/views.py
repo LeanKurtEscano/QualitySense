@@ -13,6 +13,10 @@ from django.core.cache import cache
 import requests
 from .Scripts.emails import send_otp_to_email,reset_password_otp
 from .throttle import ResendThrottle, UploadThrottle
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 @api_view(["POST"])
 @throttle_classes([ResendThrottle])
@@ -286,8 +290,9 @@ def google_signin(request):
         return Response({"error": "Authorization code is required"}, status=400)
 
    
-    CLIENT_ID = '' 
-    CLIENT_SECRET = '' 
+    CLIENT_ID =  os.getenv("CLIENT_ID")
+    
+    CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
     # Step 1: Exchange the authorization code for tokens
     token_url = "https://oauth2.googleapis.com/token"
