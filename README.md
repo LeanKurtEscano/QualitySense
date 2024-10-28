@@ -64,46 +64,46 @@ The **Data Sources** page serves as a curated list of websites where users can a
 
 ### Profile Page
 
-![Profile Page](MyImages\profile.png)
+![Profile](MyImages\profile.png)
 
 The **Profile** page provides the User account details. Users can also delete their accounts if desired.
 
 
 ### Help Page
 
-![Help Page](MyImages\help.png)
+![Help](MyImages\help.png)
 
 The **Help page** serves as a comprehensive guide for using the application, focusing on step-by-step instructions for navigating and utilizing its main features, especially the dashboard. Here’s an enhanced layout for clarity and ease of use.action-checkbox
 
 ### Reset Password page
 
-![Reset Page](MyImages\reset.pngg)
+![Reset](MyImages\reset.pngg)
 
 The **Reset Password** page allows users to securely reset their account password if they’ve forgotten it. This process includes sending a 6-digit OTP to the user's registered email, validating the OTP, and redirecting the user to a form where they can change their password.
 
 ### OTP page
 
-![Reset Page](MyImages\otp.png)
+![Reset](MyImages\otp.png)
 
 The **OTP Verification** page is a secure component within the QualitySense app used for both password reset and new account registration(custom) via email verification. A unique 6-digit OTP is sent to the user's registered or provided email, which must be entered to proceed with either action. This two-step verification process enhances security for both account recovery and registration.
 
 
 ### Login page
 
-![Login Page](MyImages\login.png)
+![Login](MyImages\login.png)
 
 The **Login page** allows users to securely access their account within the application. Users can log in using either their registered email and password or through their Google account for a faster login experience.
 
 
 ### Signup page
 
-![Login Page](MyImages\signup.png)
+![Login](MyImages\signup.png)
 
 The **Sign Up** page allows users to create an account within the application. Users can register either by filling out a form with their email and password or by using a quick Google login option for streamlined access
 
 ## Why did I created QualitySense?
 
-![About page](MyImages\about.png)
+![About](MyImages\about.png)
 
 
 
