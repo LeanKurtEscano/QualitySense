@@ -2,6 +2,26 @@
 
 QualitySense is a data quality checker assistant designed to help users identify missing values, outliers, categorical errors, and potential misspellings in their datasets. Powered by AI, the app not only detects these issues but also generates a Data Quality Summary Report that includes actionable suggestions. This dual capability provides valuable insights, enabling users to make informed decisions more effectively while enhancing overall data quality.
 
+
+## Tech Stack
+
+### Frontend
+* React.js
+* TypeScript
+* Tailwind CSS
+
+### Backend
+* Django
+* Django REST Framework
+* PostgreSQL
+
+### Additional Technologies
+* Google Gemini
+* Pandas
+* OAuth 2.0
+* JWT
+
+
 ## Key Features
 
 * Offers secure login options, including traditional username & password (Custom Signup) with a 6-digit Email OTP and Google Login (OAuth 2.0) for convenience and security.
