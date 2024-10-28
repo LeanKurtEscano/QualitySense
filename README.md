@@ -99,7 +99,7 @@ The **Login page** allows users to securely access their account within the appl
 
 ![Login Page](Images\signup.png)
 
-The **Sign Up** page allows users to create an account within the application. Users can register either by filling out a form with their email and password or by using a quick Google login option for streamlined access.
+The **Sign Up** page allows users to create an account within the application. Users can register either by filling out a form with their email and password or by using a quick Google login option for streamlined access
 
 ## Why did I created QualitySense?
 
