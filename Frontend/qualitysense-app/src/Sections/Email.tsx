@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Warning from '../Components/Warning'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { sendEmail } from '../Api/Axios'
+import { sendEmail } from '../Services/Axios';
 import { useNavigate } from 'react-router-dom'
 
 const Email = () => {

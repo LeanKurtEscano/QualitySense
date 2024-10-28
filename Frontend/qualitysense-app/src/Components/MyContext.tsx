@@ -27,7 +27,9 @@ export const MyProvider: React.FC<{ children: React.ReactNode }> = ({ children }
     username: "",
     email: "",
   })
+  const [sessionExpired, setSessionExpired] = useState(false);
   const [toggleLog , setToggleLog] = useState(false);
+  const [toggleSesh, setToggleSesh] = useState(false);
 
   const [userSignUp , setUserSignUp] = useState<UserSignUp>({
     username:'',
@@ -40,7 +42,7 @@ export const MyProvider: React.FC<{ children: React.ReactNode }> = ({ children }
   const [runTimer, setRunTimer] = useState(false);
 
   return (
-    <MyContext.Provider value={{ isAuthenticated, setIsAuthenticated, data , setData, result, setResult, userDetails, setUserDetails,userSignUp,setUserSignUp,runTimer,setRunTimer, toggleLog , setToggleLog }}>
+    <MyContext.Provider value={{ isAuthenticated, setIsAuthenticated, data , setData, result, setResult, userDetails, setUserDetails,userSignUp,setUserSignUp,runTimer,setRunTimer, toggleLog , setToggleLog,sessionExpired,setSessionExpired,toggleSesh,setToggleSesh}}>
       {children}
     </MyContext.Provider>
   );

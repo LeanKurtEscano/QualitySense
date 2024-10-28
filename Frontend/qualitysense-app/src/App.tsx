@@ -10,7 +10,7 @@ import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
-import { auth } from './Api/Token';
+import { auth, isTokenExpired } from './Services/Token';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -26,6 +26,10 @@ import AboutUs from './Sections/AboutUs';
 import PasswordReset from './Sections/PasswordReset';
 import EmailOTP from './Sections/EmailOTP';
 import Notfound from './Sections/Notfound';
+import SessionExpired from './Components/SessionExpired';
+
+
+
 function App() {
   return (
     <MyProvider>
@@ -37,13 +41,14 @@ function App() {
 const Main: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
-  const { isAuthenticated, setIsAuthenticated,toggleLog } = useMyContext();
+  const { isAuthenticated, setIsAuthenticated,toggleLog,setToggleSesh,toggleSesh } = useMyContext();
 
   useEffect(() => { 
     if (isAuthenticated) {
       localStorage.setItem('currentPath', location.pathname);
     }
   }, [location, isAuthenticated]);
+
 
   useEffect(() => {
     const storedPath = localStorage.getItem('currentPath');
@@ -71,6 +76,7 @@ const Main: React.FC = () => {
   return (
     <main className='h-auto flex flex-col'>
       <NavBar />
+    
 
       {toggleLog && (
         <LogOut />
@@ -185,6 +191,9 @@ const Main: React.FC = () => {
           </section>
         } />
       </Routes>
+      {toggleSesh && (
+        <SessionExpired />
+      )}
 
       
     </main>

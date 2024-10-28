@@ -7,7 +7,7 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useMyContext } from '../Components/MyContext';
 
-import { getUserDetails } from '../Api/Axios';
+import { getUserDetails } from '../Services/Axios';
 
 const Sidebar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
       }
 
     } catch (error) {
-      alert("Something went wrong");
+       return;
 
     }
 

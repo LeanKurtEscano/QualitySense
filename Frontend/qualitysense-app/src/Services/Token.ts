@@ -1,8 +1,7 @@
 
 import { jwtDecode } from "jwt-decode";
-
-
 import axios from "axios";
+
 
 
 
@@ -34,6 +33,17 @@ api.interceptors.response.use(
 );
 
 
+export const isTokenExpired = (token: string): boolean => {
+    try {
+        const decoded: { exp: number } = jwtDecode(token);
+        const tokenExpiration = decoded.exp;
+        const currentTime = Date.now() / 1000;
+
+        return tokenExpiration < currentTime;
+    } catch (error) {
+        return true; 
+    }
+};
 
 
 
@@ -42,6 +52,11 @@ export const refreshUserToken = async () => {
     const refreshToken = localStorage.getItem('refresh_token');
 
     if (!refreshToken) {
+        return false
+        
+    } else if(isTokenExpired(refreshToken)) {
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("access_token");
         return false;
     }
 
@@ -62,7 +77,6 @@ export const refreshUserToken = async () => {
 
 
 }
-
 export const auth = async () => {
     const accessToken = localStorage.getItem('access_token');
 
@@ -87,7 +101,3 @@ export const auth = async () => {
         return false;
     }
 }
-
-
-
-

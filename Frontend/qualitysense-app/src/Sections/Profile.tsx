@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useMyContext } from '../Components/MyContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { deleteAccount } from '../Api/Axios';
+import { deleteAccount } from '../Services/Axios';
 import { useNavigate } from 'react-router-dom';
 const Profile: React.FC = () => {
     const { userDetails } = useMyContext();

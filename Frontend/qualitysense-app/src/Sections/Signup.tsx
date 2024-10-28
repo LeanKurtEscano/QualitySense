@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { getUserOTP } from '../Api/Axios';
+import { getUserOTP } from '../Services/Axios';
 import logo from '../assets/logo.png';
 import { useMyContext } from '../Components/MyContext';
 

@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
 
-const Notfound = () => {
+const Notfound:React.FC = () => {
     const navigate = useNavigate();
 
     const goBack = () => {

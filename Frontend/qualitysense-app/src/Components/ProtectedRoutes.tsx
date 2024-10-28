@@ -7,7 +7,7 @@ interface isAuthenticated {
 }
 const ProtectedRoutes: React.FC<isAuthenticated> = ({isAuthenticated, children}) => {
     if(!isAuthenticated) {
-       return <Navigate to="/"/>
+       return <Navigate to="/login"/>
     }
     return <>{children}</>
 }

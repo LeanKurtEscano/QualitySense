@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMyContext } from '../Components/MyContext';
-import { verifyOTP, getUserOTP } from '../Api/Axios';
+import { verifyOTP, getUserOTP } from '../Services/Axios';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../Components/Notification';
 import Warning from '../Components/Warning';

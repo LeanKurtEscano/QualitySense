@@ -41,7 +41,7 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
                
             }
         } catch {
-            alert("Something Went Wrong.");
+           return;
         }
     };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useMyContext } from '../Components/MyContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { deleteGenerated } from '../Api/Axios';
+import { deleteGenerated } from '../Services/Axios';
 import { faTrash} from '@fortawesome/free-solid-svg-icons';
 import Download from '../Components/Download';
 import Paginator2 from '../Components/Paginator2';
@@ -77,7 +77,7 @@ const ResponseLogs: React.FC = () => {
                 setTotalPages(response.data.totalPages)
             }
         } catch {
-            alert("Failed to get Data");
+           return;
         }
     };
 

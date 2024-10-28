@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMyContext } from '../Components/MyContext';
-import { passwordOTP, userEmailReset} from '../Api/Axios';
+import { passwordOTP, userEmailReset} from '../Services/Axios';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../Components/Notification';
 import Warning from '../Components/Warning';
@@ -8,7 +8,7 @@ import Warning from '../Components/Warning';
 const EmailOTP: React.FC = () => {
   const [otpValues, setOtpValues] = useState<string[]>(Array(6).fill(''));
   const [invalid, setInvalid] = useState('');
-  const { runTimer, setRunTimer, userSignUp, setUserSignUp } = useMyContext();
+  const { runTimer, setRunTimer, setUserSignUp } = useMyContext();
   const [seconds, setSeconds] = useState<number>(120);
   const [expired, setExpired] = useState(false);
   const [toggleNotif, setToggleNotif] = useState(false);
