@@ -83,7 +83,7 @@ The **Reset Password** page allows users to securely reset their account passwor
 
 ### OTP page
 
-![Reset](MyImages\otp.png)
+![OTP](MyImages\otp.png)
 
 The **OTP Verification** page is a secure component within the QualitySense app used for both password reset and new account registration(custom) via email verification. A unique 6-digit OTP is sent to the user's registered or provided email, which must be entered to proceed with either action. This two-step verification process enhances security for both account recovery and registration.
 
@@ -97,7 +97,7 @@ The **Login page** allows users to securely access their account within the appl
 
 ### Signup page
 
-![Login](MyImages\signup.png)
+![Signup](MyImages\signup.png)
 
 The **Sign Up** page allows users to create an account within the application. Users can register either by filling out a form with their email and password or by using a quick Google login option for streamlined access
 
