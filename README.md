@@ -64,7 +64,7 @@ The **Data Sources** page serves as a curated list of websites where users can a
 
 ### Profile Page
 
-![Profile Page](MyImages\datasec.png)
+![Profile Page](MyImages\profile.png)
 
 The **Profile** page provides the User account details. Users can also delete their accounts if desired.
 
@@ -77,7 +77,7 @@ The **Help page** serves as a comprehensive guide for using the application, foc
 
 ### Reset Password page
 
-![Reset Page](MyImages\reset.png)
+![Reset Page](MyImages\reset.pngg)
 
 The **Reset Password** page allows users to securely reset their account password if they’ve forgotten it. This process includes sending a 6-digit OTP to the user's registered email, validating the OTP, and redirecting the user to a form where they can change their password.
 
