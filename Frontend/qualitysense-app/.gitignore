@@ -16,6 +16,7 @@ dist-ssr
 Frontend/qualitysense-app/.env
 
 
+
 .vscode/*
 !.vscode/extensions.json
 .idea
