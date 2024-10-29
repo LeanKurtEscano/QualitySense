@@ -3,7 +3,7 @@ import { useMyContext } from '../Components/MyContext';
 import { verifyOTP, getUserOTP } from '../Services/Axios';
 import { useNavigate } from 'react-router-dom';
 import Notification from '../Components/Notification';
-import Warning from '../Components/Warning';
+import OtpWarning from '../Components/OtpWarning';
 
 const OTPForm: React.FC = () => {
   const [otpValues, setOtpValues] = useState<string[]>(Array(6).fill(''));
@@ -223,7 +223,7 @@ const OTPForm: React.FC = () => {
 
       {toggleWarning && (
         <div className={`absolute right-5 top-48 ${toggleWarning ? 'notification-enter' : 'notification-exit'}`}>
-          <Warning setToggleWarning={setToggleWarning} />
+          <OtpWarning setToggleWarning={setToggleWarning} />
         </div>
       )}
     </section>

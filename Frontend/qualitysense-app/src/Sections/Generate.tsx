@@ -43,6 +43,14 @@ const Generate: React.FC = () => {
 
   }
 
+  useEffect(() => {
+    if (toggleWarning) {
+      const timer = setTimeout(() => {
+        setToggleWarning(false);
+      }, 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [toggleWarning]);
 
 
   const handleFileName = () => {
