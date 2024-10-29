@@ -13,7 +13,8 @@ dist
 dist-ssr
 *.local
 
-./.env 
+Frontend/qualitysense-app/.env
+
 
 .vscode/*
 !.vscode/extensions.json
