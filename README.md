@@ -43,7 +43,7 @@ To ensure optimal performance and reliability, the Generate page implements an A
 
 ### Throttling Details:
 
-- **Requests Allowed**: 2 requests per user per minute
+- **Requests Allowed**: 1 request per 4 minutes
 
 - **Reason**: To prevent overwhelming the Gemini API and ensure fair usage among all users
 
