@@ -107,35 +107,74 @@ def generate_prompt(df):
     
     return final_prompt
 
+idx = 0
+
 def promp_to_ai(prompt):
-    genai.configure(api_key=os.getenv("API_KEY"))
-    generation_config = {
-    "temperature": 1,
-    "top_p": 0.95,
-    "top_k": 64,
-    "max_output_tokens": 8192,
-    "response_mime_type": "text/plain",
-    }
-    model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
-    generation_config=generation_config,
-  # safety_settings = Adjust safety settings
-  # See https://ai.google.dev/gemini-api/docs/safety-settings
-  )
+    global idx
+ 
+    api_keys = [os.getenv("API_KEY"), os.getenv("API_KEY2"), os.getenv("API_KEY3"),os.getenv("API_KEY4")]
     
-    chat_session = model.start_chat(
-    history=[
-    ]
-   )
-    response = chat_session.send_message(
-    f"Please assess the provided information and follow the prompt carefully. Generate a detailed Data Quality Summary Report. Here is the provided prompt: {prompt}. "
-    "Additionally, do not generate tables; only provide text. For each column, include the column name along with the following checks: data type validation, unique value assessment, null value count, and outlier detection. "
-    "If there are no issues for a column, explicitly state that there are no errors for transparency."
-)
+    # Initial configuration with the first API key
+    genai.configure(api_key=api_keys[idx])  
+    generation_config = {
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 64,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
+    }
+    
+    model = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        generation_config=generation_config,
+    )
+    
+    chat_session = model.start_chat(history=[])
+    
+    message = (
+        "Please assess the provided information and follow the prompt carefully. "
+        f"Generate a detailed Data Quality Summary Report. Here is the provided prompt: {prompt}. "
+        "Additionally, do not generate tables; only provide text. For each column, include the column name "
+        "along with the following checks: data type validation, unique value assessment, null value count, "
+        "and outlier detection. If there are no issues for a column, explicitly state that there are no errors for transparency."
+    )
 
+    try:
+        response = chat_session.send_message(
+            message
+        
+        )
+        
+        result = response.text
+        return result
+      
+        
+    except Exception as e:
+        if '429' in str(e):        
+         # Cycle through API keys
+            idx = (idx + 1) % len(api_keys)  
+            
+         # Update the API key in the configuration     
+            genai.configure(api_key=api_keys[idx]) 
+            
+         
+            model = genai.GenerativeModel(
+                model_name="gemini-1.5-flash",
+                generation_config=generation_config,
+            )
+            chat_session = model.start_chat(history=[]) 
+            
+            response = chat_session.send_message(
+              message
+            )
+            
+            result = response.text
+            return result
+          
+            
+        else:
+            print(f"An unexpected error occurred: {e}")
 
-    result = response.text
-    return result
    
 
 def dataset_overview(file):

@@ -8,7 +8,7 @@ class ResendThrottle(AnonRateThrottle):
 
 class UploadThrottle(BaseThrottle):
     rate = 1  # Max requests allowed
-    duration = 240  # Time window in seconds (3 minutes)
+    duration = 120  # Time window in seconds (2 minutes)
 
     def __init__(self):
         self.history = None
