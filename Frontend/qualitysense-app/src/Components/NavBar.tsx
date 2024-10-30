@@ -9,7 +9,7 @@ import logo from '../assets/logo.png';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
-    const { isAuthenticated, setIsAuthenticated, toggleLog, setToggleLog } = useMyContext();
+    const { isAuthenticated,toggleLog, setToggleLog } = useMyContext();
     const navigate = useNavigate();
 
     const toggleNav = () => {

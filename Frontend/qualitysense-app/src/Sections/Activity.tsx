@@ -22,6 +22,7 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
     const [userData, setUserData] = useState<UserData[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalItems , setTotalItems] = useState<number>(0);
+    const [emptyActivity, setEmptyActivity] = useState("");
    
 
     const getUserData = async () => {
@@ -38,7 +39,11 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
                 setTotalPages(response.data.totalPages);
                 setTotalItems(response.data.totalItems);
                 
-               
+                if(response.data.data.length === 0) {
+                    setEmptyActivity("You don't have any activity yet.");
+                } else {
+                    setEmptyActivity("");
+                }
             }
         } catch {
            return;
@@ -53,10 +58,19 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
 
     return (
         <section className='w-full  sm:overflow-y-auto flex min-h-screen justify-center pb-20 pt-20 md:pl-36 pl-20 bg-darkbg'>
-            <div className='flex overflow-x-auto justify-center items-center flex-col'>
-                <UserTable data={userData} />
-                <Paginator pageNumber={pageNumber} totalPages={totalPages} setPageNumber={setPageNumber}/> 
-            </div>
+
+                {emptyActivity ? (
+                    <h1 className='text-slate-200 md:text-4xl text-md pr-14 font-bold'>{emptyActivity}</h1>
+                ) : (
+                <div className='flex overflow-x-auto  items-center flex-col'>
+
+                  <UserTable data={userData} />
+                  <Paginator pageNumber={pageNumber} totalPages={totalPages} setPageNumber={setPageNumber}/> 
+                </div>
+
+                )}
+                
+          
         </section>
     );
 };

@@ -98,10 +98,6 @@ const Generate: React.FC = () => {
       setToggleSesh(true);
     }
 
-
-
-
-
     const formData = new FormData();
 
     formData.append('file', file);

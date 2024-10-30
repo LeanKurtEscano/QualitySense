@@ -1,6 +1,6 @@
 import React from 'react';
 import PdfDownloadButton from './PdfDownload';
-
+import { cleanText } from '../Utils';
 interface Result {
   result: string;
   dataDetails: string;
@@ -10,11 +10,7 @@ interface Result {
 const DataOverview: React.FC<Result> = ({ result, dataDetails, fileName }) => {
  
   const sections = result.split('\n\n');
-
-
-  function cleanText(text: string) {
-    return text.replace(/[#*`']+/g, ''); 
-  }
+  
   const cleanedText = cleanText(dataDetails); 
 
   return (

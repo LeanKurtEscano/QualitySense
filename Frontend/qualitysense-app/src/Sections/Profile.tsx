@@ -21,8 +21,6 @@ const Profile: React.FC = () => {
         const response = await deleteAccount();
 
         if (response.status === 200) {
-            console.log(response.data);
-            console.log("Account deleted");
             navigate('/');
             setConfirm(false);
             localStorage.removeItem('access_token');

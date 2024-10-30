@@ -10,7 +10,7 @@ import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
-import { auth, isTokenExpired } from './Services/Token';
+import { auth} from './Services/Token';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -41,7 +41,7 @@ function App() {
 const Main: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
-  const { isAuthenticated, setIsAuthenticated,toggleLog,setToggleSesh,toggleSesh } = useMyContext();
+  const { isAuthenticated, setIsAuthenticated,toggleLog,toggleSesh } = useMyContext();
 
   useEffect(() => { 
     if (isAuthenticated) {
