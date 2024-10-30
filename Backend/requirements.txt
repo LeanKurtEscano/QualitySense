@@ -4,5 +4,6 @@ djangorestframework
 djangorestframework-simplejwt
 google-generativeai
 pandas
+python-dotenv
 psycopg2-binary
 PyJWT

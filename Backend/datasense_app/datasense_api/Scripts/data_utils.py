@@ -2,6 +2,7 @@ import pandas as pd
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
+import time
 
 load_dotenv()
 
@@ -152,26 +153,10 @@ def promp_to_ai(prompt):
     except Exception as e:
         if '429' in str(e):        
          # Cycle through API keys
-            idx = (idx + 1) % len(api_keys)  
-            
-         # Update the API key in the configuration     
-            genai.configure(api_key=api_keys[idx]) 
-            
-         
-            model = genai.GenerativeModel(
-                model_name="gemini-1.5-flash",
-                generation_config=generation_config,
-            )
-            chat_session = model.start_chat(history=[]) 
-            
-            response = chat_session.send_message(
-              message
-            )
-            
-            result = response.text
-            return result
-          
-            
+            idx = (idx + 1) % len(api_keys)           
+            time.sleep(1)
+            return promp_to_ai(prompt)
+        
         else:
             print(f"An unexpected error occurred: {e}")
 
