@@ -39,11 +39,11 @@ QualitySense is a data quality checker assistant designed to help users identify
 
 ## API Throttling
 
-To ensure optimal performance and reliability, the Generate page implements an API throttling mechanism. Users are allowed to make **up to 2 requests per minute**. This limit is set to comply with the capabilities of the Gemini AI service, which can handle a maximum of **15 requests per minute** overall. 
+To ensure optimal performance and reliability, the Generate page implements an API throttling mechanism. Users are allowed to make **up to 1 requests per 2 minutes**. This limit is set to comply with the capabilities of the Gemini AI service, which can handle a maximum of **15 requests per minute** overall. 
 
 ### Throttling Details:
 
-- **Requests Allowed**: 1 request per 4 minutes
+- **Requests Allowed**: 1 request per 2 minutes
 
 - **Reason**: To prevent overwhelming the Gemini API and ensure fair usage among all users
 
