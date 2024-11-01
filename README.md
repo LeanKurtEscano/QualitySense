@@ -49,6 +49,36 @@ To ensure optimal performance and reliability, the Generate page implements an A
 
 - **Response to Excess Requests**: If the request limit is exceeded, users will receive a notification indicating that they have reached the maximum number of allowed requests. Users should wait before making additional requests.
 
+
+
+## API Key Rotation
+
+### Overview
+
+In our application, we implement a mechanism for API key rotation to efficiently manage and handle rate limits imposed by the API provider. This ensures that the application can continue to function smoothly even when individual API keys reach their request limits.
+
+### Rate Limit Handling
+
+Each API key has a rate limit of **15 requests per minute**. To maximize our usage and prevent interruptions, we rotate through multiple API keys as needed. In our current setup, we utilize **four API keys**.
+
+### Key Rotation Strategy
+
+1. **Initial Setup**: The application begins by configuring the first API key.
+
+2. **Request Processing**: As requests are sent, the application tracks the number of successful responses.
+
+3. **Rate Limit Check**: 
+
+   - If a request fails due to a `429 Too Many Requests` error, the application automatically rotates to the next available API key in the list.
+
+   - The rotation is cyclical, returning to the first API key after the last one is used.
+
+4. **Error Handling**:
+
+   - If a `429` error occurs, the application waits for a short duration (e.g., `1 second`) before retrying the request with the new key.
+
+   - If any other unexpected error occurs, it is logged for further investigation.
+
 ## Application Pages
 
 ### Home:
