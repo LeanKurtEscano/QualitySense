@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 load_dotenv()
 
@@ -88,14 +89,10 @@ WSGI_APPLICATION = 'datasense_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('PG_NAME', os.getenv("DB_NAME")),
-        'USER': os.environ.get('PG_USER', os.getenv("DB_USER")),
-        'PASSWORD': os.environ.get('PG_PASSWORD', os.getenv("DB_PASS")),
-        'HOST': os.environ.get('PG_HOST', os.getenv("DB_HOST")),
-        'PORT': os.environ.get('PG_PORT', os.getenv("DB_PORT")),
-    }
+    "default": dj_database_url.parse(
+      url=os.getenv("DATABASE_URL", ""),
+      conn_max_age=600, conn_health_checks=True
+  )
 }
 
 
