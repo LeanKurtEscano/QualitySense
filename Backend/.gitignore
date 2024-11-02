@@ -2,6 +2,7 @@
 env/
 Backend/datasense_app/uploads/
 
+db.sqlite3
 
 
 # Ignore environment variables
