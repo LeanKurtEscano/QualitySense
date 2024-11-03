@@ -42,3 +42,4 @@ class UploadThrottle(BaseThrottle):
             remaining = self.duration - (time.time() - self.history[0])
             return max(remaining, 0)
         return None
+        

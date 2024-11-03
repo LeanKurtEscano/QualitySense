@@ -12,7 +12,7 @@ from .Scripts.data_utils import dataset_overview
 from django.core.cache import cache
 import requests
 from .Scripts.emails import send_otp_to_email,reset_password_otp
-from .throttle import ResendThrottle, UploadThrottle
+from .throttle import ResendThrottle,UploadThrottle
 from dotenv import load_dotenv
 import os
 

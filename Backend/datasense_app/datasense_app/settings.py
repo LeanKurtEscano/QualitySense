@@ -88,12 +88,14 @@ WSGI_APPLICATION = 'datasense_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     "default": dj_database_url.parse(
       url=os.getenv("DATABASE_URL", ""),
       conn_max_age=600, conn_health_checks=True
   )
 }
+
 
 
 
@@ -164,6 +166,7 @@ AUTHENTICATION_BACKENDS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  
+    "https://qualitysense.netlify.app"
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
