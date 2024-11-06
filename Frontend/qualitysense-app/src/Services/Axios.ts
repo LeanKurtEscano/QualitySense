@@ -1,9 +1,13 @@
 import axios from "axios";
 
+
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl2 = import.meta.env.VITE_API_URL2;
+
 export const deleteGenerated = async (id: number): Promise<boolean> => {
     const accessToken = localStorage.getItem('access_token');
 
-    const response = await axios.post(`${import.meta.env.VITE_API_URL2}/delete/`, {
+    const response = await axios.post(`${apiUrl2}/delete/`, {
         id: id
     }, {
         headers: {
@@ -25,7 +29,7 @@ export const deleteGenerated = async (id: number): Promise<boolean> => {
 
 export const getUserDetails = async() => {
     const accessToken = localStorage.getItem("access_token");
-    const response = await axios.get(`${import.meta.env.VITE_API_URL2}/profile/`,{
+    const response = await axios.get(`${apiUrl2}/profile/`,{
        headers: {
         'Authorization' : `Bearer ${accessToken}`
        }
@@ -36,7 +40,7 @@ export const getUserDetails = async() => {
 
 export const deleteAccount = async() => {
     const accessToken = localStorage.getItem("access_token");
-    const response = await axios.delete(`${import.meta.env.VITE_API_URL2}/account/`,{
+    const response = await axios.delete(`${apiUrl2}/account/`,{
        headers: {
         'Authorization' : `Bearer ${accessToken}`
        }
@@ -50,7 +54,7 @@ export const deleteAccount = async() => {
 export const userEmailReset = async() => {
     const email = localStorage.getItem('email_otp');
 
-    const otpResponse = await axios.post(`${import.meta.env.VITE_API_URL}/reset-otp/`,{
+    const otpResponse = await axios.post(`${apiUrl}/reset-otp/`,{
         email : email,
     },{
        headers: {
@@ -62,7 +66,7 @@ export const userEmailReset = async() => {
 
 }
 export const getUserOTP= async(email:string) => {
-    const otpResponse = await axios.post(`${import.meta.env.VITE_API_URL}/otp/`,{
+    const otpResponse = await axios.post(`${apiUrl}/otp/`,{
         email : email
     },{
        headers: {
@@ -75,7 +79,7 @@ export const getUserOTP= async(email:string) => {
 
 export const passwordOTP = async(otpCode: string) => {
     const userEmail = localStorage.getItem('email_otp');
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/email-otp/`,{
+    const response = await axios.post(`${apiUrl}/email-otp/`,{
         email: userEmail,
         otpCode:otpCode,
 
@@ -90,7 +94,7 @@ export const passwordOTP = async(otpCode: string) => {
 }
 
 export const verifyOTP = async(otpCode:string, username: string, email: string, password:string) => {
-    const otpVerify = await axios.post(`${import.meta.env.VITE_API_URL}/verify/`,{
+    const otpVerify = await axios.post(`${apiUrl}/verify/`,{
         username:username,
         email:email,
         password:password,
@@ -107,7 +111,7 @@ export const verifyOTP = async(otpCode:string, username: string, email: string, 
 }
 
 export const sendEmail = async(email:String) => {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/email/`,{
+    const response = await axios.post(`${apiUrl}/email/`,{
         email: email
     }, {
         headers: {
@@ -120,7 +124,7 @@ export const sendEmail = async(email:String) => {
 
 export const resetPassword = async(password:string, confirm:string) => {
     const email = localStorage.getItem('email_otp');
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/reset/`, {
+    const response = await axios.post(`${apiUrl}/reset/`, {
         email: email,
         password: password,
         confirm: confirm,

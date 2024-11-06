@@ -25,11 +25,14 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
     const [totalItems , setTotalItems] = useState<number>(0);
     const [emptyActivity, setEmptyActivity] = useState("");
    
+    const apiUrl = import.meta.env.VITE_API_URL2;
+
+// Now, use this variable to make requests
 
     const getUserData = async () => {
         const UserToken = localStorage.getItem('access_token');
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL2}/data/?page=${pageNumber}`, {
+            const response = await axios.get(`${apiUrl}/data/?page=${pageNumber}`, {
                 headers: {
                     'Authorization': `Bearer ${UserToken}`
                 }

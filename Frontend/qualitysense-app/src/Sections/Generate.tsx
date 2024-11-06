@@ -37,6 +37,7 @@ const Generate: React.FC = () => {
     na_values: [],
     result: '',
   });
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const loginToGenerate = () => {
     setShowLogin(!showLogin);
@@ -104,7 +105,7 @@ const Generate: React.FC = () => {
 
     try {
       const userToken = localStorage.getItem('access_token');
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload/`, formData, {
+      const response = await axios.post(`${apiUrl}/upload/`, formData, {
         headers: {
           'Authorization': `Bearer ${userToken}`,
           'Content-Type': 'multipart/form-data',

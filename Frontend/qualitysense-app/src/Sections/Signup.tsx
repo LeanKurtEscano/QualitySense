@@ -22,6 +22,7 @@ const Signup: React.FC = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(''); 
   const {  setUserSignUp, runTimer, setRunTimer } = useMyContext();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const userEmail = localStorage.getItem('email');
@@ -105,7 +106,7 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/signup/`, {
+      const response = await axios.post(`${apiUrl}/signup/`, {
         username,
         email,
         password,

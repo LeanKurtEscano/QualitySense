@@ -18,6 +18,7 @@ const Login: React.FC = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const toggleIcon = () => {
     setShow(!show);
@@ -30,7 +31,7 @@ const Login: React.FC = () => {
     setPasswordError("");
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login/`, {
+      const response = await axios.post(`${apiUrl}/login/`, {
         email: email,
         password: password
       }, {

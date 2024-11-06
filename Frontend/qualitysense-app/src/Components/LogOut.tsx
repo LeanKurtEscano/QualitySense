@@ -5,12 +5,13 @@ import axios from 'axios';
 
 const LogOut:React.FC = () => {
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
     const { setToggleLog, setIsAuthenticated } = useMyContext();
 
     const logOut = async () => {
         const userToken = localStorage.getItem('access_token');
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout/`, {}, {
+            const response = await axios.post(`${apiUrl}/logout/`, {}, {
                 headers: {
                     'Authorization': `Bearer ${userToken}`,
                     'Content-Type': 'application/json'

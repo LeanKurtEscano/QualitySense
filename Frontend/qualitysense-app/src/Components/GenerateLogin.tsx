@@ -20,6 +20,7 @@ const GenerateLogin: React.FC<ShowGenerateLogin> = ({setShowLogin}) => {
     const [password, setPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const apiUrl = import.meta.env.VITE_API_URL;
   
     const toggleIcon = () => {
         setShow(!show);
@@ -35,7 +36,7 @@ const GenerateLogin: React.FC<ShowGenerateLogin> = ({setShowLogin}) => {
         setPasswordError("");
         setLoading(true);
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/login/`, {
+            const response = await axios.post(`${apiUrl}/login/`, {
                 email: email,
                 password: password
             }, {

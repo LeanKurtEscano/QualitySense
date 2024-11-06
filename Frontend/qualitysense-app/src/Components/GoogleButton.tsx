@@ -7,6 +7,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 const GoogleButton: React.FC = () => {
     const navigate = useNavigate();
     const { setIsAuthenticated } = useMyContext();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleSuccess = (response: any) => {
         const code = response.code;
@@ -20,7 +21,7 @@ const GoogleButton: React.FC = () => {
 
     const handleGoogleLogin = async (code: string) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/google-signin/`, {
+            const response = await axios.post(`${apiUrl}/google-signin/`, {
                 code: code,
             }, {
                 headers: {
