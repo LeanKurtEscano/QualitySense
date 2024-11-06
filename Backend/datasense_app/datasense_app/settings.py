@@ -15,6 +15,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 import dj_database_url
+import django_heroku
 
 load_dotenv()
 
@@ -181,3 +182,4 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST")
 EMAIL_HOST_PASSWORD = os.getenv("HOST_PASS")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+django_heroku.settings(locals())

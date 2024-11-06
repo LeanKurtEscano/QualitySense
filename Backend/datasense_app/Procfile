@@ -1,0 +1,1 @@
+web gunicorn datasense_app.wsgi:application --log-file -
