@@ -2,7 +2,7 @@ import React from 'react'
 import { cardItems } from '../Constants'
 import SourcesCard from '../Components/SourcesCard'
 
-const DataSources = () => {
+const DataSources:React.FC = () => {
   return (
     <section className='h-auto bg-darkbg flex  sm:overflow-y-auto col items-center flex-wrap justify-center min-h-screen w-full'>
       <div className='pl-40 flex-wrap w-[1000px]'>

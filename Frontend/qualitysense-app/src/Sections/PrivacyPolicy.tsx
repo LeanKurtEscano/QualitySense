@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy:React.FC = () => {
     return (
       <section className="w-full min-h-screen  sm:overflow-y-auto bg-darkbg text-darktext2 px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-3xl mx-auto space-y-8">

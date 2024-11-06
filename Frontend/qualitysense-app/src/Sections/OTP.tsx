@@ -10,6 +10,7 @@ const OTPForm: React.FC = () => {
   const [invalid, setInvalid] = useState('');
   const { runTimer, setRunTimer, userSignUp, setUserSignUp } = useMyContext();
   const [seconds, setSeconds] = useState<number>(120);
+  // @ts-ignore
   const [expired, setExpired] = useState(false);
   const [toggleNotif, setToggleNotif] = useState(false);
   const [toggleWarning, setToggleWarning] = useState(false);
@@ -138,6 +139,7 @@ const OTPForm: React.FC = () => {
 
   const handleResendOTP = async () => {
     try {
+      // @ts-ignore
       const otpResponse = await getUserOTP(userSignUp.email);
       setToggleNotif(true);
       resetTimer();

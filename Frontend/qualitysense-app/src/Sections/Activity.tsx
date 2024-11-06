@@ -21,6 +21,7 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [userData, setUserData] = useState<UserData[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
+    // @ts-ignore
     const [totalItems , setTotalItems] = useState<number>(0);
     const [emptyActivity, setEmptyActivity] = useState("");
    
@@ -28,7 +29,7 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
     const getUserData = async () => {
         const UserToken = localStorage.getItem('access_token');
         try {
-            const response = await axios.get(`http://localhost:8000/dashboard-api/data/?page=${pageNumber}`, {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL2}/data/?page=${pageNumber}`, {
                 headers: {
                     'Authorization': `Bearer ${UserToken}`
                 }

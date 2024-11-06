@@ -104,7 +104,7 @@ const Generate: React.FC = () => {
 
     try {
       const userToken = localStorage.getItem('access_token');
-      const response = await axios.post("http://127.0.0.1:8000/api/upload/", formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload/`, formData, {
         headers: {
           'Authorization': `Bearer ${userToken}`,
           'Content-Type': 'multipart/form-data',

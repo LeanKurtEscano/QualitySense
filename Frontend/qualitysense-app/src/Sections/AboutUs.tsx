@@ -1,7 +1,7 @@
 import React from 'react';
 import puge from '../assets/puge.jpg';
 
-const AboutUs = () => {
+const AboutUs:React.FC = () => {
   return (
     <section className='w-full flex items-center justify-center h-auto bg-darkbg'>
   <div className="flex h-screen items-center justify-center pl-24 p-5">

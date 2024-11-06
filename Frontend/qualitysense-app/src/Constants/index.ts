@@ -1,4 +1,4 @@
-import { faHistory, faDatabase, faCalendarAlt, faInfoCircle, faSignOutAlt, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faHistory, faDatabase, faInfoCircle, faSignOutAlt, faFileCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle, faExclamationTriangle, faRobot, faUserFriends, faFileAlt,faUser, faFileImport } from '@fortawesome/free-solid-svg-icons';
 import activity from '../assets/activity.png';
 import data from '../assets/data.png';

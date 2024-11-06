@@ -7,7 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { cleanText } from '../Utils';
 import Download from '../Components/Download';
 import Paginator2 from '../Components/Paginator2';
-import { TbUserQuestion } from 'react-icons/tb';
+
 
 
 interface PaginateItems {
@@ -21,6 +21,7 @@ const ResponseLogs: React.FC = () => {
     const [emptyHistory, setEmptyHistory] = useState("");
     const { isAuthenticated, data, setData, result, setResult } = useMyContext();
     const [ItemID, setItemID] = useState(0);
+    // @ts-ignore
     const [paginateItems, setPaginateItems] = useState<PaginateItems>({
         totalItems: 0,
         itemsPerPage: 0,
@@ -70,7 +71,7 @@ const ResponseLogs: React.FC = () => {
     const getGenerated = async () => {
         const userToken = localStorage.getItem('access_token');
         try {
-            const response = await axios.get(`http://localhost:8000/dashboard-api/generated/?page=${pageNumber}`, {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL2}/generated/?page=${pageNumber}`, {
                 headers: {
                     'Authorization': `Bearer ${userToken}`
                 }
@@ -100,10 +101,6 @@ const ResponseLogs: React.FC = () => {
     };
 
     const generatedData = data.filter((item: { id: any; }) => item.id === result);
-
-    useEffect(() => {
-       
-    },[generatedData])
 
     return (
         <section className="w-full min-h-screen sm:overflow-y-auto h-auto flex flex-col overflow-hidden bg-darkbg">

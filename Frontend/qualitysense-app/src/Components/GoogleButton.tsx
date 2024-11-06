@@ -20,7 +20,7 @@ const GoogleButton: React.FC = () => {
 
     const handleGoogleLogin = async (code: string) => {
         try {
-            const response = await axios.post("http://localhost:8000/api/google-signin/", {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/google-signin/`, {
                 code: code,
             }, {
                 headers: {

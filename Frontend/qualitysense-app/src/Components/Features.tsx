@@ -2,7 +2,7 @@ import React from 'react'
 import { features } from '../Constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Features = () => {
+const Features:React.FC = () => {
   return (
     <section className='flex  bg-darkbg min-h-screen items-center justify-center flex-wrap'>
       <div className=' flex flex-col'>

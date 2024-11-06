@@ -3,14 +3,14 @@ import { useMyContext } from './MyContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LogOut = () => {
+const LogOut:React.FC = () => {
     const navigate = useNavigate();
     const { setToggleLog, setIsAuthenticated } = useMyContext();
 
     const logOut = async () => {
         const userToken = localStorage.getItem('access_token');
         try {
-            const response = await axios.post("http://localhost:8000/api/logout/", {}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/logout/`, {}, {
                 headers: {
                     'Authorization': `Bearer ${userToken}`,
                     'Content-Type': 'application/json'

@@ -10,6 +10,7 @@ const EmailOTP: React.FC = () => {
   const [invalid, setInvalid] = useState('');
   const { runTimer, setRunTimer, setUserSignUp } = useMyContext();
   const [seconds, setSeconds] = useState<number>(120);
+  // @ts-ignore
   const [expired, setExpired] = useState(false);
   const [toggleNotif, setToggleNotif] = useState(false);
   const [toggleWarning, setToggleWarning] = useState(false);
@@ -125,7 +126,9 @@ const EmailOTP: React.FC = () => {
 
   const handleResendOTP = async () => {
     try {
+      // @ts-ignore
       const userEmail = localStorage.getItem('email_otp');
+      // @ts-ignore
       const otpResponse = await userEmailReset();
       setToggleNotif(true);
       resetTimer();
