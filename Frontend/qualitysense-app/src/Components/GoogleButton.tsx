@@ -40,7 +40,7 @@ const GoogleButton: React.FC = () => {
             }
         } catch (error) {
             console.error("Error during Google login:", error);
-            alert("Failed to sign in using Google");
+            alert("Qualitysense is under maintenance. Please wait.");
         }
     };
 

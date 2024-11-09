@@ -36,6 +36,7 @@ const Signup: React.FC = () => {
 
   const validateName = () => {
     const specialCharacterRegex = /[^a-zA-Z0-9]/;
+
     if (username.length < 4) {
       setNameError('Username should be a minimum of 4 characters');
       return false;
@@ -108,7 +109,7 @@ const Signup: React.FC = () => {
     try {
       const response = await axios.post(`${apiUrl}/signup/`, {
         username,
-        email,
+        email: email.toLowerCase(), 
         password,
         confirm,
       });
@@ -118,7 +119,7 @@ const Signup: React.FC = () => {
         if (userOTP.status === 200) {
           setRunTimer(!runTimer);
           localStorage.setItem('run', String(runTimer));
-          localStorage.setItem('email', email);
+          localStorage.setItem('email', email.toLowerCase());
           localStorage.setItem('username',username);
           setUserSignUp({ username, email, password, confirmPassword: confirm });
           navigate('/auth');

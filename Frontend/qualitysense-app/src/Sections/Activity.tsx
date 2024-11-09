@@ -27,7 +27,6 @@ const Activity: React.FC<isAuthenticated> = ({isAuthenticated}) => {
    
     const apiUrl = import.meta.env.VITE_API_URL2;
 
-// Now, use this variable to make requests
 
     const getUserData = async () => {
         const UserToken = localStorage.getItem('access_token');

@@ -1,13 +1,19 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+
 const Home:React.FC = () => {
   const navigate = useNavigate();
+
 
   const goToGenerate = () => {
     navigate('/generate');
 
+
+
   }
+
+
   return (
     <section className='bg-darkbg w-full flex min-h-screen flex-col items-center pb-20 justify-center relative'>
       <div className='absolute z-0 w-[40%] h-[40%] top-0 left-0 transform rotate-12 blue__gradient'></div>
@@ -33,6 +39,7 @@ const Home:React.FC = () => {
           className="text-slate-200 text-lg md:text-2xl z-50 bg-gradient-to-br from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-3xl px-10 py-2.5 text-center me-2 mb-2">
           Start Now -&gt;
         </button>
+
       </div>
 
 

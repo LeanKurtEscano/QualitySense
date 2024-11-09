@@ -3,10 +3,10 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-    baseURL: "http://localhost:8000/api/login/",
+    baseURL: `${apiUrl}/login/`,
 });
 
 const handleError = (error: any) => {
@@ -61,7 +61,7 @@ export const refreshUserToken = async () => {
     }
 
     try {
-        const response = await api.post("http://127.0.0.1:8000/api/refresh/", {
+        const response = await api.post(`${apiUrl}/refresh/`, {
             refresh: refreshToken
         })
 

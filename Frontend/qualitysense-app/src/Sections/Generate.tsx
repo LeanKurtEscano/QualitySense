@@ -158,7 +158,7 @@ const Generate: React.FC = () => {
 
       <div className='flex-col flex w-auto bg-darkbg p-4 rounded-lg shadow-lg mb-20'>
         <h2 className="pr-9 md:text-4xl text-lg text-cyan-500 mb-3 font-bold">Import your Dataset Here</h2>
-        <div className="flex flex-wrap w-[200px] md:w-[550px]">
+        <div className="flex flex-wrap w-[250px]  md:w-[550px]">
           <p className="text-darktext2 text-sm md:text-base">
             AI-powered Data Quality Checker will automatically detect and suggest improvements for data issues such as missing values, outliers, and potential errors.
           </p>

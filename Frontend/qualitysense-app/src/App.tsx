@@ -111,7 +111,7 @@ const Main: React.FC = () => {
           <Route path="profile" element={<Profile />} />
 
          
-          <Route path = "help" element={
+          <Route path = "help-section" element={
           <section>
             <Help/>
             <Footer/>

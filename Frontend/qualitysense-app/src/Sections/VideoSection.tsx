@@ -1,5 +1,5 @@
 import React from 'react'
-import demoNew from '../assets/demo_new.mp4'
+import demoLatest from '../assets/demo_latest.mp4'
 const VideoSection:React.FC = () => {
     return (
         <section className='w-full pb-16 flex items-center justify-center h-auto bg-darkbg min-h-screen'>
@@ -8,7 +8,7 @@ const VideoSection:React.FC = () => {
             transition duration-300 
             hover:shadow-[0_0_20px_rgba(0,255,255,0.7)]" 
             autoPlay controls>
-            <source src={demoNew} type="video/mp4" />
+            <source src={demoLatest} type="video/mp4" />
         </video>
 
         </section>
