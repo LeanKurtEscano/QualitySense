@@ -4,6 +4,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from .models import UserResults,UserData
 from rest_framework.decorators import api_view, permission_classes,parser_classes,throttle_classes
+
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
@@ -78,6 +79,7 @@ def email_otp(request):
             return Response({"error" : "Something Went Wrong"}, status=500)
     
 @api_view(["POST"])
+@throttle_classes([ResendThrottle])
 def user_email(request):
     try:
         email = request.data.get('email')
@@ -282,46 +284,46 @@ def log_out(request):
 
 
 
+
 @api_view(['POST'])
 def google_signin(request):
-    code = request.data.get('code') 
-    
-    if not code:
-        return Response({"error": "Authorization code is required"}, status=400)
-
-   
-    CLIENT_ID =  os.getenv("CLIENT_ID")
-    
-    CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-
-    # Step 1: Exchange the authorization code for tokens
-    token_url = "https://oauth2.googleapis.com/token"
-    token_data = {
-        'code': code,
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
-        'redirect_uri': 'http://localhost:5173',  
-        'grant_type': 'authorization_code',
-    }
-
-    token_response = requests.post(token_url, data=token_data)
-    
-    
-    if token_response.status_code != 200:
-        return Response({"error": "Failed to obtain access token"}, status=token_response.status_code)
-
-    # Step 2: Verify the ID token
     try:
+        code = request.data.get('code')
+        
+        if not code:
+            return Response({"error": "Authorization code is required"}, status=400)
+        
+        CLIENT_ID = os.getenv("CLIENT_ID")
+        CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+       
+
+        # Step 1: Exchange the authorization code for tokens
+        token_url = "https://oauth2.googleapis.com/token"
+        token_data = {
+            'code': code,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+            'redirect_uri': 'http://localhost:5173',  
+            'grant_type': 'authorization_code',
+        }
+
+        token_response = requests.post(token_url, data=token_data)
+        print(token_response)
+        
+        if token_response.status_code != 200:
+            return Response({"error": "Failed to obtain access token"}, status=token_response.status_code)
+
+        # Step 2: Verify the ID token
         token_info = token_response.json()
         access_token = token_info.get('access_token')
         
         userinfo_url = "https://www.googleapis.com/oauth2/v2/userinfo"
         headers = {
-        "Authorization": f"Bearer {access_token}",
+            "Authorization": f"Bearer {access_token}",
         }
 
         userinfo_response = requests.get(userinfo_url, headers=headers)
-       
+        
         if userinfo_response.status_code != 200:
             return Response({"error": "Failed to fetch user info"}, status=userinfo_response.status_code)
 
@@ -329,10 +331,9 @@ def google_signin(request):
         email = user_info['email']
         username = user_info['name']
         
-
         user, created = User.objects.get_or_create(email=email, defaults={'username': username})
 
-        #Step 3: Generate tokens 
+        # Step 3: Generate tokens
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)
@@ -343,5 +344,6 @@ def google_signin(request):
             "Success": "Login successful"
         }, status=200)
 
-    except ValueError as e:
-        return Response({"error": str(e)}, status=400)
+    except Exception as e:
+        print(f"{e}")
+        return Response({"error": str(e)}, status=500)

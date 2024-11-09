@@ -1,7 +1,9 @@
-from rest_framework.throttling import AnonRateThrottle, UserRateThrottle,BaseThrottle
-
-from django.core.cache import cache
+from rest_framework.throttling import AnonRateThrottle,BaseThrottle, UserRateThrottle
+import logging
 import time
+from django.core.cache import cache
+
+
 
 class ResendThrottle(AnonRateThrottle):
     rate = '2/minute' 
@@ -14,19 +16,23 @@ class UploadThrottle(BaseThrottle):
         self.history = None
 
     def allow_request(self, request, view):
-        # Unique identifier for the user or client IP
-        user_id = request.user.id if request.user.is_authenticated else self.get_ident(request)
+        # Only apply throttle to authenticated users
+        if not request.user.is_authenticated:
+            return True  # No throttling for unauthenticated users
+
+        # Unique identifier for authenticated user
+        user_id = request.user.id
         cache_key = f"throttle_{user_id}"
-        
+
         # Fetch the request history from cache
         self.history = cache.get(cache_key, [])
-        
+
         # Current time
         now = time.time()
-        
+
         # Clean the history to remove outdated requests outside the duration
         self.history = [timestamp for timestamp in self.history if now - timestamp < self.duration]
-        
+
         # Check if the history exceeds the rate limit
         if len(self.history) >= self.rate:
             return False
@@ -42,4 +48,3 @@ class UploadThrottle(BaseThrottle):
             remaining = self.duration - (time.time() - self.history[0])
             return max(remaining, 0)
         return None
-        
