@@ -8,12 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules/
-.env
+Frontend/qualitysense-app/.env
+
 dist
 dist-ssr
 *.local
 
-Frontend/qualitysense-app/.env
+
 
 Frontend/node_modules
 
