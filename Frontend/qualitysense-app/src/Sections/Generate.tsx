@@ -24,7 +24,7 @@ const Generate: React.FC = () => {
   const [disable, setDisable] = useState<boolean>(false);
   const [fileName, setFileName] = useState<string>('');
   const [emptyError, setEmptyError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showLogin, setShowLogin] = useState(false);
