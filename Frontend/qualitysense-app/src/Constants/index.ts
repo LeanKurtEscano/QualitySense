@@ -10,7 +10,7 @@ export const menuItems = [
     { icon: faFileCircleCheck, text: "Quality Reports", url: '/dashboard/response' },
     { icon: faDatabase, text: "Data Sources", url: '/dashboard/data' },
     { icon: faUser, text: "Profile", url: '/dashboard/profile' },
-    { icon: faInfoCircle, text: "Help", url: '/dashboard/help-section' },
+    { icon: faInfoCircle, text: "Help", url: '/dashboard/help' },
     {icon: faSignOutAlt, text: "Logout"}
    
 ];

@@ -10,7 +10,7 @@ import Signup from './Sections/Signup';
 import NavBar from './Components/NavBar';
 import Footer from './Components/Footer';
 import Home from './Sections/Home';
-import { auth} from './Services/Token';
+import { auth } from './Services/Token';
 import VideoSection from './Sections/VideoSection';
 import Features from './Components/Features';
 import Activity from './Sections/Activity';
@@ -104,18 +104,16 @@ const Main: React.FC = () => {
             </ProtectedRoutes>
           }
         >
-           <Route path="" element={<Navigate to="/dashboard/activity" replace />} />
+          <Route path="" element={<Navigate to="/dashboard/activity" replace />} />
           <Route path="activity" element={<Activity isAuthenticated={isAuthenticated} />} />
           <Route path="response" element={<ResponseLogs />} />
           <Route path="data" element={<DataSources />} />
           <Route path="profile" element={<Profile />} />
 
-         
-          <Route path = "help-section" element={
-          <section>
+          <Route path = "help" element={
+       
             <Help/>
-            <Footer/>
-          </section>
+  
             } />
         </Route>
 
@@ -138,7 +136,7 @@ const Main: React.FC = () => {
             <Footer />
           </section>
         } />
-         <Route path='/help' element={
+         <Route path='/help-section' element={
           <section className='h-auto'>
             <Help />
             <Footer />
